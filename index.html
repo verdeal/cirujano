@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cirujano">
+<title>La Tesis del Cirujano</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+  :root{--bg:#08080C;--card:#12121A;--card2:#1C1C28;--brd:#242430;--brd2:#30303E;--tx:#E4E4EC;--tx2:#C0C0CE;--tx3:#8A8A9E;--tx4:#5A5A6E;--green:#34D399;--grn-bg:#0C1F16;--corazon:#E05555;--cadera:#E8922E;--ego:#A855F7;--cerebro:#3B82F6;--luz:#FBBF24;--fuego:#EF6830;--niebla:#7CA5C4;--lluvia:#6B7B8D;--veneno:#A855F7;--hielo:#38BDF8;--motor:#C8A030;--barro:#A0704A;--e0:#8A8A9E;--e1:#7CA5C4;--e2:#34D399;--e3:#EF6830;--e4:#A855F7}
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{height:-webkit-fill-available}
+  body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono','SF Mono','Menlo',monospace;min-height:100vh;min-height:-webkit-fill-available;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .app{max-width:560px;margin:0 auto;padding:20px 18px 48px}
+  .hdr{text-align:center;padding:14px 0 18px;border-bottom:1px solid var(--brd);margin-bottom:22px}.hdr-s{font-size:9px;letter-spacing:5px;color:var(--tx4);margin-bottom:5px}.hdr-t{font-size:18px;font-weight:800;letter-spacing:2px}
+  .stp{display:flex;align-items:flex-start;justify-content:center;margin-bottom:22px}.sg{display:flex;flex-direction:column;align-items:center}.sd{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--card);border:2px solid var(--brd);color:var(--tx3);transition:all .3s;flex-shrink:0}.sd.on{border-color:var(--tx);color:var(--tx);background:var(--card2)}.sd.ok{border-color:var(--green);color:var(--green);background:var(--grn-bg)}.sl{width:44px;height:2px;background:var(--brd);margin-top:16px;transition:background .3s}.sl.ok{background:var(--green)}.slb{font-size:8px;letter-spacing:2px;color:var(--tx3);margin-top:5px;transition:color .3s}.slb.on{color:var(--tx)}.slb.ok{color:var(--green)}
+  .scr{display:none}.scr.on{display:block;animation:fu .3s ease}@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}.ph-t{font-size:11px;letter-spacing:2px;font-weight:700}.ph-c{font-size:11px;color:var(--tx3)}
+  .qf{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:26px 22px;margin-bottom:16px}.qf-q{font-size:20px;font-weight:800;line-height:1.5;margin-bottom:12px;white-space:pre-line}.qf-d{font-size:14px;color:var(--tx2);line-height:1.7}.qf-h{font-size:13px;color:var(--tx3);border-top:1px solid var(--brd);padding-top:14px;margin-top:16px;line-height:1.7}
+  .choices{display:flex;flex-direction:column;gap:14px;margin-top:18px}.choice{display:flex;align-items:flex-start;gap:16px;padding:24px 22px;background:var(--card);border:1.5px solid var(--brd);border-radius:18px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;text-align:left;width:100%;font-family:inherit;color:var(--tx)}.choice:active{transform:scale(.98);opacity:.88}.ch-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}.ch-body{flex:1;min-width:0}.ch-label{font-size:16px;font-weight:800;margin-bottom:6px;letter-spacing:.5px}.ch-desc{font-size:13px;color:var(--tx2);line-height:1.7;margin-bottom:10px}.ch-ex{font-size:12px;color:var(--tx3);line-height:1.6}.ch-ex b{color:var(--tx2);font-weight:600}.ch-arrow{color:var(--tx4);font-size:20px;margin-top:14px;flex-shrink:0}
+  .warn{margin-top:14px;padding:14px 16px;background:#181420;border:1px solid #2C2540;border-radius:12px;font-size:13px;color:#C888F0;line-height:1.7}.warn b{color:#DDB4FE}
+  .res{text-align:center;padding:44px 24px;position:relative;overflow:hidden;background:var(--card);border:1px solid var(--brd);border-radius:20px}.res-glow{position:absolute;top:-50px;left:50%;transform:translateX(-50%);width:220px;height:220px;border-radius:50%;filter:blur(90px);opacity:.15;pointer-events:none}.res-e{font-size:56px;margin-bottom:18px;position:relative;z-index:1}.res-n{font-size:30px;font-weight:800;margin-bottom:10px;position:relative;z-index:1}.res-d{font-size:14px;color:var(--tx2);line-height:1.7;position:relative;z-index:1;max-width:400px;margin:0 auto}.res-btns{display:flex;gap:12px;margin-top:28px;position:relative;z-index:1}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 28px;border-radius:12px;border:1px solid transparent;cursor:pointer;font-size:14px;font-weight:700;font-family:inherit;letter-spacing:.5px;transition:transform .1s,opacity .15s;-webkit-user-select:none;user-select:none}.btn:active{transform:scale(.96);opacity:.85}.btn-ok{background:var(--green);color:var(--bg);flex:2}.btn-back{background:var(--card2);color:var(--tx3);border-color:var(--brd);flex:1}.btn-start{background:var(--tx);color:var(--bg);font-size:16px;padding:20px 48px}.btn-ghost{background:var(--card);color:var(--tx2);border-color:var(--brd)}.btn-full{width:100%;text-align:center}
+  .egrid{display:flex;flex-direction:column;gap:12px;margin-top:18px}.ecard{display:flex;align-items:center;gap:16px;padding:22px;background:var(--card);border:1.5px solid var(--brd);border-radius:16px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none}.ecard:active{transform:scale(.98)}.ebadge{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0}.einfo{flex:1}.ename{font-size:14px;font-weight:700;margin-bottom:4px}.edesc{font-size:12px;color:var(--tx3);line-height:1.5}.ehint{font-size:11px;color:var(--tx4);margin-top:4px}
+  .acc-row{display:flex;gap:12px;margin-top:14px}.acc-btn{flex:1;padding:18px 12px;border-radius:14px;border:1.5px solid var(--brd);background:var(--card);cursor:pointer;text-align:center;font-family:inherit;color:var(--tx3);transition:all .15s;-webkit-user-select:none;user-select:none}.acc-btn:active{transform:scale(.97)}.acc-btn.on{border-color:var(--green);background:var(--grn-bg);color:var(--green)}.acc-label{font-size:14px;font-weight:700;margin-bottom:4px}.acc-desc{font-size:12px;line-height:1.4;opacity:.7}
+  .tag{display:inline-block;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:1px;margin:0 3px}
+  .fbox{background:var(--card);border:1px solid var(--brd);border-radius:20px;overflow:hidden}.frow{padding:22px 24px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--brd)}.frow:last-child{border-bottom:none}.fe{font-size:38px;flex-shrink:0;width:52px;text-align:center}.fl{font-size:10px;letter-spacing:2px;color:var(--tx3);margin-bottom:3px}.fv{font-size:22px;font-weight:800}
+  .frx{margin-top:16px;padding:32px;background:var(--card);border:1px solid var(--brd);border-radius:20px;text-align:center}.frx-l{font-size:9px;letter-spacing:3px;color:var(--tx4);margin-bottom:16px}.frx-v{font-size:20px;font-weight:800;letter-spacing:1px;line-height:1.8}.frx-s{color:var(--tx4);margin:0 6px}.frx-e{font-size:14px;margin-top:12px;letter-spacing:4px}
+  .trail{margin-top:16px;padding:18px 20px;background:var(--card);border:1px solid var(--brd);border-radius:16px}.trail-h{font-size:10px;letter-spacing:2px;color:var(--tx4);margin-bottom:10px}.trail-r{font-size:12px;color:var(--tx3);margin-bottom:6px;display:flex;gap:8px;align-items:baseline}.trail-i{color:var(--tx4);flex-shrink:0;font-size:10px}.trail-q{flex:1;line-height:1.4}.trail-a{flex-shrink:0;font-weight:600;color:var(--green)}
+  .cht-btn{display:block;width:100%;text-align:center;padding:14px;margin-top:20px;background:none;border:1px dashed var(--brd);border-radius:14px;color:var(--tx3);font-family:inherit;font-size:12px;letter-spacing:1px;cursor:pointer}.cht-btn:active{opacity:.7}.cht{display:none;margin-top:12px;padding:22px;background:var(--card);border:1px solid var(--brd);border-radius:16px}.cht.open{display:block;animation:fu .2s ease}.cs{margin-bottom:18px}.cs:last-child{margin-bottom:0}.cs-t{font-size:10px;letter-spacing:2px;color:var(--tx3);margin-bottom:8px;font-weight:700}.cr{font-size:12px;color:var(--tx2);margin-bottom:6px;line-height:1.5;display:flex;gap:8px}.cr-e{flex-shrink:0;width:22px;text-align:center}.cr-n{font-weight:700;width:68px;flex-shrink:0}
+  .idle{text-align:center;padding-top:44px}.idle-i{font-size:56px;margin-bottom:22px}.idle-t{font-size:14px;color:var(--tx2);line-height:2;margin-bottom:36px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr"><div class="hdr-s">La Tesis del Cirujano</div><div class="hdr-t">DIAGNÓSTICO</div></div>
+  <div class="stp">
+    <div class="sg"><div class="sd" id="s1">1</div><div class="slb" id="l1">CUERPO</div></div><div class="sl" id="ln1"></div>
+    <div class="sg"><div class="sd" id="s2">2</div><div class="slb" id="l2">TEXTURA</div></div><div class="sl" id="ln2"></div>
+    <div class="sg"><div class="sd" id="s3">3</div><div class="slb" id="l3">ENERGÍA</div></div>
+  </div>
+  <div id="idle" class="scr on">
+    <div class="idle">
+      <div class="idle-i">🔬</div>
+      <div class="idle-t">Pon la canción.<br>Cierra los ojos 30 segundos.<br>Pulsa cuando estés listo.</div>
+      <button class="btn btn-start" onclick="start()">DIAGNOSTICAR</button>
+      <button class="cht-btn" onclick="document.getElementById('cht').classList.toggle('open')">CHULETA RÁPIDA ▾</button>
+      <div class="cht" id="cht">
+        <div class="cs"><div class="cs-t">CUERPOS</div>
+          <div class="cr"><span class="cr-e">🫀</span><span class="cr-n" style="color:var(--corazon)">Corazón</span>Cuento: te lleva de A a B</div>
+          <div class="cr"><span class="cr-e">🦴</span><span class="cr-n" style="color:var(--cadera)">Cadera</span>Groove puro: mueve el culo</div>
+          <div class="cr"><span class="cr-e">🦍</span><span class="cr-n" style="color:var(--ego)">Ego</span>Actitud: poder, armadura</div>
+          <div class="cr"><span class="cr-e">🧠</span><span class="cr-n" style="color:var(--cerebro)">Cerebro</span>Grip: el track te tiene cogido</div>
+        </div>
+        <div class="cs"><div class="cs-t">TEXTURAS</div>
+          <div class="cr"><span class="cr-e">☀️</span><span class="cr-n" style="color:var(--luz)">Luz</span>Terraza, sol, inocencia</div>
+          <div class="cr"><span class="cr-e">🔥</span><span class="cr-n" style="color:var(--fuego)">Fuego</span>Club 3AM, sudor, roce</div>
+          <div class="cr"><span class="cr-e">🌫️</span><span class="cr-n" style="color:var(--niebla)">Niebla</span>Océano, burbuja, refugio</div>
+          <div class="cr"><span class="cr-e">🌧️</span><span class="cr-n" style="color:var(--lluvia)">Lluvia</span>Peso, intemperie, duele</div>
+          <div class="cr"><span class="cr-e">🐍</span><span class="cr-n" style="color:var(--veneno)">Veneno</span>Tensión, amenaza, thriller</div>
+          <div class="cr"><span class="cr-e">❄️</span><span class="cr-n" style="color:var(--hielo)">Hielo</span>Quirófano, vacío, máquina</div>
+          <div class="cr"><span class="cr-e">🚂</span><span class="cr-n" style="color:var(--motor)">Motor</span>Fábrica, peso, apisonadora</div>
+          <div class="cr"><span class="cr-e">🛢️</span><span class="cr-n" style="color:var(--barro)">Barro</span>Sótano, roto, punk</div>
+        </div>
+        <div class="cs"><div class="cs-t">ENERGÍAS</div>
+          <div class="cr"><span class="cr-e">·</span><span class="cr-n" style="color:var(--e0)">E0</span>Umbral</div>
+          <div class="cr"><span class="cr-e">·</span><span class="cr-n" style="color:var(--e1)">E1</span>Warm Up</div>
+          <div class="cr"><span class="cr-e">·</span><span class="cr-n" style="color:var(--e2)">E2</span>Maintime</div>
+          <div class="cr"><span class="cr-e">·</span><span class="cr-n" style="color:var(--e3)">E3</span>Peak Time</div>
+          <div class="cr"><span class="cr-e">·</span><span class="cr-n" style="color:var(--e4)">E4</span>Cierre</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="main" class="scr"></div>
+</div>
+<script>
+// ═══════════════════════════════════════════════
+// BODY TREE — Calibrated to Sergio's brain
+// Q1: Groove? → Q2: Groove manda o algo más? → Q3: Splits
+// ═══════════════════════════════════════════════
+const BT={
+  q:"¿Te mueve el culo?",
+  d:"Lo primero. Instinto puro. ¿Este track tiene groove que te hace mover el cuerpo?",
+  h:"🔪 No pienses. ¿Tus rodillas, caderas o hombros se mueven solos? ¿Hay rebote?",
+  A:{
+    label:"SÍ, ME MUEVE",icon:"🦴",
+    desc:"Hay groove. Mi cuerpo se mueve. Rodillas, caderas, hombros, cabeza — algo se está moviendo ahí abajo.",
+    ex:"<b>Piensa en:</b> Carola groove · Tenaglia tribal · Stussy fresco · Chandler cálido · Amelie Lens rodillo · Garnier sax",
+    next:{
+      q:"Aparte del groove...\n¿el GROOVE manda o hay algo\nMÁS FUERTE que el groove?",
+      d:"¿El groove es la ESTRELLA del track? ¿O hay algo por encima: un cuento que te lleva, un grip que te atrapa, o actitud que te empodera?",
+      h:"🔪 Si quitaras todo menos el bombo y el bajo, ¿el track seguiría siendo un misil? → Groove manda. ¿O perderías lo más importante? → Hay algo más fuerte.",
+      A:{
+        label:"EL GROOVE MANDA",icon:"💥",
+        desc:"El groove es la estrella. Es lo que define este track. Lo demás es secundario. Si quitas la melodía, el track sigue funcionando.",
+        ex:"<b>Piensa en:</b> Carola minimal puro · Rhadoo · Tenaglia maratón · Stussy house · Chandler · DJ Holographic · hardgroove",
+        next:{
+          q:"¿SOLO groove\no groove con ACTITUD?",
+          d:"¿Bailas relajado, fluyendo, sin armadura? ¿O hay chulería, poder, mandíbula tensa, pisotón de jefe?",
+          h:"🔪 ¿Rodillas flexionadas y sonrisa? → Solo groove. ¿Barbilla arriba y pisas fuerte? → Con actitud.",
+          A:{label:"SOLO GROOVE",icon:"🦴",desc:"Fluir. Rebotar. Contonearte. Sin actitud, sin armadura. Puro baile animal y groove limpio.",
+            ex:"<b>Piensa en:</b> Chandler deep · Carola minimal · Stussy house · Rhadoo · Tenaglia maratón · DJ Holographic",
+            result:{id:"cadera",emoji:"🦴",name:"CADERA",cl:"var(--cadera)",hx:"#E8922E",desc:"Groove puro. El culo manda. Loop orgánico, rebote, fricción. Bailas en una baldosa."}},
+          B:{label:"CON ACTITUD",icon:"🦍",desc:"Groove + poder. Pisas fuerte, sacas pecho, mandíbula tensa. El groove está pero tú lo dominas, no él a ti.",
+            ex:"<b>Piensa en:</b> Adam Beyer marcial · tech-house vacilón · Charlotte power · Bryan Kessler · groove con chulería",
+            result:{id:"ego",emoji:"🦍",name:"EGO",cl:"var(--ego)",hx:"#A855F7",desc:"Actitud. Armadura. Groove con poder. Pisas el suelo como si fuera tuyo."}}
+        }
+      },
+      B:{
+        label:"HAY ALGO MÁS FUERTE",icon:"⬆️",
+        desc:"El groove está pero NO es la estrella. Hay algo por encima que pesa más: un cuento que te lleva o un grip que te tiene cogido.",
+        ex:"<b>Piensa en:</b> Garnier 'Red Face' (cuento) · Chymera 'Tidal' (grip) · Cattaneo con groove (cuento) · slow burns hipnóticos (grip)",
+        next:{
+          q:"Eso que es más fuerte...\n¿es un CUENTO o un GRIP?",
+          d:"¿El track te CUENTA una historia? ¿Te lleva de un punto A a un punto B, hay evolución, hay narrativa? ¿O el loop te tiene COGIDO, atrapado en su grip, sin historia?",
+          h:"🔪 Adelanta 3 minutos. ¿Te cabreas porque te has perdido un capítulo? → Cuento. ¿El track sigue igual de hipnótico y tú sigues en su grip? → Grip.",
+          w:"<b>⚠️ CLAVE:</b> El cuento tiene CAPÍTULOS (intro, subida, clímax). El grip es un loop que APRIETA. Garnier 'Red Face' = cuento. Chymera 'Tidal' = grip.",
+          A:{label:"CUENTO",icon:"🫀",desc:"Historia. Te lleva de A a B. Hay evolución, capítulos, un arco. Si adelantas te pierdes algo importante.",
+            ex:"<b>Piensa en:</b> Garnier 'Red Face' · Cattaneo viajes · Solomun breakdowns · Tale of Us buildups · Recondite 'Placid'",
+            result:{id:"corazon",emoji:"🫀",name:"CORAZÓN",cl:"var(--corazon)",hx:"#E05555",desc:"Cuento. Historia de A a B. Evolución, narrativa, arco emocional. Si adelantas te pierdes el capítulo."}},
+          B:{label:"GRIP",icon:"🧠",desc:"El loop te tiene cogido. No hay historia, hay presión constante. Tensión, hipnosis, secuestro. El track manda, no tú.",
+            ex:"<b>Piensa en:</b> Chymera 'Tidal' · slow burns hipnóticos · loops tensos que aprietan · Rødhåd con groove pero te tiene",
+            result:{id:"cerebro",emoji:"🧠",name:"CEREBRO",cl:"var(--cerebro)",hx:"#3B82F6",desc:"Grip. El loop te tiene cogido. No hay cuento, hay presión. El track controla, tú estás en su grip."}}
+        }
+      }
+    }
+  },
+  B:{
+    label:"NO ME MUEVE",icon:"🧠",
+    desc:"No hay groove que me haga mover el cuerpo. Es interno: mental, emocional, o atmosférico. Estoy quieto pero algo pasa.",
+    ex:"<b>Piensa en:</b> Cattaneo breakdowns · ambient · Jeff Mills hipnosis · Maceo Plex frío · Mulero oscuro · intros atmosféricos",
+    next:{
+      q:"Sin groove...\n¿hay CUENTO?",
+      d:"¿El track te CUENTA algo? ¿Hay historia, evolución, narrativa, un arco que te lleva de un sitio emocional a otro?",
+      h:"🔪 Adelanta 3 minutos. ¿Te has perdido algo importante? → Hay cuento. ¿Da igual por dónde entres? → No hay cuento.",
+      A:{label:"SÍ, HAY CUENTO",icon:"🫀",desc:"Historia sin groove. Te lleva emocionalmente de A a B. Breakdown precioso, viaje cinematográfico, arco que evoluciona.",
+        ex:"<b>Piensa en:</b> Cattaneo progressive · breakdowns épicos · Recondite ambient · momentos cinematográficos · intros narrativos",
+        result:{id:"corazon",emoji:"🫀",name:"CORAZÓN",cl:"var(--corazon)",hx:"#E05555",desc:"Cuento sin groove. Viaje emocional, narrativa pura. Te lleva de A a B sin moverte el culo."}},
+      B:{label:"NO HAY CUENTO",icon:"🔇",desc:"Ni groove ni cuento. Algo pasa pero no es historia. Es atmósfera, poder mental, o secuestro puro.",
+        ex:"<b>Piensa en:</b> Jeff Mills loops fríos · Maceo Plex menacing · Mulero oscuro estático · ambient hipnótico · drones",
+        next:{
+          q:"¿ACTITUD o SECUESTRO?",
+          d:"¿El track te da PODER, te hace sentir superior, frío, intocable? ¿O te ha COGIDO y estás en su grip, disuelto, secuestrado?",
+          h:"🔪 ¿Sacas pecho mentalmente, te sientes el villano? → Actitud. ¿Tu mente se ha disuelto y no sabes cuánto tiempo llevas? → Secuestro.",
+          A:{label:"ACTITUD",icon:"🦍",desc:"Poder mental. Te sientes superior, frío, calculador. El villano de neón. Intocable sin mover un músculo.",
+            ex:"<b>Piensa en:</b> Maceo Plex frío · dark minimal menacing · soundtracks de villano · poder sin groove",
+            result:{id:"ego",emoji:"🦍",name:"EGO",cl:"var(--ego)",hx:"#A855F7",desc:"Actitud mental. Poder frío sin groove. El villano intocable. Superioridad calculada."}},
+          B:{label:"SECUESTRO",icon:"🧠",desc:"Tu mente se ha disuelto. No hay poder, no hay cuento, no hay groove. El loop te tiene. Puro trance.",
+            ex:"<b>Piensa en:</b> Jeff Mills loops · Hawtin 'Spastik' · Mulero oscuro · Ben Klock búnker · drones hipnóticos",
+            result:{id:"cerebro",emoji:"🧠",name:"CEREBRO",cl:"var(--cerebro)",hx:"#3B82F6",desc:"Secuestro puro. Sin groove, sin cuento, sin actitud. La máquina te tiene. Desapareces."}}
+        }
+      }
+    }
+  }
+};
+
+// ═══════════════════════════════════════════════
+// TEXTURE TREE — Same proven structure
+// ═══════════════════════════════════════════════
+const TT={
+  q:"Ahora olvida el cuerpo.\n¿El sonido tiene ALMA HUMANA\no es INHUMANO?",
+  d:"¿Huele a piel, sudor, nostalgia, recuerdos? ¿O a metal, circuito, fábrica, vacío?",
+  h:"🔪 ¿Imaginas a alguien sudando o recordando? → Humano. ¿Solo máquinas? → Inhumano.",
+  A:{label:"ALMA HUMANA",icon:"❤️",desc:"Hay biología. Calidez, voz, nostalgia, sudor. Tiene pulso de persona.",
+    ex:"<b>Piensa en:</b> Chandler · Garnier · Cattaneo · Solomun · Carola groovy · soulful · dub techno cálido",
+    next:{q:"¿La energía es ABIERTA\no CERRADA?",d:"¿Miras al mundo, interactúas? ¿O cierras los ojos y vas adentro, solo?",h:"🔪 ¿Miras a la gente? → Abierta. ¿Ojos cerrados? → Cerrada.",
+      A:{label:"ABIERTA / SOCIAL",icon:"🌞",desc:"Extrovertida. Miras alrededor. Sonríes, sudas, bailas CON gente.",ex:"<b>Piensa en:</b> house terraza · Chandler · Tenaglia tribal · tech-house · soulful · disco",
+        next:{q:"¿INOCENCIA pura\no MALICIA?",d:"¿Buen rollo limpio? ¿O vacile, seducción, sudor denso?",h:"🔪 ¿Terraza mediodía? → Inocencia. ¿Club 3AM? → Malicia.",
+          w:"<b>⚠️ Fuego vs Luz:</b> MÍNIMO de vacile sexual o actitud → Fuego. La Luz es inocente: CERO malicia.",
+          A:{label:"INOCENCIA",icon:"☀️",desc:"Sol. Brisa. Buen rollo puro. Cero oscuridad.",ex:"<b>Piensa en:</b> pianos 90s · house Chicago · deep house feliz · Stussy verano",
+            result:{id:"luz",emoji:"☀️",name:"LUZ",cl:"var(--luz)",hx:"#FBBF24",desc:"Terraza al sol. Inocencia total. Dopamina limpia."}},
+          B:{label:"MALICIA",icon:"🔥",desc:"Sudor. Roce. Seducción. Vacile. Densidad.",ex:"<b>Piensa en:</b> Carola Music On · Tenaglia 5AM · tech-house gordo · soulful denso",
+            result:{id:"fuego",emoji:"🔥",name:"FUEGO",cl:"var(--fuego)",hx:"#EF6830",desc:"Club a las 3AM. Calor humano. Sudor, roce, seducción."}}
+        }},
+      B:{label:"CERRADA / SOLITARIA",icon:"🌊",desc:"Introvertida. Ojos cerrados. Solo en tu burbuja.",ex:"<b>Piensa en:</b> Cattaneo deep · Recondite · dub techno · Garnier melancólico · Väth cosmic",
+        next:{q:"¿A SALVO ahí dentro\no algo te PESA?",d:"¿Flotas cómodo? ¿O nudo en la garganta, peso en los hombros?",h:"🔪 ¿Sonreirías levemente? → A salvo. ¿Mandíbula apretada? → Pesa.",
+          w:"<b>⚠️ Niebla = REFUGIO, no duele. Lluvia = INTEMPERIE, duele.</b>",
+          A:{label:"A SALVO",icon:"🌫️",desc:"Refugio. Gravedad cero. Solo pero BIEN.",ex:"<b>Piensa en:</b> Cattaneo · Recondite 'Placid' · Solomun deep · dub techno · Väth cosmic",
+            result:{id:"niebla",emoji:"🌫️",name:"NIEBLA",cl:"var(--niebla)",hx:"#7CA5C4",desc:"Fondo del océano. Gravedad cero. Tu refugio."}},
+          B:{label:"ME PESA",icon:"🌧️",desc:"Nudo. Peso. Tristeza cruda. Intemperie.",ex:"<b>Piensa en:</b> Garnier 'A Bout De Souffle' · acordes menores · lamentos de sinte",
+            result:{id:"lluvia",emoji:"🌧️",name:"LLUVIA",cl:"var(--lluvia)",hx:"#6B7B8D",desc:"Calle mojada. Peso del mundo. Duele pero hay dignidad."}}
+        }}
+    }
+  },
+  B:{label:"INHUMANO",icon:"⚙️",desc:"Cero biología. Metal, circuito, fábrica, vacío.",ex:"<b>Piensa en:</b> Jeff Mills · Hawtin · Mulero · Amelie Lens industrial · Charlotte acid · Afterlife · Drexciya",
+    next:{q:"¿Hay INTENCIÓN detrás\no la máquina es INDIFERENTE?",d:"¿Alguien te hace esto A PROPÓSITO? ¿O la máquina funciona sin saber que existes?",h:"🔪 ¿Hay depredador? → Intención. ¿Rueda sola? → Indiferente.",
+      A:{label:"HAY INTENCIÓN",icon:"⚡",desc:"Alguien controla. Amenaza, manipulación o agresión.",ex:"<b>Piensa en:</b> Tale of Us tensión · Charlotte acid agresivo · industrial punk · Afterlife arpegios",
+        next:{q:"¿ELEGANTE o BRUTA?",d:"¿Manipulación quirúrgica? ¿O chatarra y distorsión?",h:"🔪 ¿Cuchillo de asesino con traje? → Elegante. ¿Bate oxidado? → Bruta.",
+          w:"<b>⚠️ Veneno = suspense, ESPERAS algo. Barro = puñetazo, suena ROTO.</b>",
+          A:{label:"ELEGANTE",icon:"🐍",desc:"Suspense. Arpegios infinitos. Aguantas la respiración.",ex:"<b>Piensa en:</b> Tale of Us · Anyma · Agents of Time · Chymera 'Tidal' · Afterlife",
+            result:{id:"veneno",emoji:"🐍",name:"VENENO",cl:"var(--veneno)",hx:"#A855F7",desc:"Thriller. Manipulación elegante. Aguantas la respiración."}},
+          B:{label:"BRUTA",icon:"🛢️",desc:"Chatarra. Distorsión. 303 reventada. Sótano ilegal.",ex:"<b>Piensa en:</b> Charlotte acid sucio · 303 distorsionadas · industrial crudo · Garnier punk",
+            result:{id:"barro",emoji:"🛢️",name:"BARRO",cl:"var(--barro)",hx:"#A0704A",desc:"Sótano ilegal. Punk. Chatarra. Suena roto y te gusta."}}
+        }},
+      B:{label:"INDIFERENTE",icon:"🔩",desc:"La máquina funciona sola. No te odia ni te quiere.",ex:"<b>Piensa en:</b> Jeff Mills · Hawtin clínico · Robert Hood · Amelie Lens rodillo · Kraftwerk",
+        next:{q:"¿PESO y gravedad\no VACÍO y flotación?",d:"¿Toneladas aplastando? ¿O ingravidez flotante?",h:"🔪 ¿Suelo tiembla? → Peso. ¿Flota sin masa? → Vacío.",
+          w:"<b>⚠️ Motor = GRAVEDAD, masa. Hielo = VACÍO, sin peso.</b>",
+          A:{label:"PESO",icon:"🚂",desc:"Toneladas. Apisonadora. Suelo vibrando.",ex:"<b>Piensa en:</b> Amelie Lens steamroller · Varela · Courtesy rave · hardgroove · Ben Klock",
+            result:{id:"motor",emoji:"🚂",name:"MOTOR",cl:"var(--motor)",hx:"#C8A030",desc:"Nave industrial. Toneladas de acero. Inercia bruta."}},
+          B:{label:"VACÍO",icon:"❄️",desc:"Ingravidez. Quirófano espacial. Matemática pura.",ex:"<b>Piensa en:</b> Jeff Mills 'The Bells' · Hawtin clínico · Mulero frío · Robert Hood · Drexciya",
+            result:{id:"hielo",emoji:"❄️",name:"HIELO",cl:"var(--hielo)",hx:"#38BDF8",desc:"Quirófano espacial. Vacío. La máquina no sabe que existes."}}
+        }}
+    }
+  }
+};
+
+const EN=[
+  {id:"E0",name:"UMBRAL",cl:"var(--e0)",hx:"#8A8A9E",desc:"Intros, ambientes.",hint:"El lienzo en blanco."},
+  {id:"E1",name:"WARM UP",cl:"var(--e1)",hx:"#7CA5C4",desc:"Calentando.",hint:"Fuego lento."},
+  {id:"E2",name:"MAINTIME",cl:"var(--e2)",hx:"#34D399",desc:"Crucero. Sala llena.",hint:"El corazón de la sesión."},
+  {id:"E3",name:"PEAK TIME",cl:"var(--e3)",hx:"#EF6830",desc:"Máxima intensidad.",hint:"Todo lo que tienes."},
+  {id:"E4",name:"CIERRE",cl:"var(--e4)",hx:"#A855F7",desc:"Despedida.",hint:"Soltar el gas."}
+];
+
+let body=null,tex=null,ener=null,trail=[],hasBreak=false,hasVocal=false;
+let bPath=[],tPath=[],bNode=null,tNode=null;
+function sw(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');window.scrollTo({top:0,behavior:'smooth'})}
+function us(p){const ids=[['s1','l1'],['s2','l2'],['s3','l3']],lns=['ln1','ln2'];ids.forEach(([d,l])=>{document.getElementById(d).className='sd';document.getElementById(l).className='slb'});lns.forEach(l=>{document.getElementById(l).className='sl'});const m={body:()=>{document.getElementById('s1').classList.add('on');document.getElementById('l1').classList.add('on')},'body-r':()=>{document.getElementById('s1').classList.add('ok');document.getElementById('l1').classList.add('ok');document.getElementById('ln1').classList.add('ok')},tex:()=>{m['body-r']();document.getElementById('s2').classList.add('on');document.getElementById('l2').classList.add('on')},'tex-r':()=>{m['body-r']();document.getElementById('s2').classList.add('ok');document.getElementById('l2').classList.add('ok');document.getElementById('ln2').classList.add('ok')},ener:()=>{m['tex-r']();document.getElementById('s3').classList.add('on');document.getElementById('l3').classList.add('on')},final:()=>{m['tex-r']();document.getElementById('s3').classList.add('ok');document.getElementById('l3').classList.add('ok')}};if(m[p])m[p]()}
+function tH(){if(!trail.length)return'';return`<div class="trail"><div class="trail-h">Recorrido</div>${trail.map((t,i)=>`<div class="trail-r"><span class="trail-i">${i<trail.length-1?'├':'└'}</span><span class="trail-q">${t.q}</span><span class="trail-a">${t.a}</span></div>`).join('')}</div>`}
+function cc(opt,fn,bc){return`<button class="choice" onclick="${fn}" style="border-color:${bc||'var(--brd)'}"><div class="ch-icon" style="background:${(bc||'var(--brd)')}18;font-size:26px">${opt.icon}</div><div class="ch-body"><div class="ch-label">${opt.label}</div><div class="ch-desc">${opt.desc}</div><div class="ch-ex">${opt.ex}</div></div><div class="ch-arrow">›</div></button>`}
+function qfr(node,lab,col,step,tot){return`<div class="ph"><div class="ph-t" style="color:${col}">${lab}</div><div class="ph-c">${step} / ${tot}</div></div><div class="qf"><div class="qf-q">${node.q}</div><div class="qf-d">${node.d}</div><div class="qf-h">${node.h}</div>${node.w?`<div class="warn">${node.w}</div>`:''}</div>`}
+function rc(r,cfn,bfn){return`<div class="res" style="border-color:${r.hx}22"><div class="res-glow" style="background:${r.hx}"></div><div class="res-e">${r.emoji}</div><div class="res-n" style="color:${r.cl}">${r.name}</div><div class="res-d">${r.desc}</div><div class="res-btns"><button class="btn btn-back" onclick="${bfn}">← Revisar</button><button class="btn btn-ok" onclick="${cfn}">Clavado →</button></div></div>`}
+function start(){body=null;tex=null;ener=null;trail=[];bPath=[];tPath=[];bNode=null;tNode=null;hasBreak=false;hasVocal=false;us('body');rBQ(BT,1);sw('main')}
+function rBQ(node,step){bNode=node;document.getElementById('main').innerHTML=qfr(node,'Paso 1 — Cuerpo','var(--cadera)',step,3)+`<div class="choices">${cc(node.A,`pB('A',${step})`,'var(--cadera)')}${cc(node.B,`pB('B',${step})`,'var(--cadera)')}</div>`+tH()}
+function pB(c,step){const opt=bNode[c];trail.push({q:bNode.q.split('\n')[0],a:opt.label});bPath.push({node:bNode,step});if(opt.result){body=opt.result;us('body-r');document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--cadera)">Paso 1 — Resultado</div><div class="ph-c"></div></div>`+rc(body,'cB()','uB()')+tH()}else{rBQ(opt.next,step+1)}}
+function uB(){if(!bPath.length)return;trail.pop();const p=bPath.pop();body=null;us('body');rBQ(p.node,p.step);sw('main')}
+function cB(){us('tex');rTQ(TT,1)}
+function rTQ(node,step){tNode=node;document.getElementById('main').innerHTML=qfr(node,'Paso 2 — Textura','var(--niebla)',step,3)+`<div class="choices">${cc(node.A,`pT('A',${step})`,'var(--niebla)')}${cc(node.B,`pT('B',${step})`,'var(--niebla)')}</div>`+tH()}
+function pT(c,step){const opt=tNode[c];trail.push({q:tNode.q.split('\n')[0],a:opt.label});tPath.push({node:tNode,step});if(opt.result){tex=opt.result;us('tex-r');document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Resultado</div><div class="ph-c"></div></div>`+rc(tex,'cT()','uT()')+tH()}else{rTQ(opt.next,step+1)}}
+function uT(){if(!tPath.length)return;trail.pop();const p=tPath.pop();tex=null;us('tex');rTQ(p.node,p.step);sw('main')}
+function cT(){us('ener');rE()}
+function rE(){document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--e3)">Paso 3 — Energía</div><div class="ph-c">Selecciona</div></div><div class="qf" style="padding:22px"><div class="qf-q" style="font-size:17px;margin-bottom:6px">¿En qué momento de la sesión\nencaja este track?</div><div class="qf-h" style="border:none;padding-top:0">🔪 No pienses en BPM. Piensa en la sala.</div></div><div class="egrid">${EN.map(e=>`<div class="ecard" onclick="pE('${e.id}')"><div class="ebadge" style="background:${e.hx}15;color:${e.hx};border:1.5px solid ${e.hx}30">${e.id}</div><div class="einfo"><div class="ename" style="color:${e.cl}">${e.name}</div><div class="edesc">${e.desc}</div><div class="ehint">${e.hint}</div></div></div>`).join('')}</div>${tH()}`}
+function pE(id){ener=EN.find(e=>e.id===id);trail.push({q:'Energía',a:ener.id+' '+ener.name});rAcc()}
+function rAcc(){us('final');hasBreak=false;hasVocal=false;document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--tx2)">Último toque</div><div class="ph-c">Opcional</div></div><div class="qf" style="padding:22px"><div class="qf-q" style="font-size:17px;margin-bottom:6px">¿Tiene alguno de estos rasgos?</div><div class="qf-d">Pulsa para activar. Si no aplica, pasa directo.</div></div><div class="acc-row"><button class="acc-btn" id="acc-brk" onclick="togAcc('brk')"><div class="acc-label">BREAK</div><div class="acc-desc">Ritmo roto.<br>No es 4/4 limpio.</div></button><button class="acc-btn" id="acc-voc" onclick="togAcc('voc')"><div class="acc-label">VOCAL</div><div class="acc-desc">Tiene voz cantada<br>o hablada con peso.</div></button></div><div style="margin-top:24px"><button class="btn btn-ok btn-full" onclick="rF()" style="padding:18px">Sellar diagnóstico →</button></div>${tH()}`}
+function togAcc(t){if(t==='brk'){hasBreak=!hasBreak;document.getElementById('acc-brk').classList.toggle('on')}if(t==='voc'){hasVocal=!hasVocal;document.getElementById('acc-voc').classList.toggle('on')}}
+function rF(){if(hasBreak)trail.push({q:'Accesorio',a:'BREAK'});if(hasVocal)trail.push({q:'Accesorio',a:'VOCAL'});let tg='',ft='';if(hasBreak)tg+=`<span class="tag" style="background:#E8922E18;color:var(--cadera);border:1px solid #E8922E30">BREAK</span>`;if(hasVocal)tg+=`<span class="tag" style="background:#E0555518;color:var(--corazon);border:1px solid #E0555530">VOCAL</span>`;if(hasBreak)ft+=`<span class="frx-s">·</span><span style="color:var(--cadera)">BRK</span>`;if(hasVocal)ft+=`<span class="frx-s">·</span><span style="color:var(--corazon)">VOC</span>`;
+document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--green)">Diagnóstico sellado</div><div class="ph-c"></div></div><div class="fbox"><div class="frow"><div class="fe">${body.emoji}</div><div><div class="fl">CUERPO</div><div class="fv" style="color:${body.cl}">${body.name}</div></div></div><div class="frow"><div class="fe">${tex.emoji}</div><div><div class="fl">TEXTURA</div><div class="fv" style="color:${tex.cl}">${tex.name}</div></div></div><div class="frow"><div class="fe" style="font-size:20px;display:flex;align-items:center;justify-content:center"><span style="background:${ener.hx}15;color:${ener.hx};border:1.5px solid ${ener.hx}30;padding:7px 11px;border-radius:9px;font-size:14px;font-weight:800">${ener.id}</span></div><div><div class="fl">ENERGÍA</div><div class="fv" style="color:${ener.cl}">${ener.name}</div></div></div>${tg?`<div class="frow" style="justify-content:center;padding:16px 24px">${tg}</div>`:''}</div><div class="frx"><div class="frx-l">CLASIFICACIÓN</div><div class="frx-v"><span style="color:${body.cl}">${body.name}</span><span class="frx-s">·</span><span style="color:${tex.cl}">${tex.name}</span><span class="frx-s">·</span><span style="color:${ener.cl}">${ener.id}</span>${ft}</div><div class="frx-e">${body.emoji} ${tex.emoji}</div></div><div class="trail" style="margin-top:16px"><div class="trail-h">Recorrido completo</div>${trail.map((t,i)=>`<div class="trail-r"><span class="trail-i">${i<trail.length-1?'├':'└'}</span><span class="trail-q">${t.q}</span><span class="trail-a">${t.a}</span></div>`).join('')}</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:24px"><button class="btn btn-ghost btn-full" onclick="start()">Siguiente canción</button><button class="btn btn-ghost btn-full" style="font-size:12px;padding:12px" onclick="us('');sw('idle')">Inicio</button></div>`}
+</script>
+</body>
+</html>
