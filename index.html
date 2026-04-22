@@ -9,68 +9,158 @@
 <title>La Tesis del Cirujano</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
-  :root{--bg:#08080C;--card:#121218;--card2:#1C1C26;--brd:#262632;--brd2:#32323E;--tx:#E6E6EE;--tx2:#C4C4D2;--tx3:#9090A2;--tx4:#606072;--green:#34D399;--grn-bg:#0C1F16;--corazon:#E05555;--cadera:#E8922E;--cerebro:#3B82F6;--luz:#FBBF24;--fuego:#EF6830;--niebla:#7CA5C4;--lluvia:#7B8B9D;--veneno:#A855F7;--barro:#B0805A;--hierro:#94A3B8;--e0:#9090A2;--e1:#7CA5C4;--e2:#34D399;--e3:#EF6830;--e4:#A855F7;--warn-bg:#1A1622;--warn-brd:#302840;--warn-tx:#D0A0F8;--rare-bg:#1A1410;--rare-brd:#3A2A1A;--rare-tx:#D4A060}
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{height:-webkit-fill-available}
+  :root{
+    --bg:#08080C;--card:#121218;--card2:#1C1C26;--brd:#262632;--brd2:#32323E;
+    --tx:#E6E6EE;--tx2:#C4C4D2;--tx3:#9090A2;--tx4:#606072;
+    --green:#34D399;--grn-bg:#0C1F16;
+    --corazon:#E05555;--cadera:#E8922E;--cerebro:#3B82F6;
+    --luz:#FBBF24;--fuego:#EF6830;--niebla:#7CA5C4;--lluvia:#7B8B9D;
+    --veneno:#A855F7;--hierro:#94A3B8;--barro:#B0805A;
+    --e1:#7CA5C4;--e2:#34D399;--e3:#EF6830;
+    --warn-bg:#1A1622;--warn-brd:#302840;--warn-tx:#D0A0F8;
+    --rare-bg:#1A1410;--rare-brd:#3A2A1A;--rare-tx:#D4A060
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{height:-webkit-fill-available}
   body{background:var(--bg);color:var(--tx);font-family:'JetBrains Mono','SF Mono','Menlo',monospace;min-height:100vh;min-height:-webkit-fill-available;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;overflow-x:hidden;-webkit-font-smoothing:antialiased}
   .app{max-width:560px;margin:0 auto;padding:20px 18px 48px}
-  .hdr{text-align:center;padding:14px 0 18px;border-bottom:1px solid var(--brd);margin-bottom:22px}.hdr-s{font-size:9px;letter-spacing:5px;color:var(--tx4);margin-bottom:5px}.hdr-t{font-size:18px;font-weight:800;letter-spacing:2px}
-  .stp{display:flex;align-items:flex-start;justify-content:center;margin-bottom:22px}.sg{display:flex;flex-direction:column;align-items:center;cursor:pointer;-webkit-user-select:none;user-select:none;transition:transform .1s}.sg:active{transform:scale(.95)}.sg.disabled{cursor:default;opacity:.5}.sg.disabled:active{transform:none}.sd{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;background:var(--card);border:2px solid var(--brd);color:var(--tx3);transition:all .3s;flex-shrink:0}.sd.on{border-color:var(--tx);color:var(--tx);background:var(--card2)}.sd.ok{border-color:var(--green);color:var(--green);background:var(--grn-bg)}.sl{width:44px;height:2px;background:var(--brd);margin-top:17px}.sl.ok{background:var(--green)}.slb{font-size:10px;letter-spacing:2px;color:var(--tx3);margin-top:6px}.slb.on{color:var(--tx)}.slb.ok{color:var(--green)}
-  .scr{display:none}.scr.on{display:block;animation:fu .3s ease}@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  .ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}.ph-t{font-size:13px;letter-spacing:2px;font-weight:700}.ph-c{font-size:13px;color:var(--tx3)}
-  .qf{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:24px 20px;margin-bottom:14px}.qf-q{font-size:21px;font-weight:800;line-height:1.5;margin-bottom:12px;white-space:pre-line}.qf-d{font-size:15px;color:var(--tx2);line-height:1.75}.qf-h{font-size:14px;color:var(--tx3);border-top:1px solid var(--brd);padding-top:12px;margin-top:14px;line-height:1.8;white-space:pre-line}
-  .choices{display:flex;flex-direction:column;gap:12px;margin-top:16px}.choice{display:flex;align-items:flex-start;gap:14px;padding:20px 18px;background:var(--card);border:1.5px solid var(--brd);border-radius:16px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;text-align:left;width:100%;font-family:inherit;color:var(--tx)}.choice:active{transform:scale(.98);opacity:.88}.ch-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}.ch-body{flex:1;min-width:0}.ch-label{font-size:17px;font-weight:800;margin-bottom:5px;letter-spacing:.5px}.ch-desc{font-size:14px;color:var(--tx2);line-height:1.7;margin-bottom:8px}.ch-ex{font-size:13px;color:var(--tx3);line-height:1.6}.ch-ex b{color:var(--tx2);font-weight:600}.ch-arrow{color:var(--tx4);font-size:18px;margin-top:12px;flex-shrink:0}
-  /* Gesture cards with body context */
+  .hdr{text-align:center;padding:14px 0 18px;border-bottom:1px solid var(--brd);margin-bottom:22px}
+  .hdr-s{font-size:9px;letter-spacing:5px;color:var(--tx4);margin-bottom:5px}
+  .hdr-t{font-size:18px;font-weight:800;letter-spacing:2px}
+  /* STEPPER */
+  .stp{display:flex;align-items:flex-start;justify-content:center;margin-bottom:22px}
+  .sg{display:flex;flex-direction:column;align-items:center;cursor:pointer;-webkit-user-select:none;user-select:none;transition:transform .1s}
+  .sg:active{transform:scale(.95)}
+  .sg.disabled{cursor:default;opacity:.4;pointer-events:none}
+  .sd{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;background:var(--card);border:2px solid var(--brd);color:var(--tx3);transition:all .3s;flex-shrink:0}
+  .sd.on{border-color:var(--tx);color:var(--tx);background:var(--card2)}
+  .sd.ok{border-color:var(--green);color:var(--green);background:var(--grn-bg)}
+  .sl{width:44px;height:2px;background:var(--brd);margin-top:17px}
+  .sl.ok{background:var(--green)}
+  .slb{font-size:10px;letter-spacing:2px;color:var(--tx3);margin-top:6px}
+  .slb.on{color:var(--tx)}.slb.ok{color:var(--green)}
+  /* SCREENS */
+  .scr{display:none}
+  .scr.on{display:block;animation:fu .3s ease}
+  @keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+  .shake{animation:shake .4s ease}
+  /* PHASE HEADER */
+  .ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+  .ph-t{font-size:13px;letter-spacing:2px;font-weight:700}
+  .ph-c{font-size:13px;color:var(--tx3)}
+  /* QUESTION CARD */
+  .qcard{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:26px 22px;margin-bottom:16px}
+  .qcard-q{font-size:21px;font-weight:800;line-height:1.45;margin-bottom:14px;white-space:pre-line}
+  .qcard-s{font-size:15px;color:var(--tx2);line-height:1.75}
+  /* CHOICES */
+  .choices{display:flex;flex-direction:column;gap:12px}
+  .choice{display:flex;align-items:flex-start;gap:14px;padding:22px 18px;background:var(--card);border:1.5px solid var(--brd);border-radius:16px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;text-align:left;width:100%;font-family:inherit;color:var(--tx)}
+  .choice:active{transform:scale(.98);opacity:.85}
+  .choice-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+  .choice-body{flex:1}
+  .choice-label{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:.3px}
+  .choice-desc{font-size:14px;color:#C8C8DC;line-height:1.7;margin-bottom:8px}
+  .choice-ex{font-size:13px;color:#9090B0;line-height:1.6}
+  .choice-ex b{color:var(--tx2);font-weight:600}
+  .choice-arr{color:var(--tx4);font-size:20px;margin-top:10px;flex-shrink:0}
+  /* RESULT */
+  .res{text-align:center;padding:40px 22px;position:relative;overflow:hidden;background:var(--card);border:1px solid var(--brd);border-radius:20px}
+  .res-glow{position:absolute;top:-50px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none}
+  .res-e{font-size:52px;margin-bottom:16px;position:relative;z-index:1}
+  .res-n{font-size:28px;font-weight:800;margin-bottom:8px;position:relative;z-index:1}
+  .res-d{font-size:15px;color:var(--tx2);line-height:1.8;position:relative;z-index:1;max-width:380px;margin:0 auto}
+  .res-btns{display:flex;gap:12px;margin-top:22px;position:relative;z-index:1}
+  /* INCONSISTENCY CHECK */
+  .chk{background:var(--card);border:1.5px solid var(--brd2);border-radius:18px;padding:26px 22px;margin-bottom:16px}
+  .chk-label{font-size:10px;letter-spacing:3px;color:var(--tx4);margin-bottom:14px;font-weight:700}
+  .chk-q{font-size:18px;font-weight:700;line-height:1.5;margin-bottom:20px;color:var(--tx2)}
+  .chk-btns{display:flex;gap:12px}
+  .chk-btn{flex:1;padding:20px 12px;border-radius:14px;border:1.5px solid var(--brd);background:var(--card2);cursor:pointer;text-align:center;font-family:inherit;color:var(--tx);font-size:15px;font-weight:700;letter-spacing:.5px;transition:all .15s;-webkit-user-select:none;user-select:none}
+  .chk-btn:active{transform:scale(.97);opacity:.85}
+  .chk-btn.yes{border-color:var(--green);color:var(--green);background:var(--grn-bg)}
+  .chk-btn.no{border-color:#502020;color:#D45050;background:#1A0808}
+  /* BODY CONTEXT HEADER */
   .bh{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card2);border:1px solid var(--brd2);border-radius:12px;margin-bottom:14px;font-size:13px;letter-spacing:1.5px}
   .bh-e{font-size:20px}.bh-l{color:var(--tx3)}.bh-n{font-weight:800;letter-spacing:1px}
-  .gq{font-size:23px;font-weight:800;text-align:center;margin:8px 0 6px;line-height:1.4}.gs{font-size:15px;color:var(--tx3);text-align:center;margin-bottom:20px;line-height:1.6}
-  .ggrid{display:flex;flex-direction:column;gap:10px}
-  .gcard{display:flex;align-items:flex-start;gap:14px;padding:18px 16px;background:var(--card);border:1.5px solid var(--brd);border-radius:16px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;width:100%;text-align:left;font-family:inherit;color:var(--tx);position:relative}
-  .gcard:active{transform:scale(.98);opacity:.88}
-  .gcard.sel{border-color:var(--green);background:var(--grn-bg)}
-  .gcard.sel::after{content:"✓";position:absolute;right:14px;top:18px;color:var(--green);font-size:18px;font-weight:800}
-  .gcard.rare{border-style:dashed;border-color:var(--rare-brd)}
-  .gcard.imposs{opacity:.35;border-style:dashed;border-color:var(--brd);background:var(--bg)}
-  .gcard.imposs .gi{filter:grayscale(1)}
-  .gi{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
-  .gb{flex:1;min-width:0}
-  .gtop{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-  .gl{font-size:13px;letter-spacing:2px;font-weight:700}
-  .gbadge{font-size:11px;padding:2px 7px;border-radius:5px;letter-spacing:.5px;font-weight:700}
-  .gbadge.rare{background:var(--rare-bg);color:var(--rare-tx);border:1px solid var(--rare-brd)}
-  .gbadge.imposs{background:#2A1010;color:#D45050;border:1px solid #502020}
-  .gbadge.star{background:var(--grn-bg);color:var(--green);border:1px solid #1E3F2E}
-  .gn{font-size:17px;font-weight:800;margin-bottom:5px;letter-spacing:.2px}
-  .gd{font-size:14px;color:var(--tx2);line-height:1.55;margin-bottom:7px}
-  .gex{font-size:13px;color:var(--tx3);line-height:1.55}
-  .gex b{color:var(--tx2);font-weight:600}
-  .td-btn{display:block;width:100%;text-align:center;padding:14px;margin-top:18px;background:none;border:1px dashed var(--brd);border-radius:14px;color:var(--tx3);font-family:inherit;font-size:14px;letter-spacing:1px;cursor:pointer}.td-btn:active{opacity:.7}.td-btn.on{border-style:solid;border-color:var(--warn-tx);color:var(--warn-tx);background:var(--warn-bg)}
-  .td-bar{display:none;margin-top:14px;padding:16px;background:var(--warn-bg);border:1px solid var(--warn-brd);border-radius:14px}.td-bar.open{display:block;animation:fu .2s ease}
-  .td-h{font-size:14px;color:var(--warn-tx);line-height:1.6;margin-bottom:10px}
-  .td-go{display:block;width:100%;padding:14px;margin-top:10px;background:var(--green);color:var(--bg);border:none;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;letter-spacing:.5px;cursor:pointer;opacity:.4;transition:opacity .15s}.td-go.on{opacity:1}.td-go:active{transform:scale(.97)}
-  .warn{margin-top:12px;padding:12px 14px;background:var(--warn-bg);border:1px solid var(--warn-brd);border-radius:12px;font-size:14px;color:var(--warn-tx);line-height:1.8}.warn b{color:#E0C0FF}
-  .res{text-align:center;padding:40px 22px;position:relative;overflow:hidden;background:var(--card);border:1px solid var(--brd);border-radius:20px}.res-glow{position:absolute;top:-50px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none}.res-e{font-size:52px;margin-bottom:16px;position:relative;z-index:1}.res-n{font-size:28px;font-weight:800;margin-bottom:8px;position:relative;z-index:1}.res-d{font-size:15px;color:var(--tx2);line-height:1.8;position:relative;z-index:1;max-width:380px;margin:0 auto}
-  .res-confirm{margin-top:16px;padding:12px 16px;background:var(--bg);border:1px solid var(--brd);border-radius:12px;font-size:14px;color:var(--tx3);line-height:1.6;position:relative;z-index:1;max-width:360px;margin-left:auto;margin-right:auto}
-  .res-btns{display:flex;gap:12px;margin-top:22px;position:relative;z-index:1}
-  .rare-warn{margin-top:14px;padding:12px 16px;background:var(--rare-bg);border:1px solid var(--rare-brd);border-radius:12px;font-size:14px;color:var(--rare-tx);line-height:1.7;text-align:center}
-  .btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 28px;border-radius:12px;border:1px solid transparent;cursor:pointer;font-size:16px;font-weight:700;font-family:inherit;letter-spacing:.5px;transition:transform .1s,opacity .15s;-webkit-user-select:none;user-select:none}.btn:active{transform:scale(.96);opacity:.85}.btn-ok{background:var(--green);color:var(--bg);flex:2}.btn-back{background:var(--card2);color:var(--tx3);border-color:var(--brd);flex:1}.btn-start{background:var(--tx);color:var(--bg);font-size:16px;padding:20px 48px}.btn-ghost{background:var(--card);color:var(--tx2);border-color:var(--brd)}.btn-full{width:100%;text-align:center}
-  .egrid{display:flex;flex-direction:column;gap:10px;margin-top:16px}.ecard{display:flex;align-items:center;gap:14px;padding:20px;background:var(--card);border:1.5px solid var(--brd);border-radius:14px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none}.ecard:active{transform:scale(.98)}.ebadge{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}.einfo{flex:1}.ename{font-size:15px;font-weight:700;margin-bottom:3px}.edesc{font-size:14px;color:var(--tx3);line-height:1.4}.ehint{font-size:13px;color:var(--tx4);margin-top:3px}
-  .acc-row{display:flex;gap:12px;margin-top:14px}.acc-btn{flex:1;padding:20px 12px;border-radius:14px;border:1.5px solid var(--brd);background:var(--card);cursor:pointer;text-align:center;font-family:inherit;color:var(--tx3);transition:all .15s;-webkit-user-select:none;user-select:none}.acc-btn:active{transform:scale(.97)}.acc-btn.on{border-color:var(--green);background:var(--grn-bg);color:var(--green)}.acc-label{font-size:17px;font-weight:700;margin-bottom:4px}.acc-desc{font-size:14px;line-height:1.5;opacity:.7}
+  /* ENERGY */
+  .egrid{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+  .ecard{display:flex;align-items:center;gap:14px;padding:20px;background:var(--card);border:1.5px solid var(--brd);border-radius:14px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none}
+  .ecard:active{transform:scale(.98)}
+  .ebadge{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0}
+  .einfo{flex:1}
+  .ename{font-size:15px;font-weight:700;margin-bottom:3px}
+  .edesc{font-size:14px;color:var(--tx3);line-height:1.4}
+  .ehint{font-size:13px;color:var(--tx4);margin-top:3px}
+  /* ACCESSORIES */
+  .acc-row{display:flex;gap:12px;margin-top:14px}
+  .acc-btn{flex:1;padding:20px 12px;border-radius:14px;border:1.5px solid var(--brd);background:var(--card);cursor:pointer;text-align:center;font-family:inherit;color:var(--tx3);transition:all .15s;-webkit-user-select:none;user-select:none}
+  .acc-btn:active{transform:scale(.97)}
+  .acc-btn.on{border-color:var(--green);background:var(--grn-bg);color:var(--green)}
+  .acc-label{font-size:17px;font-weight:700;margin-bottom:4px}
+  .acc-desc{font-size:14px;line-height:1.5;opacity:.7}
+  /* FINAL RESULT BOX */
+  .fbox{background:var(--card);border:1px solid var(--brd);border-radius:20px;overflow:hidden}
+  .frow{padding:20px 22px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--brd)}
+  .frow:last-child{border-bottom:none}
+  .fe{font-size:36px;flex-shrink:0;width:48px;text-align:center}
+  .fl{font-size:10px;letter-spacing:2px;color:var(--tx3);margin-bottom:3px}
+  .fv{font-size:20px;font-weight:800}
+  .frx{margin-top:14px;padding:28px;background:var(--card);border:1px solid var(--brd);border-radius:20px;text-align:center}
+  .frx-l{font-size:9px;letter-spacing:3px;color:var(--tx4);margin-bottom:14px}
+  .frx-v{font-size:18px;font-weight:800;letter-spacing:1px;line-height:1.8}
+  .frx-s{color:var(--tx4);margin:0 6px}
+  .frx-e{font-size:14px;margin-top:10px;letter-spacing:4px}
+  /* TRAIL */
+  .tz{margin-top:18px;padding:18px;background:var(--card);border:1px solid var(--brd);border-radius:14px}
+  .tz-h{font-size:12px;letter-spacing:2px;color:var(--tx4);margin-bottom:8px}
+  .tz-r{font-size:13px;color:var(--tx3);margin-bottom:6px;display:flex;gap:8px;align-items:baseline}
+  .tz-i{color:var(--tx4);flex-shrink:0;font-size:11px}
+  .tz-q{flex:1;line-height:1.5}
+  .tz-a{flex-shrink:0;font-weight:600;color:var(--green)}
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 28px;border-radius:12px;border:1px solid transparent;cursor:pointer;font-size:16px;font-weight:700;font-family:inherit;letter-spacing:.5px;transition:transform .1s,opacity .15s;-webkit-user-select:none;user-select:none}
+  .btn:active{transform:scale(.96);opacity:.85}
+  .btn-ok{background:var(--green);color:var(--bg);flex:2}
+  .btn-back{background:var(--card2);color:var(--tx3);border-color:var(--brd);flex:1}
+  .btn-start{background:var(--tx);color:var(--bg);font-size:16px;padding:20px 48px}
+  .btn-ghost{background:var(--card);color:var(--tx2);border-color:var(--brd)}
+  .btn-full{width:100%;text-align:center}
+  /* BACK BUTTON */
+  .back-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px 20px;background:var(--card2);border:1.5px solid var(--brd2);border-radius:14px;color:var(--tx3);font-family:inherit;font-size:16px;font-weight:700;letter-spacing:.5px;cursor:pointer;margin-top:14px;transition:all .15s;-webkit-user-select:none;user-select:none}
+  .back-btn:active{transform:scale(.97);opacity:.85}
+  /* TAG */
   .tag{display:inline-block;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:1px;margin:0 3px}
-  .fbox{background:var(--card);border:1px solid var(--brd);border-radius:20px;overflow:hidden}.frow{padding:20px 22px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--brd)}.frow:last-child{border-bottom:none}.fe{font-size:36px;flex-shrink:0;width:48px;text-align:center}.fl{font-size:10px;letter-spacing:2px;color:var(--tx3);margin-bottom:3px}.fv{font-size:20px;font-weight:800}
-  .frx{margin-top:14px;padding:28px;background:var(--card);border:1px solid var(--brd);border-radius:20px;text-align:center}.frx-l{font-size:9px;letter-spacing:3px;color:var(--tx4);margin-bottom:14px}.frx-v{font-size:18px;font-weight:800;letter-spacing:1px;line-height:1.8}.frx-s{color:var(--tx4);margin:0 6px}.frx-e{font-size:14px;margin-top:10px;letter-spacing:4px}
-  .tz{margin-top:18px;padding:18px;background:var(--card);border:1px solid var(--brd);border-radius:14px}.tz-h{font-size:12px;letter-spacing:2px;color:var(--tx4);margin-bottom:8px}.tz-r{font-size:13px;color:var(--tx3);margin-bottom:6px;display:flex;gap:8px;align-items:baseline}.tz-i{color:var(--tx4);flex-shrink:0;font-size:11px}.tz-q{flex:1;line-height:1.5}.tz-a{flex-shrink:0;font-weight:600;color:var(--green)}
-  .tz-back{margin-top:14px;padding-top:14px;border-top:1px solid var(--brd)}.tz-back-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px 20px;background:var(--card2);border:1.5px solid var(--brd2);border-radius:14px;color:var(--tx3);font-family:inherit;font-size:16px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none}.tz-back-btn:active{transform:scale(.97);opacity:.85;background:var(--brd)}
-  .cht-btn{display:block;width:100%;text-align:center;padding:14px;margin-top:20px;background:none;border:1px dashed var(--brd);border-radius:14px;color:var(--tx3);font-family:inherit;font-size:14px;letter-spacing:1px;cursor:pointer}.cht-btn:active{opacity:.7}.cht{display:none;margin-top:12px;padding:20px;background:var(--card);border:1px solid var(--brd);border-radius:14px}.cht.open{display:block;animation:fu .2s ease}.cs{margin-bottom:16px}.cs:last-child{margin-bottom:0}.cs-t{font-size:12px;letter-spacing:2px;color:var(--tx3);margin-bottom:8px;font-weight:700}.cr{font-size:14px;color:var(--tx2);margin-bottom:7px;line-height:1.5;display:flex;gap:8px}.cr-e{flex-shrink:0;width:22px;text-align:center}.cr-n{font-weight:700;width:78px;flex-shrink:0}.cs-note{font-size:13px;color:var(--tx4);line-height:1.5;margin-top:8px;font-style:italic}
-  .idle{text-align:center;padding-top:40px}.idle-i{font-size:52px;margin-bottom:20px}.idle-t{font-size:16px;color:var(--tx2);line-height:2.1;margin-bottom:32px}
+  /* IDLE */
+  .idle{text-align:center;padding-top:40px}
+  .idle-i{font-size:52px;margin-bottom:20px}
+  .idle-t{font-size:16px;color:var(--tx2);line-height:2.1;margin-bottom:32px}
+  /* CHULETA */
+  .cht-btn{display:block;width:100%;text-align:center;padding:14px;margin-top:20px;background:none;border:1px dashed var(--brd);border-radius:14px;color:var(--tx3);font-family:inherit;font-size:14px;letter-spacing:1px;cursor:pointer}
+  .cht-btn:active{opacity:.7}
+  .cht{display:none;margin-top:12px;padding:20px;background:var(--card);border:1px solid var(--brd);border-radius:14px}
+  .cht.open{display:block;animation:fu .2s ease}
+  .cs{margin-bottom:16px}.cs:last-child{margin-bottom:0}
+  .cs-t{font-size:12px;letter-spacing:2px;color:var(--tx3);margin-bottom:8px;font-weight:700}
+  .cr{font-size:14px;color:var(--tx2);margin-bottom:7px;line-height:1.5;display:flex;gap:8px}
+  .cr-e{flex-shrink:0;width:22px;text-align:center}
+  .cr-n{font-weight:700;width:78px;flex-shrink:0}
+  /* RARE */
+  .rare-warn{margin-top:14px;padding:12px 16px;background:var(--rare-bg);border:1px solid var(--rare-brd);border-radius:12px;font-size:14px;color:var(--rare-tx);line-height:1.7;text-align:center}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="hdr"><div class="hdr-s">La Tesis del Cirujano</div><div class="hdr-t">DIAGNÓSTICO</div></div>
+  <div class="hdr">
+    <div class="hdr-s">La Tesis del Cirujano</div>
+    <div class="hdr-t">DIAGNÓSTICO</div>
+  </div>
   <div class="stp">
-    <div class="sg" id="sg1" onclick="navStep(1)"><div class="sd" id="s1">1</div><div class="slb" id="l1">CUERPO</div></div><div class="sl" id="ln1"></div>
-    <div class="sg" id="sg2" onclick="navStep(2)"><div class="sd" id="s2">2</div><div class="slb" id="l2">TEXTURA</div></div><div class="sl" id="ln2"></div>
-    <div class="sg" id="sg3" onclick="navStep(3)"><div class="sd" id="s3">3</div><div class="slb" id="l3">ENERGÍA</div></div>
+    <div class="sg disabled" id="sg1" onclick="navStep(1)"><div class="sd" id="s1">1</div><div class="slb" id="l1">CUERPO</div></div>
+    <div class="sl" id="ln1"></div>
+    <div class="sg disabled" id="sg2" onclick="navStep(2)"><div class="sd" id="s2">2</div><div class="slb" id="l2">TEXTURA</div></div>
+    <div class="sl" id="ln2"></div>
+    <div class="sg disabled" id="sg3" onclick="navStep(3)"><div class="sd" id="s3">3</div><div class="slb" id="l3">ENERGÍA</div></div>
   </div>
   <div id="idle" class="scr on">
     <div class="idle">
@@ -80,19 +170,18 @@
       <button class="cht-btn" onclick="document.getElementById('cht').classList.toggle('open')">CHULETA RÁPIDA ▾</button>
       <div class="cht" id="cht">
         <div class="cs"><div class="cs-t">CUERPOS</div>
-          <div class="cr"><span class="cr-e">🫀</span><span class="cr-n" style="color:var(--corazon)">Corazón</span>Cuento: te lleva de A a B</div>
-          <div class="cr"><span class="cr-e">🦴</span><span class="cr-n" style="color:var(--cadera)">Cadera</span>Groove puro: mueve el culo</div>
-          <div class="cr"><span class="cr-e">🧠</span><span class="cr-n" style="color:var(--cerebro)">Cerebro</span>Trampa: el track te ha atrapado</div>
+          <div class="cr"><span class="cr-e">🫀</span><span class="cr-n" style="color:var(--corazon)">Corazón</span>Te lleva a algún sitio</div>
+          <div class="cr"><span class="cr-e">🦴</span><span class="cr-n" style="color:var(--cadera)">Cadera</span>Te conecta con la sala</div>
+          <div class="cr"><span class="cr-e">🧠</span><span class="cr-n" style="color:var(--cerebro)">Cerebro</span>Te lleva a tu propia cabeza</div>
         </div>
-        <div class="cs"><div class="cs-t">TEXTURAS (BASE)</div>
-          <div class="cr"><span class="cr-e">☀️</span><span class="cr-n" style="color:var(--luz)">Luz</span>Alegría, apertura, inocencia</div>
-          <div class="cr"><span class="cr-e">🔥</span><span class="cr-n" style="color:var(--fuego)">Fuego</span>Contacto, roce, chulería galante</div>
-          <div class="cr"><span class="cr-e">🌫️</span><span class="cr-n" style="color:var(--niebla)">Niebla</span>Espacio, burbuja, misterio</div>
+        <div class="cs"><div class="cs-t">TEXTURAS</div>
+          <div class="cr"><span class="cr-e">☀️</span><span class="cr-n" style="color:var(--luz)">Luz</span>Alegría, sol, inocencia</div>
+          <div class="cr"><span class="cr-e">🔥</span><span class="cr-n" style="color:var(--fuego)">Fuego</span>Contacto, roce, chulería</div>
+          <div class="cr"><span class="cr-e">🌫️</span><span class="cr-n" style="color:var(--niebla)">Niebla</span>Flotar, misterio, paz</div>
           <div class="cr"><span class="cr-e">🌧️</span><span class="cr-n" style="color:var(--lluvia)">Lluvia</span>Melancolía, lágrima bonita</div>
           <div class="cr"><span class="cr-e">🐍</span><span class="cr-n" style="color:var(--veneno)">Veneno</span>Thriller, te persiguen</div>
-          <div class="cr"><span class="cr-e">⚙️</span><span class="cr-n" style="color:var(--hierro)">Hierro</span>Marcial, puño, armadura</div>
+          <div class="cr"><span class="cr-e">⚙️</span><span class="cr-n" style="color:var(--hierro)">Hierro</span>Puño, marcial, armadura</div>
           <div class="cr"><span class="cr-e">🛢️</span><span class="cr-n" style="color:var(--barro)">Barro</span>Caos, mugre, sin orden</div>
-          <div class="cs-note">Las texturas se adaptan al cuerpo elegido en el paso 2.</div>
         </div>
       </div>
     </div>
@@ -100,265 +189,617 @@
   <div id="main" class="scr"></div>
 </div>
 <script>
-const CONFIRM={
-  corazon:"✓ Si adelantas 3 min, ¿te has perdido algo importante?",
-  cadera:"✓ Sin melodía ni atmósfera, ¿el groove sigue funcionando?",
-  cerebro:"✓ ¿El track manda y tú estás atrapado en su bucle?",
-  luz:"✓ ¿Alegría, apertura, cero sombra?",
-  fuego:"✓ ¿Contacto, roce, chulería galante?",
-  niebla:"✓ ¿Ojos cerrados, espacio amplio, misterio?",
-  lluvia:"✓ ¿Lágrima bonita, melancolía con dignidad?",
-  veneno:"✓ ¿Algo te persigue o te observa?",
-  hierro:"✓ ¿Puño, pecho hinchado, marcial?",
-  barro:"✓ ¿Caos, mugre, desorden que incomoda?"
+// ─── DATOS ─────────────────────────────────────────────────────────────────
+
+const BODIES={
+  corazon:{id:"corazon",emoji:"🫀",name:"CORAZÓN",cl:"var(--corazon)",hx:"#E05555",
+    desc:"Cuento. Historia con capítulos. Evolución, arco, narrativa.",
+    check:"Si adelantas 3 minutos, ¿te has perdido algo que no vuelve?"},
+  cadera:{id:"cadera",emoji:"🦴",name:"CADERA",cl:"var(--cadera)",hx:"#E8922E",
+    desc:"Groove. La sala. Energía compartida. El cuerpo manda.",
+    check:"¿Eres consciente del espacio y la gente que te rodea mientras suena?"},
+  cerebro:{id:"cerebro",emoji:"🧠",name:"CEREBRO",cl:"var(--cerebro)",hx:"#3B82F6",
+    desc:"Trampa. Te desapareces hacia dentro. El loop te ha borrado.",
+    check:"Si adelantas 3 min, ¿sigues en el mismo estado — solo más adentro?"}
 };
 
-// ─── TEXTURAS BASE (sin contexto de cuerpo) ───────────────────────────────
-const TEX_BASE=[
-  {id:"luz",emoji:"☀️",name:"LUZ",cl:"var(--luz)",hx:"#FBBF24",rdesc:"Alegría. Apertura. Inocencia. Dopamina limpia."},
-  {id:"fuego",emoji:"🔥",name:"FUEGO",cl:"var(--fuego)",hx:"#EF6830",rdesc:"Contacto. Roce. Chulería galante. Calor humano."},
-  {id:"niebla",emoji:"🌫️",name:"NIEBLA",cl:"var(--niebla)",hx:"#7CA5C4",rdesc:"Espacio. Amplitud. Misterio. Ojos cerrados."},
-  {id:"lluvia",emoji:"🌧️",name:"LLUVIA",cl:"var(--lluvia)",hx:"#7B8B9D",rdesc:"Melancolía. Lágrima bonita. Peso con dignidad."},
-  {id:"veneno",emoji:"🐍",name:"VENENO",cl:"var(--veneno)",hx:"#A855F7",rdesc:"Thriller. Te persiguen. Aguantas la respiración."},
-  {id:"hierro",emoji:"⚙️",name:"HIERRO",cl:"var(--hierro)",hx:"#94A3B8",rdesc:"Puño. Armadura. Marcha marcial. Empoderamiento."},
-  {id:"barro",emoji:"🛢️",name:"BARRO",cl:"var(--barro)",hx:"#B0805A",rdesc:"Caos. Mugre. Sin orden. Incomoda sin herir."}
-];
-
-// ─── TEXTURAS ADAPTADAS AL CUERPO ──────────────────────────────────────────
-// Cada combinación tiene: gesture, desc, ex (ejemplos), rarity (null|star|rare|imposs), rdesc (descripción en resultado)
-const TEX_CTX={
+// Texturas adaptadas por cuerpo
+const TEX={
   corazon:{
-    luz:{gesture:"Una historia luminosa se despliega",desc:"Cuento de alegría que crece. Arco narrativo hacia el sol. Construcción emocional luminosa con capítulos.",ex:"<b>Ej:</b> Uplifting trance · chillwave narrativo · Outrun feliz · future bass con arco",rarity:null,rdesc:"Cuento luminoso. Historia de alegría con capítulos. Arco emocional hacia el sol."},
-    fuego:{gesture:"Un romance que se desarrolla",desc:"Seducción con arco. Chulería galante con historia. Roce cinematográfico con capítulos.",ex:"<b>Ej:</b> Solomun breakdowns · Cattaneo sensual · progressive trance épico · French house narrativo",rarity:null,rdesc:"Cuento sexy. Seducción cinematográfica con arco narrativo."},
-    niebla:{gesture:"Un viaje introspectivo por capítulos",desc:"El refugio que te cuenta algo. Burbuja narrativa. Espacio con historia que evoluciona. Tu casilla del progressive house.",ex:"<b>Ej:</b> Cattaneo progressive · Solomun deep · Recondite · synthwave · vaporwave · future garage narrativo",rarity:"star",rdesc:"Viaje introspectivo con capítulos. Tu burbuja te cuenta algo que evoluciona."},
-    lluvia:{gesture:"Una lágrima cinematográfica",desc:"La historia triste bonita. Película melancólica con arco dramático. Melancolía con capítulos.",ex:"<b>Ej:</b> Burial · Portishead · Garnier 'A Bout De Souffle' · downtempo melancólico narrativo · trip hop",rarity:null,rdesc:"Cuento melancólico. Película triste con arco dramático."},
-    veneno:{gesture:"Un thriller cinematográfico",desc:"Suspense narrativo. Bosque de noche con capítulos. El villano elegante con arco dramático.",ex:"<b>Ej:</b> Tale of Us · Afterlife · Anyma · Agents of Time · ARTBAT · melodic techno oscuro con breakdowns",rarity:null,rdesc:"Thriller cinematográfico. Suspense con capítulos y villano elegante."},
-    hierro:{gesture:"Un himno épico marcial",desc:"Historia de heroísmo. Banda sonora de guerrero. Épica marcial con arco narrativo.",ex:"<b>Ej:</b> Uplifting trance épico mainstream · anthems big room narrativos · himnos de batalla",rarity:"rare",rdesc:"Himno marcial con arco. Épica de guerrero con capítulos."},
-    barro:{gesture:"Una historia decadente",desc:"Cuento sucio, narrativa rota. Casi inexistente en electrónica pura.",ex:"<b>Ej:</b> Hyperpop experimental narrativo · leftfield sucio con estructura · Arca narrativo",rarity:"rare",rdesc:"Cuento decadente. Narrativa sucia con capítulos rotos."}
+    luz:{id:"luz",emoji:"☀️",name:"LUZ",cl:"var(--luz)",hx:"#FBBF24",
+      gesture:"Una historia luminosa",desc:"Cuento de alegría que crece hacia el sol.",
+      ex:"<b>Ej:</b> Uplifting trance · chillwave · outrun feliz · future bass luminoso",
+      check:"¿La historia es de alegría pura, cero sombra?",rarity:null},
+    fuego:{id:"fuego",emoji:"🔥",name:"FUEGO",cl:"var(--fuego)",hx:"#EF6830",
+      gesture:"Un romance que se desarrolla",desc:"Seducción con arco. Chulería galante con historia.",
+      ex:"<b>Ej:</b> Solomun breakdowns · Cattaneo sensual · progressive trance épico",
+      check:"¿Hay seducción, roce cinematográfico con capítulos?",rarity:null},
+    niebla:{id:"niebla",emoji:"🌫️",name:"NIEBLA",cl:"var(--niebla)",hx:"#7CA5C4",
+      gesture:"Un viaje introspectivo",desc:"Burbuja narrativa. Espacio con historia que evoluciona.",
+      ex:"<b>Ej:</b> Cattaneo progressive · Solomun deep · synthwave · vaporwave",
+      check:"¿El viaje te lleva hacia dentro con capítulos distintos?",rarity:"star"},
+    lluvia:{id:"lluvia",emoji:"🌧️",name:"LLUVIA",cl:"var(--lluvia)",hx:"#7B8B9D",
+      gesture:"Una película melancólica",desc:"Cuento triste bonito con arco dramático.",
+      ex:"<b>Ej:</b> Burial · Portishead · Garnier 'A Bout De Souffle' · trip hop",
+      check:"¿Algo aprieta el pecho mientras avanza la historia?",rarity:null},
+    veneno:{id:"veneno",emoji:"🐍",name:"VENENO",cl:"var(--veneno)",hx:"#A855F7",
+      gesture:"Un thriller cinematográfico",desc:"Suspense narrativo con arco. Villano elegante.",
+      ex:"<b>Ej:</b> Tale of Us · Afterlife · Anyma · ARTBAT · melodic techno oscuro",
+      check:"¿Aguantas la respiración mientras el cuento avanza?",rarity:null},
+    hierro:{id:"hierro",emoji:"⚙️",name:"HIERRO",cl:"var(--hierro)",hx:"#94A3B8",
+      gesture:"Un himno épico marcial",desc:"Historia de heroísmo. Banda sonora de guerrero.",
+      ex:"<b>Ej:</b> Uplifting trance épico · anthems narrativos marciales",
+      check:"¿La historia te hace sentir poderoso, como un guerrero?",rarity:"rare"},
+    barro:{id:"barro",emoji:"🛢️",name:"BARRO",cl:"var(--barro)",hx:"#B0805A",
+      gesture:"Una historia decadente",desc:"Cuento sucio, narrativa rota.",
+      ex:"<b>Ej:</b> Hyperpop experimental narrativo · Arca narrativo",
+      check:"¿La incomodidad avanza con capítulos distintos?",rarity:"rare"}
   },
   cadera:{
-    luz:{gesture:"Bailar con los brazos al sol",desc:"El groove feliz puro. Rebote alegre sin sombra. Cero oscuridad, puro baile. Casilla densa.",ex:"<b>Ej:</b> Chicago house · disco house · French house alegre · nu-disco · funky · future funk · balearic · happy hardcore",rarity:"star",rdesc:"Groove feliz puro. Rebote al sol. Cero oscuridad."},
-    fuego:{gesture:"Bailar acercándote a otro cuerpo",desc:"EL groove sexy por excelencia. Club 3AM. Roce constante. Chulería galante que baila. La casilla más poblada del sistema.",ex:"<b>Ej:</b> Carola 'Music On' · tech-house · tribal · Afro house · garage US · soulful · jackin' · Latin · Jersey club · Baltimore · ballroom · big beat",rarity:"star",rdesc:"Groove sexy. Club 3AM. Roce, sudor, chulería galante bailando."},
-    niebla:{gesture:"Bailar flotando con ojos cerrados",desc:"Groove introspectivo. Rebote en tu burbuja. Tu cuerpo responde pero tu mente viaja. El territorio rumano.",ex:"<b>Ej:</b> Rhadoo · Raresh · Petre Inspirescu · Sit · deep house profundo · minimal house atmosférico",rarity:null,rdesc:"Groove introspectivo. Bailas en tu burbuja con los ojos cerrados."},
-    lluvia:{gesture:"Bailar con peso en el pecho",desc:"Groove melancólico. Bailas con una lágrima. Tristeza que aún te mueve. Poco común pero existe.",ex:"<b>Ej:</b> Moodymann melancólico · Theo Parrish triste · deep house con acordes menores",rarity:"rare",rdesc:"Groove melancólico. Bailas con una lágrima bonita."},
-    veneno:{gesture:"Bailar mirando atrás",desc:"Groove con amenaza. Algo te observa mientras te mueves. Muy raro — existe en drill y dark tech-house.",ex:"<b>Ej:</b> Drill electrónico · dark tech-house con thriller · Afro tech oscuro",rarity:"rare",rdesc:"Groove con amenaza. Bailas sabiendo que algo te observa."},
-    hierro:{gesture:"Bailar pisando fuerte",desc:"Groove marcial. Pecho hinchado. Empoderamiento bailable. Armadura que se mueve con fuerza.",ex:"<b>Ej:</b> Bass house · future house · UK bass · jump up DnB · hardgroove marcial (Ben Sims) · electro-house · nu-skool breaks",rarity:"star",rdesc:"Groove marcial. Pecho hinchado. Pisas fuerte mientras bailas."},
-    barro:{gesture:"Bailar revolcándote en el caos",desc:"Groove sucio. Rebote roto. Suciedad que te mueve. Acid house, electroclash, footwork.",ex:"<b>Ej:</b> Acid house sucio · footwork · juke · grime · gabber bailable · electroclash · Peaches",rarity:null,rdesc:"Groove sucio. Rebote caótico, suciedad que te mueve."}
+    luz:{id:"luz",emoji:"☀️",name:"LUZ",cl:"var(--luz)",hx:"#FBBF24",
+      gesture:"Bailar con los brazos al sol",desc:"Groove feliz puro. Rebote alegre sin sombra.",
+      ex:"<b>Ej:</b> Chicago house · disco · funky · nu-disco · balearic · future funk",
+      check:"¿Cero oscuridad, cero malicia, solo groove alegre?",rarity:"star"},
+    fuego:{id:"fuego",emoji:"🔥",name:"FUEGO",cl:"var(--fuego)",hx:"#EF6830",
+      gesture:"Bailar acercándote a otro cuerpo",desc:"Club 3AM. Groove sexy. Roce y sudor.",
+      ex:"<b>Ej:</b> Tech-house · Afro house · tribal · garage · soulful · Latin · Carola 'Music On'",
+      check:"¿Quieres acercarte a otro cuerpo, hay roce y vacile?",rarity:"star"},
+    niebla:{id:"niebla",emoji:"🌫️",name:"NIEBLA",cl:"var(--niebla)",hx:"#7CA5C4",
+      gesture:"Bailar flotando con ojos cerrados",desc:"Groove introspectivo. Rebote en tu burbuja.",
+      ex:"<b>Ej:</b> Rhadoo · Raresh · ro-minimal · deep house profundo · Losoul",
+      check:"¿Bailas pero en tu propio mundo, ojos cerrados?",rarity:null},
+    lluvia:{id:"lluvia",emoji:"🌧️",name:"LLUVIA",cl:"var(--lluvia)",hx:"#7B8B9D",
+      gesture:"Bailar con peso en el pecho",desc:"Groove melancólico. Bailas con una lágrima.",
+      ex:"<b>Ej:</b> Moodymann melancólico · Theo Parrish triste · deep house acordes menores",
+      check:"¿Algo pesa en el pecho aunque el groove te mueva?",rarity:"rare"},
+    veneno:{id:"veneno",emoji:"🐍",name:"VENENO",cl:"var(--veneno)",hx:"#A855F7",
+      gesture:"Bailar mirando atrás",desc:"Groove con amenaza. Algo te observa mientras te mueves.",
+      ex:"<b>Ej:</b> Drill electrónico · dark tech-house amenazante · Afro tech oscuro",
+      check:"¿Sientes amenaza o thriller aunque el groove mande?",rarity:"rare"},
+    hierro:{id:"hierro",emoji:"⚙️",name:"HIERRO",cl:"var(--hierro)",hx:"#94A3B8",
+      gesture:"Bailar pisando fuerte",desc:"Groove marcial. Pisotón. Chulería oscura. Anticipación tensa — no miedo, sino el guerrero que sabe que algo gordo va a pasar.",
+      ex:"<b>Ej:</b> Bass house · UK bass · hardgroove (Ben Sims) · tech-house oscuro con actitud · Avision",
+      check:"¿Pisas fuerte, pecho compacto, sientes que algo gordo está a punto de pasar?",rarity:"star"},
+    barro:{id:"barro",emoji:"🛢️",name:"BARRO",cl:"var(--barro)",hx:"#B0805A",
+      gesture:"Bailar revolcándote en el caos",desc:"Groove sucio. Rebote roto.",
+      ex:"<b>Ej:</b> Acid house · footwork · grime · gabber bailable · electroclash",
+      check:"¿El groove es caótico, sucio, sin elegancia?",rarity:null}
   },
   cerebro:{
-    luz:{gesture:"— bloqueado —",desc:"Una trampa NO puede ser pura alegría. Si es hipnótico y te atrapa, la luz se vuelve niebla o algo inquietante. Si realmente es luminoso, probablemente no sea CEREBRO sino CORAZÓN o CADERA.",ex:"Casilla conceptualmente vacía. Revisa el cuerpo.",rarity:"imposs",rdesc:"Casilla imposible. Revisa la clasificación."},
-    fuego:{gesture:"— bloqueado —",desc:"Un loop hipnótico sin capítulos NO tiene contacto social sexual. Si hay roce y chulería galante, hay cuerpo bailable, no trampa. Probablemente sea CADERA+FUEGO.",ex:"Casilla conceptualmente vacía. Revisa el cuerpo.",rarity:"imposs",rdesc:"Casilla imposible. Revisa la clasificación."},
-    niebla:{gesture:"Disolverte flotando en un loop",desc:"La hipnosis atmosférica. Burbuja que te atrapa. Te disuelves en el espacio hipnótico. Casilla reina del dub techno.",ex:"<b>Ej:</b> Dub techno (Basic Channel · Deepchord) · Detroit (Jeff Mills) · minimal techno · Donato Dozzy · Drexciya · deep dubstep · leftfield",rarity:"star",rdesc:"Hipnosis atmosférica. Te disuelves flotando en un loop misterioso."},
-    lluvia:{gesture:"Loop que te hace llorar sin escape",desc:"Hipnosis melancólica. Atrapado en un bucle que destila tristeza bonita. No puedes escapar y la lágrima cae sola. Raro pero existe.",ex:"<b>Ej:</b> Dub techno muy profundo melancólico · drone triste · Deepchord especialmente emocional",rarity:"rare",rdesc:"Hipnosis melancólica. Atrapado en un loop que destila lágrimas."},
-    veneno:{gesture:"Loop donde algo te acecha",desc:"Hipnosis amenazante. El depredador paciente. Bosque de noche en bucle. Te persigue con calma y elegancia.",ex:"<b>Ej:</b> Berlin techno oscuro (Ben Klock · Dettmann) · industrial amenazante (Blawan) · psytrance full on · goa · neurofunk · dark DnB · Chymera 'Tidal'",rarity:"star",rdesc:"Hipnosis amenazante. Atrapado mientras algo te acecha con paciencia."},
-    hierro:{gesture:"Atrapado en una marcha marcial",desc:"Trampa marcial. Apisonadora hipnótica. Puño en loop que no para. Tu cuerpo como bloque avanzando sin escape.",ex:"<b>Ej:</b> Hard techno (Amelie Lens · Varela · Courtesy) · peak time · Berlin marcial · Hardstyle mental · EBM · raver core · dubstep dropero",rarity:"star",rdesc:"Trampa marcial. Apisonadora hipnótica que no para."},
-    barro:{gesture:"Atrapado en el caos",desc:"Hipnosis sucia. Revolcándote en la mugre sin escape. Ruido en loop. Glitch, industrial roto, noise hipnótico.",ex:"<b>Ej:</b> Acid techno sucio (Charlotte) · raw · broken · industrial (Perc · Regis) · glitch (Alva Noto) · noise · frenchcore · speedcore · bleep · deconstructed club · Hawtin 'Spastik'",rarity:"star",rdesc:"Hipnosis sucia. Atrapado en el caos, mugre que no te suelta."}
+    luz:{id:"luz",emoji:"☀️",name:"LUZ",cl:"var(--luz)",hx:"#FBBF24",
+      gesture:"— imposible —",desc:"Una trampa no puede ser pura alegría. Revisa el cuerpo.",
+      ex:"Casilla imposible.",check:null,rarity:"imposs"},
+    fuego:{id:"fuego",emoji:"🔥",name:"FUEGO",cl:"var(--fuego)",hx:"#EF6830",
+      gesture:"— imposible —",desc:"Un loop hipnótico no tiene contacto social. Revisa el cuerpo.",
+      ex:"Casilla imposible.",check:null,rarity:"imposs"},
+    niebla:{id:"niebla",emoji:"🌫️",name:"NIEBLA",cl:"var(--niebla)",hx:"#7CA5C4",
+      gesture:"Disolverte flotando en un loop",desc:"Hipnosis atmosférica. Te disuelves en el espacio.",
+      ex:"<b>Ej:</b> Dub techno (Basic Channel · Deepchord) · Detroit · minimal · Donato Dozzy · Drexciya",
+      check:"¿Flotas hipnotizado, sin amenaza, solo espacio?",rarity:"star"},
+    lluvia:{id:"lluvia",emoji:"🌧️",name:"LLUVIA",cl:"var(--lluvia)",hx:"#7B8B9D",
+      gesture:"Loop que te hace llorar sin escape",desc:"Hipnosis melancólica. Atrapado en un bucle triste.",
+      ex:"<b>Ej:</b> Dub techno muy profundo melancólico · drone triste",
+      check:"¿Algo duele dentro mientras el loop te atrapa?",rarity:"rare"},
+    veneno:{id:"veneno",emoji:"🐍",name:"VENENO",cl:"var(--veneno)",hx:"#A855F7",
+      gesture:"Loop donde algo te acecha",desc:"Hipnosis amenazante. El depredador paciente en bucle.",
+      ex:"<b>Ej:</b> Berlin techno (Ben Klock · Dettmann) · Pig & Dan · psytrance full on · Chymera 'Tidal'",
+      check:"¿Algo te acecha o persigue mientras el loop te atrapa?",rarity:"star"},
+    hierro:{id:"hierro",emoji:"⚙️",name:"HIERRO",cl:"var(--hierro)",hx:"#94A3B8",
+      gesture:"Atrapado en una marcha marcial",desc:"Trampa marcial. Apisonadora hipnótica que no para.",
+      ex:"<b>Ej:</b> Hard techno (Amelie Lens · Varela) · peak time · EBM · Matador 'Kingswing'",
+      check:"¿Te sientes poderoso y compacto aunque el loop mande?",rarity:"star"},
+    barro:{id:"barro",emoji:"🛢️",name:"BARRO",cl:"var(--barro)",hx:"#B0805A",
+      gesture:"Atrapado en el caos",desc:"Hipnosis sucia. Caos en loop que no te suelta.",
+      ex:"<b>Ej:</b> Acid techno sucio · raw · industrial (Perc) · glitch · noise · Hawtin 'Spastik'",
+      check:"¿Es caótico y sucio, y aun así no puedes escapar?",rarity:"star"}
   }
 };
 
-// Preguntas de desempate entre pares (se ajustan al cuerpo si hay contexto)
-function tiebreak(a,b,bodyId){
-  const p=[a,b].sort().join('-');
-  const T={
-    'fuego-luz':"¿Hay roce, sudor, chulería galante? → FUEGO. ¿Alegría limpia sin sombra? → LUZ.",
-    'luz-niebla':"¿Es sol directo, alegría abierta? → LUZ. ¿Es espacio amplio, ojos cerrados, misterio? → NIEBLA.",
-    'lluvia-niebla':"¿Algo aprieta el pecho, lágrima bonita? → LLUVIA. ¿Flotas sin que duela nada? → NIEBLA.",
-    'niebla-veneno':"¿Hay amenaza, algo te observa? → VENENO. ¿Solo amplitud, sin peligro? → NIEBLA.",
-    'fuego-hierro':"¿Contacto con otro cuerpo, chulería galante? → FUEGO. ¿Tu cuerpo solo, compacto, marcial? → HIERRO.",
-    'barro-veneno':"¿Hay alguien detrás con intención? → VENENO. ¿Caos sin sujeto, solo mugre? → BARRO.",
-    'hierro-veneno':"¿Te empoderas, pisas fuerte? → HIERRO. ¿Te tensas, te alertas, miras atrás? → VENENO.",
-    'barro-hierro':"¿Caos, roto, mugre? → BARRO. ¿Compacto, marcial, armadura? → HIERRO.",
-    'lluvia-veneno':"¿Duele desde dentro, lágrima? → LLUVIA. ¿Amenaza desde fuera, te persiguen? → VENENO.",
-    'hierro-lluvia':"¿Puño, armadura, empoderamiento? → HIERRO. ¿Lágrima, te abres con peso? → LLUVIA.",
-    'fuego-veneno':"¿Es seducción, sudor, contacto? → FUEGO. ¿Es amenaza, te observan? → VENENO.",
-    'barro-fuego':"¿Contacto galante, roce? → FUEGO. ¿Caótico, sucio, sin elegancia? → BARRO.",
-    'fuego-niebla':"¿Contacto con alguien, sudor? → FUEGO. ¿Solo espacio, ojos cerrados? → NIEBLA.",
-    'lluvia-luz':"¿Lágrima, peso melancólico? → LLUVIA. ¿Sol, alegría, cero peso? → LUZ.",
-    'hierro-luz':"¿Puño, marcial, armadura? → HIERRO. ¿Apertura limpia, alegría? → LUZ.",
-    'barro-lluvia':"¿Lágrima bonita, dolor limpio? → LLUVIA. ¿Sucio, caótico, mugre? → BARRO.",
-    'hierro-niebla':"¿Puño, marcial, te compactas? → HIERRO. ¿Amplitud, flotas, misterio? → NIEBLA.",
-    'barro-niebla':"¿Caos, ruido? → BARRO. ¿Amplitud limpia, misterio? → NIEBLA.",
-    'luz-veneno':"¿Alegría, sol? → LUZ. ¿Thriller, te observan? → VENENO.",
-    'barro-luz':"¿Alegría limpia? → LUZ. ¿Sucio, caótico? → BARRO."
-  };
-  return T[p]||"Elige la que más cuadre con tu cuerpo.";
-}
-
-// ─── ÁRBOL DE CUERPO ───────────────────────────────────────────────────────
-const BT={
-  q:"¿Te mueve el culo?",
-  d:"Instinto puro. ¿Hay groove que te hace mover el cuerpo?",
-  h:"🔪 ¿Tus rodillas, caderas u hombros se mueven solos?",
-  A:{label:"SÍ, ME MUEVE",icon:"🦴",desc:"Hay groove. Algo se mueve: rodillas, caderas, hombros.",ex:"<b>Ej:</b> Carola · Tenaglia · Stussy · Amelie Lens · Garnier sax",
-    next:{q:"¿El GROOVE es la estrella\no hay algo MÁS FUERTE?",d:"¿El groove define el track? ¿O hay algo por encima: un cuento, una trampa?",h:"🔪 Quita mentalmente la melodía y la atmósfera. Deja solo bombo, bajo y percusión. ¿El track sigue siendo un misil? → Groove manda. ¿Has perdido lo importante? → Hay algo más.",
-      A:{label:"EL GROOVE MANDA",icon:"💥",desc:"El groove define el track. Sin melodía seguiría funcionando.",ex:"<b>Ej:</b> Carola minimal · Rhadoo · Tenaglia · Stussy · Chandler · hardgroove",
-        result:{id:"cadera",emoji:"🦴",name:"CADERA",cl:"var(--cadera)",hx:"#E8922E",desc:"Groove puro. El culo manda. Rebote, fricción, instinto."}
-      },
-      B:{label:"HAY ALGO MÁS FUERTE",icon:"⬆️",desc:"El groove está pero NO define el track. Hay algo por encima.",ex:"<b>Ej:</b> Garnier 'Red Face' (cuento) · Chymera 'Tidal' (trampa) · Cattaneo",
-        next:{q:"Eso más fuerte...\n¿es un CUENTO o una TRAMPA?",d:"¿Te cuenta una historia con momentos distintos? ¿O el loop te ha atrapado en su presión constante?",h:"🔪 DOS pruebas:\n① Adelanta 3 min. ¿Te cabreas porque perdiste un capítulo? → Cuento. ¿Sigue igual? → Trampa.\n② ¿Hay momentos distintos (paradas, cambios, breakdowns)? → Cuento. ¿Es presión que crece sin pausas? → Trampa.",
-          w:"<b>⚠️ FRONTERA DELICADA:</b> Un slow burn que sube sin pausas = TRAMPA, aunque evolucione. El cuento tiene capítulos (paradas, cambios claros).",
-          A:{label:"CUENTO",icon:"🫀",desc:"Historia con momentos distintos. Intro, subida, clímax.",ex:"<b>Ej:</b> Garnier 'Red Face' · Cattaneo · Solomun breakdowns · Tale of Us",result:{id:"corazon",emoji:"🫀",name:"CORAZÓN",cl:"var(--corazon)",hx:"#E05555",desc:"Cuento. Historia con capítulos. Evolución, arco, narrativa."}},
-          B:{label:"TRAMPA",icon:"🧠",desc:"El loop te ha atrapado. Presión constante, sin capítulos.",ex:"<b>Ej:</b> Chymera 'Tidal' · slow burns · dub techno profundo · loops tensos",result:{id:"cerebro",emoji:"🧠",name:"CEREBRO",cl:"var(--cerebro)",hx:"#3B82F6",desc:"Trampa. El loop te ha atrapado. Presión, hipnosis, secuestro."}}}}}},
-  B:{label:"NO ME MUEVE",icon:"🧠",desc:"No hay groove. Es interno: mental, emocional, atmosférico.",ex:"<b>Ej:</b> Cattaneo breakdowns · ambient · Jeff Mills · Maceo Plex frío",
-    next:{q:"Sin groove...\n¿hay CUENTO?",d:"¿Hay historia con evolución, momentos distintos, un arco emocional?",h:"🔪 Adelanta 3 min. ¿Te has perdido algo? → Cuento. ¿Da igual? → Trampa/Atmósfera.",
-      A:{label:"SÍ, HAY CUENTO",icon:"🫀",desc:"Viaje emocional sin groove. Capítulos, evolución.",ex:"<b>Ej:</b> Cattaneo progressive · breakdowns · Recondite ambient",result:{id:"corazon",emoji:"🫀",name:"CORAZÓN",cl:"var(--corazon)",hx:"#E05555",desc:"Cuento sin groove. Viaje emocional puro."}},
-      B:{label:"NO HAY CUENTO",icon:"🧠",desc:"Ni groove ni cuento. El loop/atmósfera te atrapa.",ex:"<b>Ej:</b> Jeff Mills loops · Maceo Plex · Mulero · drones hipnóticos",result:{id:"cerebro",emoji:"🧠",name:"CEREBRO",cl:"var(--cerebro)",hx:"#3B82F6",desc:"Trampa pura. La atmósfera te ha borrado."}}}
-}};
+const RARE_PAIRS=new Set(['cerebro-luz','cerebro-fuego','cadera-lluvia','cadera-veneno','corazon-hierro','corazon-barro','cerebro-lluvia']);
 
 const EN=[
-  {id:"E0",name:"UMBRAL",cl:"var(--e0)",hx:"#9090A2",desc:"Intros, ambientes.",hint:"Lienzo en blanco."},
   {id:"E1",name:"WARM UP",cl:"var(--e1)",hx:"#7CA5C4",desc:"Calentando.",hint:"Fuego lento."},
   {id:"E2",name:"MAINTIME",cl:"var(--e2)",hx:"#34D399",desc:"Crucero. Sala llena.",hint:"Corazón de la sesión."},
-  {id:"E3",name:"PEAK TIME",cl:"var(--e3)",hx:"#EF6830",desc:"Máxima intensidad.",hint:"Todo lo que tienes."},
-  {id:"E4",name:"CIERRE",cl:"var(--e4)",hx:"#A855F7",desc:"Despedida.",hint:"Soltar el gas."}
+  {id:"E3",name:"PEAK TIME",cl:"var(--e3)",hx:"#EF6830",desc:"Máxima intensidad.",hint:"Todo lo que tienes."}
 ];
 
-let body=null,tex=null,ener=null,trail=[],hasBreak=false,hasVocal=false;
-let bPath=[],bNode=null,tdSel=[];
+// ─── STATE ─────────────────────────────────────────────────────────────────
+let body=null,tex=null,ener=null,hasBreak=false,hasVocal=false,trail=[];
+let trailBodyLen=0,trailTexLen=0;
+// Wrappers sin comillas para usar en onclick
+function pLuz(){pickTex('luz')}
+function pFuego(){pickTex('fuego')}
+function pNiebla(){pickTex('niebla')}
+function pLluvia(){pickTex('lluvia')}
+function pVeneno(){pickTex('veneno')}
+function pHierro(){pickTex('hierro')}
+function pBarro(){pickTex('barro')}
+let bStep=0; // 0=p1, 1=p2, 2=check_result
 
-function sw(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');window.scrollTo({top:0,behavior:'smooth'})}
-function us(p){
-  const ids=[['s1','l1'],['s2','l2'],['s3','l3']],lns=['ln1','ln2'];
-  ids.forEach(([d,l])=>{document.getElementById(d).className='sd';document.getElementById(l).className='slb'});
-  lns.forEach(l=>{document.getElementById(l).className='sl'});
-  const m={
-    body:()=>{document.getElementById('s1').classList.add('on');document.getElementById('l1').classList.add('on')},
-    'body-r':()=>{document.getElementById('s1').classList.add('ok');document.getElementById('l1').classList.add('ok');document.getElementById('ln1').classList.add('ok')},
-    tex:()=>{m['body-r']();document.getElementById('s2').classList.add('on');document.getElementById('l2').classList.add('on')},
-    'tex-r':()=>{m['body-r']();document.getElementById('s2').classList.add('ok');document.getElementById('l2').classList.add('ok');document.getElementById('ln2').classList.add('ok')},
-    ener:()=>{m['tex-r']();document.getElementById('s3').classList.add('on');document.getElementById('l3').classList.add('on')},
-    final:()=>{m['tex-r']();document.getElementById('s3').classList.add('ok');document.getElementById('l3').classList.add('ok')}
-  };
-  if(m[p])m[p]();
-  // Actualizar navegabilidad
-  document.getElementById('sg1').classList.toggle('disabled',!bPath.length&&!body);
-  document.getElementById('sg2').classList.toggle('disabled',!body);
-  document.getElementById('sg3').classList.toggle('disabled',!body||!tex);
+// ─── HELPERS ───────────────────────────────────────────────────────────────
+function sw(id){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
+function us(p){
+  ['s1','s2','s3','l1','l2','l3'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.className=el.tagName==='DIV'?(id.startsWith('s')?'sd':'slb'):(id.startsWith('s')?'sd':'slb');
+  });
+  ['ln1','ln2'].forEach(id=>document.getElementById(id).className='sl');
+  document.getElementById('sg1').classList.remove('disabled');
+  document.getElementById('sg2').classList.remove('disabled');
+  document.getElementById('sg3').classList.remove('disabled');
+
+  const ok=p=>{
+    const n=p;
+    document.getElementById('s'+n).classList.add('ok');
+    document.getElementById('l'+n).classList.add('ok');
+  };
+  const on=p=>{
+    document.getElementById('s'+p).classList.add('on');
+    document.getElementById('l'+p).classList.add('on');
+  };
+  const ln=p=>{document.getElementById('ln'+p).classList.add('ok')};
+
+  if(p==='body'){on(1);document.getElementById('sg2').classList.add('disabled');document.getElementById('sg3').classList.add('disabled');}
+  if(p==='body-r'){ok(1);ln(1);document.getElementById('sg2').classList.add('disabled');document.getElementById('sg3').classList.add('disabled');}
+  if(p==='tex'){ok(1);ln(1);on(2);document.getElementById('sg3').classList.add('disabled');}
+  if(p==='tex-r'){ok(1);ln(1);ok(2);ln(2);document.getElementById('sg3').classList.add('disabled');}
+  if(p==='ener'){ok(1);ln(1);ok(2);ln(2);on(3);}
+  if(p==='final'){ok(1);ln(1);ok(2);ln(2);ok(3);}
+}
+function shakeMain(){
+  const m=document.getElementById('main');
+  m.classList.remove('shake');
+  void m.offsetWidth;
+  m.classList.add('shake');
+}
+function trailHtml(){
+  if(!trail.length)return'';
+  return`<div class="tz"><div class="tz-h">Recorrido</div>${trail.map((t,i)=>`<div class="tz-r"><span class="tz-i">${i<trail.length-1?'├':'└'}</span><span class="tz-q">${t.q}</span><span class="tz-a">${t.a}</span></div>`).join('')}</div>`;
+}
+function choiceBtn(icon,iconBg,label,desc,ex,fn,bc){
+  return`<button class="choice" onclick="${fn}" style="border-color:${bc||'var(--brd)'}"><div class="choice-icon" style="background:${iconBg}">${icon}</div><div class="choice-body"><div class="choice-label">${label}</div><div class="choice-desc">${desc}</div><div class="choice-ex">${ex}</div></div><div class="choice-arr">›</div></button>`;
+}
+function backBtn(fn,lbl){
+  return`<button class="back-btn" onclick="${fn}">← ${lbl||'Volver'}</button>`;
+}
+
+// ─── NAV STEPPER ───────────────────────────────────────────────────────────
 function navStep(n){
   if(document.getElementById('sg'+n).classList.contains('disabled'))return;
-  if(n===1){start();return}
-  if(n===2){
-    if(!body)return;
-    tex=null;ener=null;hasBreak=false;hasVocal=false;tdSel=[];
-    trail=trail.slice(0,bPath.length);
-    us('tex');rGesto();sw('main');
-    return
+  if(n===1){start();return;}
+  if(n===2&&body){
+    tex=null;ener=null;hasBreak=false;hasVocal=false;trailTexLen=0;
+    trail=trail.slice(0,trailBodyLen);
+    us('tex');rTex();sw('main');return;
   }
-  if(n===3){
-    if(!body||!tex)return;
+  if(n===3&&body&&tex){
     ener=null;hasBreak=false;hasVocal=false;
-    trail=trail.slice(0,bPath.length+1);
-    us('ener');rE();sw('main');
-    return
+    trail=trail.slice(0,trailTexLen);
+    us('ener');rE();sw('main');return;
   }
 }
-function tZ(bFn,bLbl){
-  let h='<div class="tz">';
-  if(trail.length){h+=`<div class="tz-h">Recorrido</div>`;h+=trail.map((t,i)=>`<div class="tz-r"><span class="tz-i">${i<trail.length-1?'├':'└'}</span><span class="tz-q">${t.q}</span><span class="tz-a">${t.a}</span></div>`).join('')}
-  if(bFn){h+=`<div class="${trail.length?'tz-back':''}"><button class="tz-back-btn" onclick="${bFn}">← ${bLbl||'Volver'}</button></div>`}
-  h+='</div>';return h
+
+function start(){
+  body=null;tex=null;ener=null;hasBreak=false;hasVocal=false;trail=[];trailBodyLen=0;trailTexLen=0;
+  us('body');rBodyP1();sw('main');
 }
-function cc(o,fn,bc){return`<button class="choice" onclick="${fn}" style="border-color:${bc||'var(--brd)'}"><div class="ch-icon" style="background:${(bc||'var(--brd)')}18;font-size:24px">${o.icon}</div><div class="ch-body"><div class="ch-label">${o.label}</div><div class="ch-desc">${o.desc}</div><div class="ch-ex">${o.ex}</div></div><div class="ch-arrow">›</div></button>`}
-function qfr(n,l,c,s,t){return`<div class="ph"><div class="ph-t" style="color:${c}">${l}</div><div class="ph-c">${s} / ${t}</div></div><div class="qf"><div class="qf-q">${n.q}</div><div class="qf-d">${n.d}</div><div class="qf-h">${n.h}</div>${n.w?`<div class="warn">${n.w}</div>`:''}</div>`}
-function rc(r,cf,bf){const cnf=CONFIRM[r.id]?`<div class="res-confirm">${CONFIRM[r.id]}</div>`:'';const desc=r.rdesc||r.desc;return`<div class="res" style="border-color:${r.hx}22"><div class="res-glow" style="background:${r.hx}"></div><div class="res-e">${r.emoji}</div><div class="res-n" style="color:${r.cl}">${r.name}</div><div class="res-d">${desc}</div>${cnf}<div class="res-btns"><button class="btn btn-back" onclick="${bf}">← Revisar</button><button class="btn btn-ok" onclick="${cf}">Clavado →</button></div></div>`}
 
-function start(){body=null;tex=null;ener=null;trail=[];bPath=[];bNode=null;hasBreak=false;hasVocal=false;tdSel=[];us('body');rBQ(BT,1);sw('main')}
-
-// ─── CUERPO ────────────────────────────────────────────────────────────────
-function rBQ(n,s){bNode=n;const bk=bPath.length?'uB()':null;document.getElementById('main').innerHTML=qfr(n,'Paso 1 — Cuerpo','var(--cadera)',s,3)+`<div class="choices">${cc(n.A,`pB('A',${s})`,'var(--cadera)')}${cc(n.B,`pB('B',${s})`,'var(--cadera)')}</div>`+tZ(bk,bk?'Volver':null)}
-function pB(c,s){const o=bNode[c];trail.push({q:bNode.q.split('\n')[0],a:o.label});bPath.push({node:bNode,step:s});if(o.result){body=o.result;us('body-r');document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--cadera)">Paso 1 — Resultado</div><div class="ph-c"></div></div>`+rc(body,'cB()','uB()')+tZ('uB()','Revisar cuerpo')}else rBQ(o.next,s+1)}
-function uB(){if(!bPath.length){us('');sw('idle');return}trail.pop();const p=bPath.pop();body=null;us('body');rBQ(p.node,p.step);sw('main')}
-function cB(){us('tex');rGesto()}
-
-// ─── TEXTURA (adaptada al cuerpo) ──────────────────────────────────────────
-function rGesto(){
-  tdSel=[];
-  const ctx=TEX_CTX[body.id];
-  const cards=TEX_BASE.map(t=>{
-    const c=ctx[t.id];
-    const rClass=c.rarity==='imposs'?'imposs':c.rarity==='rare'?'rare':'';
-    const badge=c.rarity==='star'?'<span class="gbadge star">DENSA</span>':c.rarity==='rare'?'<span class="gbadge rare">RARA</span>':c.rarity==='imposs'?'<span class="gbadge imposs">⛔ IMPOSIBLE</span>':'';
-    return `<button class="gcard ${rClass}" id="gc-${t.id}" onclick="gClick('${t.id}')" style="border-color:${c.rarity==='imposs'?'var(--brd)':t.hx+'22'}"><div class="gi" style="background:${t.hx}18">${t.emoji}</div><div class="gb"><div class="gtop"><span class="gl" style="color:${t.hx}">${t.name}</span>${badge}</div><div class="gn">${c.gesture}</div><div class="gd">${c.desc}</div><div class="gex">${c.ex}</div></div></button>`
-  }).join('');
-  document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Textura</div><div class="ph-c">El gesto · adaptado</div></div><div class="bh"><span class="bh-e">${body.emoji}</span><span class="bh-l">ESTÁS EN</span><span class="bh-n" style="color:${body.cl}">${body.name}</span></div><div class="qf" style="padding:22px 20px"><div class="gq">¿Qué gesto te pide el cuerpo?</div><div class="gs">Las texturas están adaptadas a ${body.name}. Pulsa la que sientas. Si dudas entre dos, usa el desempate abajo.</div></div><div class="ggrid">${cards}</div><button class="td-btn" id="td-btn" onclick="toggleTD()">¿DUDAS ENTRE DOS? ▾</button><div class="td-bar" id="td-bar"><div class="td-h" id="td-h">Marca dos texturas arriba para comparar.</div><button class="td-go" id="td-go" onclick="tdGo()">Ver comparativa</button></div>`+tZ('bkBR()','Revisar cuerpo')
+// ─── PASO 1: CUERPO ─────────────────────────────────────────────────────────
+// P1: ¿El track te lleva a algún sitio o te instala en el momento?
+function rBodyP1(){
+  bStep=0;
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--cadera)">Paso 1 — Cuerpo</div><div class="ph-c">1 / 2</div></div>
+    <div class="qcard">
+      <div class="qcard-q">¿El track CAMBIA\no te PROFUNDIZA?</div>
+      <div class="qcard-s">¿Hay momentos distintos, capítulos, un arco? Si adelantas 3 min, ¿te has perdido algo que no vuelve? → CAMBIA. ¿El estado es siempre el mismo pero cada vez más adentro? Si adelantas 3 min, sigues en el mismo planeta. → PROFUNDIZA.</div>
+    </div>
+    <div class="choices">
+      ${choiceBtn('🫀','#E0555518','CAMBIA','Hay capítulos. Momentos que no vuelven. Si saltas 3 min perdiste algo. Hay un antes y un después claro.','<b>Ej:</b> Cattaneo progressive · Tale of Us · Solomun breakdowns · progressive trance · Garnier Red Face','pBodyA()','var(--corazon)')}
+      ${choiceBtn('📍','#E8922E18','PROFUNDIZA','El mismo estado, cada vez más adentro. Puedes saltar sin perderte nada. Entra y no sale.','<b>Ej:</b> Carola · Jeff Mills · dub techno · Berlin techno · Matador · Pig & Dan · acid techno','pBodyB()','var(--cadera)')}
+    </div>
+    ${trailHtml()}
+  `;
 }
-function toggleTD(){const b=document.getElementById('td-bar'),btn=document.getElementById('td-btn');b.classList.toggle('open');btn.classList.toggle('on');if(!b.classList.contains('open')){tdSel=[];document.querySelectorAll('.gcard').forEach(c=>c.classList.remove('sel'));updateTD()}}
-function gClick(id){
-  const ctx=TEX_CTX[body.id][id];
-  const tdOpen=document.getElementById('td-bar').classList.contains('open');
-  if(tdOpen){
-    const card=document.getElementById('gc-'+id);
-    if(tdSel.includes(id)){
-      tdSel=tdSel.filter(x=>x!==id);
-      card.classList.remove('sel')
-    }else{
-      if(tdSel.length>=2){
-        const old=tdSel.shift();
-        document.getElementById('gc-'+old).classList.remove('sel')
-      }
-      tdSel.push(id);
-      card.classList.add('sel')
-    }
-    updateTD()
+
+function pBodyA(){
+  // CORAZÓN — check
+  trail.push({q:'¿Te lleva a algún sitio?',a:'SÍ, ME LLEVA'});
+  rBodyCheck('corazon');
+}
+
+function pBodyB(){
+  trail.push({q:'¿Te lleva a algún sitio?',a:'NO, ME INSTALA'});
+  rBodyP2();
+}
+
+// P2: ¿Estás en la sala o en tu propia cabeza?
+function rBodyP2(){
+  bStep=1;
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--cadera)">Paso 1 — Cuerpo</div><div class="ph-c">2 / 2</div></div>
+    <div class="qcard">
+      <div class="qcard-q">¿Estás en la sala\no en tu propia cabeza?</div>
+      <div class="qcard-s">¿Eres consciente de la energía del espacio? ¿O desapareces hacia tu mundo interior aunque físicamente te muevas?</div>
+    </div>
+    <div class="choices">
+      ${choiceBtn('🦴','#E8922E18','EN LA SALA','Conectado con la energía del espacio. Eres consciente de la gente aunque estés a lo tuyo. La sala y tú en sintonía.','<b>Ej:</b> Carola · tech-house · tribal · Afro house · hardgroove · Avision · acid bailable','pBodyC()','var(--cadera)')}
+      ${choiceBtn('🧠','#3B82F618','EN MI CABEZA','Desapareces hacia dentro. La sala desaparece. Puedes estar rodeado de gente y estar completamente solo en tu propio estado.','<b>Ej:</b> Jeff Mills · dub techno · Berlin techno · Matador · Pig & Dan · minimal hipnótico · industrial','pBodyD()','var(--cerebro)')}
+    </div>
+    ${backBtn('rBodyP1()')}
+    ${trailHtml()}
+  `;
+}
+
+function pBodyC(){
+  trail.push({q:'¿Sala o cabeza?',a:'EN LA SALA'});
+  rBodyCheck('cadera');
+}
+
+function pBodyD(){
+  trail.push({q:'¿Sala o cabeza?',a:'EN MI CABEZA'});
+  rBodyCheck('cerebro');
+}
+
+function rBodyCheck(bodyId){
+  const b=BODIES[bodyId];
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:${b.hx}">Paso 1 — Confirma</div><div class="ph-c"></div></div>
+    <div class="res" style="border-color:${b.hx}22">
+      <div class="res-glow" style="background:${b.hx}"></div>
+      <div class="res-e">${b.emoji}</div>
+      <div class="res-n" style="color:${b.cl}">${b.name}</div>
+      <div class="res-d">${b.desc}</div>
+    </div>
+    <div class="chk" style="margin-top:14px">
+      <div class="chk-label">CONFIRMACIÓN</div>
+      <div class="chk-q">${b.check}</div>
+      <div class="chk-btns">
+        <button class="chk-btn yes" onclick="confirmBody('${bodyId}',true)">SÍ</button>
+        <button class="chk-btn no" onclick="confirmBody('${bodyId}',false)">NO</button>
+      </div>
+    </div>
+    ${trailHtml()}
+  `;
+}
+
+function confirmBody(bodyId,ok){
+  if(ok){
+    body=BODIES[bodyId];
+    trailBodyLen=trail.length;
+    us('body-r');
+    document.getElementById('main').innerHTML=`
+      <div class="ph"><div class="ph-t" style="color:${body.hx}">Paso 1 — Sellado</div><div class="ph-c"></div></div>
+      <div class="res" style="border-color:${body.hx}22">
+        <div class="res-glow" style="background:${body.hx}"></div>
+        <div class="res-e">${body.emoji}</div>
+        <div class="res-n" style="color:${body.cl}">${body.name}</div>
+        <div class="res-d">${body.desc}</div>
+        <div class="res-btns">
+          <button class="btn btn-back" onclick="resetBody()">← Revisar</button>
+          <button class="btn btn-ok" onclick="goTex()">Siguiente →</button>
+        </div>
+      </div>
+      ${trailHtml()}
+    `;
   }else{
-    if(ctx.rarity==='imposs'){
-      if(!confirm('Esta combinación es conceptualmente imposible. Lo más probable es que el CUERPO esté mal. ¿Seguro que quieres clasificarla así?'))return;
-    }
-    pickTex(id)
+    trail=trail.slice(0,-1);
+    shakeMain();
+    setTimeout(()=>{rBodyP1();},400);
   }
 }
-function updateTD(){
-  const h=document.getElementById('td-h'),go=document.getElementById('td-go');
-  if(tdSel.length===0){h.textContent='Marca dos texturas arriba para comparar.';go.classList.remove('on')}
-  else if(tdSel.length===1){const t=TEX_BASE.find(x=>x.id===tdSel[0]);h.textContent=`Marcado: ${t.emoji} ${t.name}. Marca una segunda.`;go.classList.remove('on')}
-  else{const [a,b]=tdSel.map(id=>TEX_BASE.find(x=>x.id===id));h.innerHTML=`<b>${a.emoji} ${a.name}</b> vs <b>${b.emoji} ${b.name}</b>`;go.classList.add('on')}
+function resetBody(){body=null;tex=null;trail=[];trailBodyLen=0;trailTexLen=0;us('body');rBodyP1();}
+function goTex(){us('tex');rTex();}
+
+// ─── PASO 2: TEXTURA ────────────────────────────────────────────────────────
+// P1: ¿Hay conexión con otra persona o estás solo en tu mundo?
+function rTex(){
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Textura</div><div class="ph-c">1 / 4</div></div>
+    <div class="bh"><span class="bh-e">${body.emoji}</span><span class="bh-l">EN</span><span class="bh-n" style="color:${body.cl}">${body.name}</span></div>
+    <div class="qcard">
+      <div class="qcard-q">¿Hay alguien específico\no es energía de sala?</div>
+      <div class="qcard-s">¿Quieres acercarte a alguien, hay seducción, hay roce con una persona? ¿O es la energía del grupo — todos juntos pero cada uno en su mundo?</div>
+    </div>
+    <div class="choices">
+      ${choiceBtn('🔥','#EF683018','HAY ALGUIEN','Seducción individual. Quieres acercarte a alguien específico. Roce, chulería galante, contacto.','<b>Ej:</b> Tech-house sensual · Afro house · tribal · soulful · Carola Music On','tP1A()','var(--fuego)')}
+      ${choiceBtn('🌑','#7CA5C418','ENERGÍA DE SALA','La sala entera vibra junta. Nadie específico. Cada uno en su estado pero al mismo tiempo.','<b>Ej:</b> Acid techno · dub techno · Berlin · minimal · hard techno · cualquier cosa hipnótica','tP1B()','var(--niebla)')}
+    </div>
+    ${backBtn('resetBody()')}
+    ${trailHtml()}
+  `;
 }
-function tdGo(){
-  if(tdSel.length!==2)return;
-  const [a,b]=tdSel;
-  const tA=TEX_BASE.find(x=>x.id===a),tB=TEX_BASE.find(x=>x.id===b);
-  const question=tiebreak(a,b,body.id);
-  document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Desempate</div><div class="ph-c"></div></div><div class="bh"><span class="bh-e">${body.emoji}</span><span class="bh-l">EN</span><span class="bh-n" style="color:${body.cl}">${body.name}</span></div><div class="qf"><div class="qf-q" style="font-size:17px">¿${tA.name} o ${tB.name}?</div><div class="qf-d">${question}</div></div><div class="choices"><button class="choice" onclick="pickTex('${a}')" style="border-color:${tA.hx}22"><div class="ch-icon" style="background:${tA.hx}18;font-size:24px">${tA.emoji}</div><div class="ch-body"><div class="ch-label" style="color:${tA.hx}">${tA.name}</div><div class="ch-desc">${TEX_CTX[body.id][a].gesture}</div><div class="ch-ex">${TEX_CTX[body.id][a].desc}</div></div><div class="ch-arrow">›</div></button><button class="choice" onclick="pickTex('${b}')" style="border-color:${tB.hx}22"><div class="ch-icon" style="background:${tB.hx}18;font-size:24px">${tB.emoji}</div><div class="ch-body"><div class="ch-label" style="color:${tB.hx}">${tB.name}</div><div class="ch-desc">${TEX_CTX[body.id][b].gesture}</div><div class="ch-ex">${TEX_CTX[body.id][b].desc}</div></div><div class="ch-arrow">›</div></button></div>`+tZ('rGesto()','Volver al gesto')
+
+function tP1A(){
+  trail.push({q:'¿Hay conexión con alguien?',a:'HAY CONEXIÓN'});
+  rTexP2A();
 }
-function pickTex(id){
-  const base=TEX_BASE.find(x=>x.id===id);
-  const ctx=TEX_CTX[body.id][id];
-  tex={...base,rdesc:ctx.rdesc,rarity:ctx.rarity};
-  trail.push({q:'Gesto',a:tex.name});
-  us('tex-r');
+function tP1B(){
+  trail.push({q:'¿Hay conexión con alguien?',a:'SOLO EN MI MUNDO'});
+  rTexP2B();
+}
+
+// P2A: ¿Inocencia o malicia?
+function rTexP2A(){
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Textura</div><div class="ph-c">2 / 4</div></div>
+    <div class="bh"><span class="bh-e">${body.emoji}</span><span class="bh-l">EN</span><span class="bh-n" style="color:${body.cl}">${body.name}</span></div>
+    <div class="qcard">
+      <div class="qcard-q">¿Inocencia\no malicia?</div>
+      <div class="qcard-s">¿Alegría limpia, buen rollo sin sombra? ¿O hay vacile, roce, seducción, algo oscuro?</div>
+    </div>
+    <div class="choices">
+      ${choiceBtn('☀️','#FBBF2418','INOCENCIA','Sol, brisa, alegría pura. Cero sombra, cero malicia.','<b>Ej:</b> Pianos 90s · Chicago house · disco feliz · nu-disco · balearic','pLuz()','var(--luz)')}
+      ${choiceBtn('🔥','#EF683018','MALICIA','Roce, seducción, vacile, sudor. Club nocturno.','<b>Ej:</b> Carola Music On · Tenaglia 5AM · tech-house gordo · tribal','pFuego()','var(--fuego)')}
+    </div>
+    ${backBtn('tBackToP1()')}
+    ${trailHtml()}
+  `;
+}
+
+// P2B: ¿Algo te presiona desde fuera o solo atmósfera?
+function rTexP2B(){
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Textura</div><div class="ph-c">2 / 4</div></div>
+    <div class="bh"><span class="bh-e">${body.emoji}</span><span class="bh-l">EN</span><span class="bh-n" style="color:${body.cl}">${body.name}</span></div>
+    <div class="qcard">
+      <div class="qcard-q">¿Algo te presiona\ndesde fuera?</div>
+      <div class="qcard-s">¿Sientes una fuerza externa que actúa sobre ti — amenaza, poder, caos? ¿O es solo atmósfera que te envuelve sin presionarte?</div>
+    </div>
+    <div class="choices">
+      ${choiceBtn('⚡','#A855F718','SÍ, HAY PRESIÓN','Algo actúa sobre ti desde fuera. Te aplasta, te persigue, te empodera marcialmente o te agrede. Tu cuerpo reacciona.','<b>Ej:</b> Berlin techno · industrial · psytrance · hard techno · acid · cualquier cosa que ataque o empuje','tP2BY()','var(--veneno)')}
+      ${choiceBtn('🌊','#7CA5C418','NO, SOLO ATMÓSFERA','Nada presiona ni ataca. Solo el paisaje que te envuelve. Estás dentro de él, no luchando contra él.','<b>Ej:</b> Dub techno · minimal · Recondite · ambient · downtempo · cualquier cosa que envuelva sin empujar','tP2BN()','var(--niebla)')}
+    </div>
+    ${backBtn('tBackToP1()')}
+    ${trailHtml()}
+  `;
+}
+
+function tP2BY(){
+  trail.push({q:'¿Presión desde fuera?',a:'SÍ, HAY PRESIÓN'});
+  rTexP3A();
+}
+function tP2BN(){
+  trail.push({q:'¿Presión desde fuera?',a:'SOLO ATMÓSFERA'});
+  rTexP3B();
+}
+
+// P3A: ¿Te empodera o te amenaza/incomoda?
+function rTexP3A(){
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Textura</div><div class="ph-c">3 / 4</div></div>
+    <div class="bh"><span class="bh-e">${body.emoji}</span><span class="bh-l">EN</span><span class="bh-n" style="color:${body.cl}">${body.name}</span></div>
+    <div class="qcard">
+      <div class="qcard-q">¿Te empodera\no te amenaza?</div>
+      <div class="qcard-s">¿La presión te hace grande — pisas fuerte, pecho compacto, anticipación de algo gordo? ¿O te hace pequeño — miras atrás, aguantas la respiración, hay un peligro?</div>
+    </div>
+    <div class="choices">
+      ${choiceBtn('⚙️','#94A3B818','ME EMPODERA','Pisas fuerte. Pecho compacto. Chulería oscura. Anticipación de que algo gordo va a pasar — no miedo, sino el guerrero listo.','<b>Ej:</b> Hard techno · peak time marcial · EBM · Matador · Avision · bass house con actitud','pHierro()','var(--hierro)')}
+      ${choiceBtn('🐍','#A855F718','ME AMENAZA / INCOMODA','Te hace pequeño o alerta. Miras atrás. Aguantas la respiración. Hay alguien o algo detrás con intención, o el caos te agrede.','<b>Ej:</b> Berlin oscuro · Pig & Dan · psytrance · acid sucio · industrial crudo','tP3ANo()','var(--veneno)')}
+    </div>
+    ${backBtn('tBackToP2B()')}
+    ${trailHtml()}
+  `;
+}
+
+function tP3ANo(){
+  trail.push({q:'¿Empodera o amenaza?',a:'ME AMENAZA / INCOMODA'});
+  rTexP4();
+}
+
+// P3B: ¿Duele o flotas en paz?
+function rTexP3B(){
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Textura</div><div class="ph-c">3 / 4</div></div>
+    <div class="bh"><span class="bh-e">${body.emoji}</span><span class="bh-l">EN</span><span class="bh-n" style="color:${body.cl}">${body.name}</span></div>
+    <div class="qcard">
+      <div class="qcard-q">¿Algo duele\no flotas en paz?</div>
+      <div class="qcard-s">¿Hay melancolía, peso en el pecho, lágrima bonita? ¿O no duele nada y simplemente flotas?</div>
+    </div>
+    <div class="choices">
+      ${choiceBtn('🌧️','#7B8B9D18','ALGO DUELE','Melancolía, peso, tristeza bonita. Algo aprieta el pecho.','<b>Ej:</b> Portishead · Burial · Garnier triste · acordes menores · trip hop','pLluvia()','var(--lluvia)')}
+      ${choiceBtn('🌫️','#7CA5C418','FLOTAS EN PAZ','Nada duele. Misterio, espacio, amplitud. Ojos cerrados.','<b>Ej:</b> Dub techno · Cattaneo deep · Recondite · minimal atmosférico · Jeff Mills','pNiebla()','var(--niebla)')}
+    </div>
+    ${backBtn('tBackToP2B()')}
+    ${trailHtml()}
+  `;
+}
+
+// P4: ¿Elegante o brutal/caótico?
+function rTexP4(){
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Textura</div><div class="ph-c">4 / 4</div></div>
+    <div class="bh"><span class="bh-e">${body.emoji}</span><span class="bh-l">EN</span><span class="bh-n" style="color:${body.cl}">${body.name}</span></div>
+    <div class="qcard">
+      <div class="qcard-q">¿Elegante\no caótico?</div>
+      <div class="qcard-s">¿La amenaza es calculada, suspense, aguantas la respiración? ¿O es caos, ruido, mugre sin orden?</div>
+    </div>
+    <div class="choices">
+      ${choiceBtn('🐍','#A855F718','ELEGANTE','Cuchillo con traje. Suspense. Alguien detrás con intención. Aguantas la respiración.','<b>Ej:</b> Tale of Us · Pig & Dan · Ben Klock oscuro · Chymera · Afterlife thriller','pVeneno()','var(--veneno)')}
+      ${choiceBtn('🛢️','#B0805A18','CAÓTICO','Caos sin sujeto. Mugre, ruido, roto, sin elegancia. Te incomoda pero no hiere.','<b>Ej:</b> Acid sucio · Charlotte acid · industrial crudo · noise · Hawtin Spastik','pBarro()','var(--barro)')}
+    </div>
+    ${backBtn('tBackToP3A()')}
+    ${trailHtml()}
+  `;
+}
+
+// Back functions
+function tBackToP1(){trail=trail.slice(0,-1);rTex();}
+function tBackToP2B(){trail=trail.slice(0,-1);rTexP2B();}
+function tBackToP3A(){trail=trail.slice(0,-1);rTexP3A();}
+
+// Pick texture & confirm
+function pickTex(texId){
+  const t=TEX[body.id][texId];
+  if(t.rarity==='imposs'){
+    if(!confirm('Combinación imposible. Probablemente el cuerpo está mal. ¿Seguro?'))return;
+    // Si confirma de todas formas
+  }
+  trail.push({q:'Gesto',a:t.name});
+  rTexCheck(texId);
+}
+
+function rTexCheck(texId){
+  const t=TEX[body.id][texId];
+  const pairKey=body.id+'-'+texId;
+  const isRare=RARE_PAIRS.has(pairKey);
+  const isImposs=t.rarity==='imposs';
   let warn='';
-  if(ctx.rarity==='imposs')warn=`<div class="rare-warn" style="background:#2A1010;border-color:#502020;color:#D45050">⛔ Combinación imposible — revisa el CUERPO, probablemente está mal clasificado</div>`;
-  else if(ctx.rarity==='rare')warn=`<div class="rare-warn">⚠️ Combinación poco frecuente — revisa si cuerpo y textura están clavados</div>`;
-  document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Resultado</div><div class="ph-c"></div></div>`+rc(tex,'cT()','uT()')+warn+tZ('uT()','Revisar textura')
+  if(isImposs)warn=`<div class="rare-warn" style="background:#2A1010;border-color:#502020;color:#D45050">⛔ Combinación imposible — revisa el cuerpo</div>`;
+  else if(isRare)warn=`<div class="rare-warn">⚠️ Combinación poco frecuente — confirma bien</div>`;
+
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:${t.hx}">Paso 2 — Confirma</div><div class="ph-c"></div></div>
+    <div class="res" style="border-color:${t.hx}22">
+      <div class="res-glow" style="background:${t.hx}"></div>
+      <div class="res-e">${t.emoji}</div>
+      <div class="res-n" style="color:${t.cl}">${t.name}</div>
+      <div class="res-d">${t.gesture} — ${t.desc}</div>
+    </div>
+    ${warn}
+    <div class="chk" style="margin-top:14px">
+      <div class="chk-label">CONFIRMACIÓN</div>
+      <div class="chk-q">${t.check||'¿Encaja con lo que sientes?'}</div>
+      <div class="chk-btns">
+        <button class="chk-btn yes" onclick="confirmTex('${texId}',true)">SÍ</button>
+        <button class="chk-btn no" onclick="confirmTex('${texId}',false)">NO</button>
+      </div>
+    </div>
+    ${trailHtml()}
+  `;
 }
-function uT(){trail.pop();tex=null;us('tex');rGesto()}
-function bkBR(){tex=null;us('body-r');document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--cadera)">Paso 1 — Resultado</div><div class="ph-c"></div></div>`+rc(body,'cB()','uB()')+tZ('uB()','Revisar cuerpo');sw('main')}
-function cT(){us('ener');rE()}
 
-// ─── ENERGÍA ───────────────────────────────────────────────────────────────
-function rE(){document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--e3)">Paso 3 — Energía</div><div class="ph-c">Selecciona</div></div><div class="qf" style="padding:20px"><div class="qf-q" style="font-size:17px;margin-bottom:6px">¿En qué momento de la sesión\nencaja este track?</div><div class="qf-h" style="border:none;padding-top:0">🔪 No pienses en BPM. Piensa en la sala.</div></div><div class="egrid">${EN.map(e=>`<div class="ecard" onclick="pE('${e.id}')"><div class="ebadge" style="background:${e.hx}15;color:${e.hx};border:1.5px solid ${e.hx}30">${e.id}</div><div class="einfo"><div class="ename" style="color:${e.cl}">${e.name}</div><div class="edesc">${e.desc}</div><div class="ehint">${e.hint}</div></div></div>`).join('')}</div>`+tZ('bkTR()','Revisar textura')}
-function bkTR(){ener=null;us('tex-r');let warn='';if(tex.rarity==='imposs')warn=`<div class="rare-warn" style="background:#2A1010;border-color:#502020;color:#D45050">⛔ Combinación imposible</div>`;else if(tex.rarity==='rare')warn=`<div class="rare-warn">⚠️ Combinación poco frecuente</div>`;document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--niebla)">Paso 2 — Resultado</div><div class="ph-c"></div></div>`+rc(tex,'cT()','uT()')+warn+tZ('uT()','Revisar textura');sw('main')}
-function pE(id){ener=EN.find(e=>e.id===id);trail.push({q:'Energía',a:ener.id+' '+ener.name});rAcc()}
+function confirmTex(texId,ok){
+  if(ok){
+    tex={...TEX[body.id][texId]};
+    trailTexLen=trail.length;
+    us('tex-r');
+    const pairKey=body.id+'-'+texId;
+    const isRare=RARE_PAIRS.has(pairKey);
+    let warn=isRare?`<div class="rare-warn">⚠️ Combinación poco frecuente</div>`:'';
+    document.getElementById('main').innerHTML=`
+      <div class="ph"><div class="ph-t" style="color:${tex.hx}">Paso 2 — Sellado</div><div class="ph-c"></div></div>
+      <div class="res" style="border-color:${tex.hx}22">
+        <div class="res-glow" style="background:${tex.hx}"></div>
+        <div class="res-e">${tex.emoji}</div>
+        <div class="res-n" style="color:${tex.cl}">${tex.name}</div>
+        <div class="res-d">${tex.gesture}</div>
+        <div class="res-btns">
+          <button class="btn btn-back" onclick="resetTex()">← Revisar</button>
+          <button class="btn btn-ok" onclick="goEner()">Siguiente →</button>
+        </div>
+      </div>
+      ${warn}
+      ${trailHtml()}
+    `;
+  }else{
+    // Check fallido: el error puede estar en textura O en cuerpo
+    trail=trail.slice(0,-1);
+    shakeMain();
+    setTimeout(()=>{
+      document.getElementById('main').innerHTML=`
+        <div class="ph"><div class="ph-t" style="color:var(--warn-tx)">Algo no encaja</div><div class="ph-c"></div></div>
+        <div class="chk" style="border-color:var(--warn-brd);background:var(--warn-bg)">
+          <div class="chk-label" style="color:var(--warn-tx)">¿DÓNDE ESTÁ EL ERROR?</div>
+          <div class="chk-q" style="font-size:16px;color:var(--tx2)">El check no cuadra. El problema puede ser la textura o el cuerpo. ¿Qué revisas?</div>
+          <div class="chk-btns" style="flex-direction:column;gap:10px">
+            <button class="chk-btn" style="border-color:var(--niebla);color:var(--niebla)" onclick="resetTex()">Revisar textura — el cuerpo <b style="color:${body.hx}">${body.name}</b> está bien</button>
+            <button class="chk-btn" style="border-color:var(--corazon);color:var(--corazon)" onclick="resetBody()">Revisar cuerpo — quizás no soy <b style="color:${body.hx}">${body.name}</b></button>
+          </div>
+        </div>
+        ${trailHtml()}
+      `;
+    },400);
+  }
+}
 
-// ─── ACCESORIOS ────────────────────────────────────────────────────────────
-function rAcc(){us('final');hasBreak=false;hasVocal=false;document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--tx2)">Último toque</div><div class="ph-c">Opcional</div></div><div class="qf" style="padding:20px"><div class="qf-q" style="font-size:17px;margin-bottom:6px">¿Tiene alguno de estos rasgos?</div><div class="qf-d">Pulsa para activar. Si no aplica, pasa directo.</div></div><div class="acc-row"><button class="acc-btn" id="acc-brk" onclick="tA('brk')"><div class="acc-label">BREAK</div><div class="acc-desc">Ritmo roto.<br>No es 4/4 limpio.</div></button><button class="acc-btn" id="acc-voc" onclick="tA('voc')"><div class="acc-label">VOCAL</div><div class="acc-desc">Voz cantada<br>o hablada con peso.</div></button></div><div style="margin-top:22px"><button class="btn btn-ok btn-full" onclick="rF()" style="padding:18px">Sellar diagnóstico →</button></div>`+tZ('bkE()','Revisar energía')}
-function bkE(){trail.pop();ener=null;us('ener');rE();sw('main')}
-function tA(t){if(t==='brk'){hasBreak=!hasBreak;document.getElementById('acc-brk').classList.toggle('on')}if(t==='voc'){hasVocal=!hasVocal;document.getElementById('acc-voc').classList.toggle('on')}}
+function resetTex(){tex=null;trailTexLen=0;trail=trail.slice(0,trailBodyLen);us('tex');rTex();}
+function goEner(){us('ener');rE();}
 
-// ─── RESULTADO FINAL ───────────────────────────────────────────────────────
+// ─── PASO 3: ENERGÍA ────────────────────────────────────────────────────────
+function rE(){
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--e3)">Paso 3 — Energía</div><div class="ph-c">Selecciona</div></div>
+    <div class="qcard" style="padding:20px">
+      <div class="qcard-q" style="font-size:19px;margin-bottom:8px">¿En qué momento\nde la sesión encaja?</div>
+      <div class="qcard-s">No pienses en BPM. Piensa en la sala.</div>
+    </div>
+    <div class="egrid">
+      ${EN.map(e=>`<div class="ecard" onclick="pE('${e.id}')"><div class="ebadge" style="background:${e.hx}15;color:${e.hx};border:1.5px solid ${e.hx}30">${e.id}</div><div class="einfo"><div class="ename" style="color:${e.cl}">${e.name}</div><div class="edesc">${e.desc}</div><div class="ehint">${e.hint}</div></div></div>`).join('')}
+    </div>
+    <button class="back-btn" onclick="resetTex()" style="margin-top:14px">← Revisar textura</button>
+    ${trailHtml()}
+  `;
+}
+
+function pE(id){
+  ener=EN.find(e=>e.id===id);
+  trail.push({q:'Energía',a:ener.id+' '+ener.name});
+  rAcc();
+}
+
+// ─── ACCESORIOS ─────────────────────────────────────────────────────────────
+function rAcc(){
+  us('final');hasBreak=false;hasVocal=false;
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--tx2)">Último toque</div><div class="ph-c">Opcional</div></div>
+    <div class="qcard" style="padding:20px">
+      <div class="qcard-q" style="font-size:19px;margin-bottom:8px">¿Tiene alguno\nde estos rasgos?</div>
+      <div class="qcard-s">Pulsa para activar. Si no aplica, pasa directo.</div>
+    </div>
+    <div class="acc-row">
+      <button class="acc-btn" id="acc-brk" onclick="tA('brk')"><div class="acc-label">BREAK</div><div class="acc-desc">Ritmo roto.<br>No es 4/4.</div></button>
+      <button class="acc-btn" id="acc-voc" onclick="tA('voc')"><div class="acc-label">VOCAL</div><div class="acc-desc">Voz con<br>peso.</div></button>
+    </div>
+    <button class="btn btn-ok btn-full" onclick="rF()" style="padding:18px;margin-top:22px">Sellar diagnóstico →</button>
+    <button class="back-btn" onclick="backToE()">← Revisar energía</button>
+    ${trailHtml()}
+  `;
+}
+
+function backToE(){trail=trail.slice(0,trailTexLen);ener=null;us('ener');rE();}
+function tA(t){
+  if(t==='brk'){hasBreak=!hasBreak;document.getElementById('acc-brk').classList.toggle('on')}
+  if(t==='voc'){hasVocal=!hasVocal;document.getElementById('acc-voc').classList.toggle('on')}
+}
+
+// ─── RESULTADO FINAL ─────────────────────────────────────────────────────────
 function rF(){
   if(hasBreak)trail.push({q:'Accesorio',a:'BREAK'});
   if(hasVocal)trail.push({q:'Accesorio',a:'VOCAL'});
   let tg='',ft='';
-  if(hasBreak)tg+=`<span class="tag" style="background:#E8922E18;color:var(--cadera);border:1px solid #E8922E30">BREAK</span>`;
-  if(hasVocal)tg+=`<span class="tag" style="background:#E0555518;color:var(--corazon);border:1px solid #E0555530">VOCAL</span>`;
-  if(hasBreak)ft+=`<span class="frx-s">·</span><span style="color:var(--cadera)">BRK</span>`;
-  if(hasVocal)ft+=`<span class="frx-s">·</span><span style="color:var(--corazon)">VOC</span>`;
-  let warn='';
-  if(tex.rarity==='imposs')warn=`<div class="rare-warn" style="background:#2A1010;border-color:#502020;color:#D45050">⛔ Combinación imposible — revisa el cuerpo</div>`;
-  else if(tex.rarity==='rare')warn=`<div class="rare-warn">⚠️ Combinación poco frecuente</div>`;
-  document.getElementById('main').innerHTML=`<div class="ph"><div class="ph-t" style="color:var(--green)">Diagnóstico sellado</div><div class="ph-c"></div></div><div class="fbox"><div class="frow"><div class="fe">${body.emoji}</div><div><div class="fl">CUERPO</div><div class="fv" style="color:${body.cl}">${body.name}</div></div></div><div class="frow"><div class="fe">${tex.emoji}</div><div><div class="fl">TEXTURA</div><div class="fv" style="color:${tex.cl}">${tex.name}</div></div></div><div class="frow"><div class="fe" style="font-size:18px;display:flex;align-items:center;justify-content:center"><span style="background:${ener.hx}15;color:${ener.hx};border:1.5px solid ${ener.hx}30;padding:6px 10px;border-radius:8px;font-size:13px;font-weight:800">${ener.id}</span></div><div><div class="fl">ENERGÍA</div><div class="fv" style="color:${ener.cl}">${ener.name}</div></div></div>${tg?`<div class="frow" style="justify-content:center;padding:14px 22px">${tg}</div>`:''}</div>${warn}<div class="frx"><div class="frx-l">CLASIFICACIÓN</div><div class="frx-v"><span style="color:${body.cl}">${body.name}</span><span class="frx-s">·</span><span style="color:${tex.cl}">${tex.name}</span><span class="frx-s">·</span><span style="color:${ener.cl}">${ener.id}</span>${ft}</div><div class="frx-e">${body.emoji} ${tex.emoji}</div></div><div class="tz" style="margin-top:14px"><div class="tz-h">Recorrido completo</div>${trail.map((t,i)=>`<div class="tz-r"><span class="tz-i">${i<trail.length-1?'├':'└'}</span><span class="tz-q">${t.q}</span><span class="tz-a">${t.a}</span></div>`).join('')}</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:22px"><button class="btn btn-ghost btn-full" onclick="start()">Siguiente canción</button><button class="btn btn-ghost btn-full" style="font-size:12px;padding:12px" onclick="us('');sw('idle')">Inicio</button></div>`
+  if(hasBreak){tg+=`<span class="tag" style="background:#E8922E18;color:var(--cadera);border:1px solid #E8922E30">BREAK</span>`;ft+=`<span class="frx-s">·</span><span style="color:var(--cadera)">BRK</span>`;}
+  if(hasVocal){tg+=`<span class="tag" style="background:#E0555518;color:var(--corazon);border:1px solid #E0555530">VOCAL</span>`;ft+=`<span class="frx-s">·</span><span style="color:var(--corazon)">VOC</span>`;}
+  const pairKey=body.id+'-'+tex.id;
+  const isRare=RARE_PAIRS.has(pairKey);
+  const warn=isRare?`<div class="rare-warn">⚠️ Combinación poco frecuente</div>`:'';
+  document.getElementById('main').innerHTML=`
+    <div class="ph"><div class="ph-t" style="color:var(--green)">Diagnóstico sellado</div><div class="ph-c"></div></div>
+    <div class="fbox">
+      <div class="frow"><div class="fe">${body.emoji}</div><div><div class="fl">CUERPO</div><div class="fv" style="color:${body.cl}">${body.name}</div></div></div>
+      <div class="frow"><div class="fe">${tex.emoji}</div><div><div class="fl">TEXTURA</div><div class="fv" style="color:${tex.cl}">${tex.name}</div></div></div>
+      <div class="frow"><div class="fe"><span style="background:${ener.hx}15;color:${ener.hx};border:1.5px solid ${ener.hx}30;padding:6px 10px;border-radius:8px;font-size:14px;font-weight:800">${ener.id}</span></div><div><div class="fl">ENERGÍA</div><div class="fv" style="color:${ener.cl}">${ener.name}</div></div></div>
+      ${tg?`<div class="frow" style="justify-content:center;padding:14px 22px">${tg}</div>`:''}
+    </div>
+    ${warn}
+    <div class="frx">
+      <div class="frx-l">CLASIFICACIÓN</div>
+      <div class="frx-v"><span style="color:${body.cl}">${body.name}</span><span class="frx-s">·</span><span style="color:${tex.cl}">${tex.name}</span><span class="frx-s">·</span><span style="color:${ener.cl}">${ener.id}</span>${ft}</div>
+      <div class="frx-e">${body.emoji} ${tex.emoji}</div>
+    </div>
+    <div class="tz" style="margin-top:14px">
+      <div class="tz-h">Recorrido completo</div>
+      ${trail.map((t,i)=>`<div class="tz-r"><span class="tz-i">${i<trail.length-1?'├':'└'}</span><span class="tz-q">${t.q}</span><span class="tz-a">${t.a}</span></div>`).join('')}
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px">
+      <button class="btn btn-ghost btn-full" onclick="start()">Siguiente canción</button>
+      <button class="btn btn-ghost btn-full" style="font-size:13px;padding:12px" onclick="us('');sw('idle')">Inicio</button>
+    </div>
+  `;
 }
 </script>
 </body>
