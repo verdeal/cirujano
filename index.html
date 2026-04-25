@@ -151,6 +151,23 @@
   /* DISABLED CHOICE for inviable textures */
   .choice-off{background:#0A0A10;border:1.5px dashed var(--brd);opacity:.5;cursor:default;display:flex;align-items:flex-start;gap:14px;padding:18px 16px;border-radius:16px}
   .choice-off:active{transform:none}
+  /* HELP BUTTON */
+  .help-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--tx4);color:var(--tx3);font-size:12px;font-weight:800;margin-left:8px;vertical-align:middle;cursor:pointer;transition:all .15s;flex-shrink:0;line-height:1}
+  .help-btn:active{transform:scale(.9);background:var(--card2)}
+  /* HELP OVERLAY */
+  .help-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:9999;overflow-y:auto;-webkit-overflow-scrolling:touch;opacity:0;transform:translateX(100%);transition:all .25s ease}
+  .help-overlay.open{opacity:1;transform:translateX(0)}
+  .help-page{max-width:580px;margin:0 auto;padding:18px 14px 48px}
+  .help-top{position:sticky;top:0;background:var(--bg);padding:12px 0 14px;z-index:1;border-bottom:1px solid var(--brd);margin-bottom:20px;display:flex;flex-direction:column;gap:10px}
+  .help-back{background:none;border:none;color:var(--tx3);font-family:inherit;font-size:14px;cursor:pointer;padding:0;text-align:left}
+  .help-back:active{color:var(--tx)}
+  .help-body{color:var(--tx2);font-size:15px;line-height:1.7;letter-spacing:.15px}
+  .help-body h2{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:18px;letter-spacing:.5px;line-height:1.3}
+  .help-body h3{font-size:14px;font-weight:800;color:var(--green);letter-spacing:1.5px;text-transform:uppercase;margin:24px 0 10px;padding-top:14px;border-top:1px solid var(--brd)}
+  .help-body h3:first-of-type{border-top:none;padding-top:0;margin-top:0}
+  .help-body p{margin-bottom:14px}
+  .help-body b{color:var(--tx);font-weight:700}
+  .help-bottom{margin-top:28px;padding-top:14px;border-top:1px solid var(--brd)}
 </style>
 </head>
 <body>
@@ -431,7 +448,368 @@ const E_INFO={
   }
 };
 
-// ─── STATE ─────────────────────────────────────────────────────────────────
+// ─── AYUDA DETALLADA POR CASILLA ──────────────────────────────────────────
+// ─── AYUDA DETALLADA POR CASILLA ──────────────────────────────────────────
+const HELP={
+'corazon-luz':`
+<h2>☀️ CORAZÓN · LUZ</h2>
+<h3>Qué sientes</h3>
+<p>Alegría que crece con capítulos. No es un loop feliz — es una historia que empieza suave y llega a un clímax luminoso. Sientes que te lleva a un lugar mejor. Hay momentos que no vuelven: un breakdown que abre el cielo, un arpegio que aparece y transforma todo.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> un track que evoluciona hacia la luz. Hay antes y después. Capítulos. Si adelantas 3 min te pierdes algo.<br>
+<b>NO ES:</b> un loop feliz estable (eso sería CADERA+LUZ). No es groove protagonista — es la narrativa luminosa la que manda.</p>
+<h3>Sonido</h3>
+<p>Builds progresivos, breakdowns épicos, arpegios ascendentes, pads luminosos que se abren, melodías mayores que van creciendo. Texturas cálidas que evolucionan. A menudo hay un "momento" donde el track se abre completamente.</p>
+<h3>Géneros y sellos</h3>
+<p>Uplifting trance narrativo · melodic house luminoso · progressive con arco épico · Anjunadeep (parte luminosa) · mau5trap (momentos épicos)</p>
+<h3>DJs de referencia</h3>
+<p>Joris Voorn (lado luminoso) · Monkey Safari · Lane 8 (tracks felices) · Above & Beyond · Yotto (lado luminoso)</p>
+<h3>Tracks que te orientan</h3>
+<p>Monkey Safari "Safe" (Joris Voorn Remix) · Lane 8 "Brightest Lights" · Yotto "Nova"</p>
+<h3>Cuándo pincharlo</h3>
+<p>Cierre de set luminoso. Momento de catarsis después de una hora de construcción. El track que "abre las ventanas". Funciona como final feliz.</p>
+`,
+
+'corazon-fuego':`
+<h2>🔥 CORAZÓN · FUEGO</h2>
+<h3>Qué sientes</h3>
+<p>Romance cinematográfico que se desarrolla en capítulos. Calor humano que crece, seducción con arco narrativo. No es un loop sensual — hay momentos distintos, breakdowns que cambian el aire, una historia de atracción que avanza.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> seducción con capítulos. Si adelantas 3 min, el track está en otro momento emocional.<br>
+<b>NO ES:</b> tech-house sensual de pista (eso es CADERA+FUEGO). No es groove protagonista — es la narrativa sensual la que manda.</p>
+<h3>Sonido</h3>
+<p>Breakdowns sensuales, capas vocales que aparecen y desaparecen, líneas melódicas seductoras que evolucionan, pads cálidos. Hay dramatismo — la seducción tiene tensión y resolución.</p>
+<h3>Géneros y sellos</h3>
+<p>Melodic house · progressive sensual · Diynamic (lado cálido) · Innervisions · indie dance cinematográfico</p>
+<h3>DJs de referencia</h3>
+<p>Solomun (lado sensual) · Hot Since 82 · Adriatique · Innellea (lado cálido) · Cattaneo cuando se pone sensual</p>
+<h3>Tracks que te orientan</h3>
+<p>Solomun remixes con breakdowns · Hot Since 82 "Buggin" · Adriatique con arco dramático</p>
+<h3>Cuándo pincharlo</h3>
+<p>El momento romántico del set. Después de warm up, antes de oscurecer. La transición cálida de la noche.</p>
+`,
+
+'corazon-niebla':`
+<h2>🌫️ CORAZÓN · NIEBLA</h2>
+<h3>Qué sientes</h3>
+<p>Viaje introspectivo con capítulos. Te lleva hacia dentro pero hay evolución — paisajes que cambian, puertas que se abren, momentos de revelación. No es un loop atmosférico — es una película introspectiva con arco.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> viaje narrativo introspectivo. Capítulos distintos. Si adelantas 3 min, el paisaje ha cambiado.<br>
+<b>NO ES:</b> un loop de ro-minimal que no cambia (eso es CADERA+NIEBLA). No es un loop hipnótico sin arco (CEREBRO+NIEBLA).</p>
+<h3>Sonido</h3>
+<p>Progressive de capas, texturas que evolucionan gradualmente, elementos que aparecen y desaparecen. Profundidad que crece. A veces 8-10 minutos de arco lento.</p>
+<h3>Géneros y sellos</h3>
+<p>Progressive house · Sudbeat · Mango Alley · melodic deep techno narrativo · Anjunadeep (lado profundo) · Balance Music</p>
+<h3>DJs de referencia</h3>
+<p>Hernán Cattaneo · Brian Cid · Guy J · Nick Warren · Henry Saiz · Cid Inc</p>
+<h3>Tracks que te orientan</h3>
+<p>Brian Cid "Light In The Lotus" · Cattaneo con arco de 10 min · Guy J "Lost & Found"</p>
+<h3>Cuándo pincharlo</h3>
+<p>Warm up profundo de calidad. Set de domingo o after. Momentos para viajar sin prisa.</p>
+`,
+
+'corazon-lluvia':`
+<h2>🌧️ CORAZÓN · LLUVIA</h2>
+<h3>Qué sientes</h3>
+<p>Película triste bonita con arco dramático. Melancolía que avanza en capítulos. Hay un peso en el pecho pero hay dirección — la tristeza va a algún sitio.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> cuento triste con capítulos. La melancolía evoluciona.<br>
+<b>NO ES:</b> deep house melancólico de groove (CADERA+LLUVIA). No es un loop triste sin evolución (CEREBRO+LLUVIA).</p>
+<h3>Sonido</h3>
+<p>Acordes menores que evolucionan, melodías descendentes con arco, texturas emocionales que cambian. Vocales con peso emocional. Breakdowns que aprietan el pecho.</p>
+<h3>Géneros y sellos</h3>
+<p>Trip hop narrativo · downtempo dramático · melodic deep triste · Hyperdub (lado emocional) · post-dubstep</p>
+<h3>DJs de referencia</h3>
+<p>Burial · Laurent Garnier (lado melancólico) · Bonobo · Portishead (en DJ context) · Moderat</p>
+<h3>Tracks que te orientan</h3>
+<p>Garnier "A Bout De Souffle" · Burial "Archangel" · Bonobo "Kerala"</p>
+<h3>Cuándo pincharlo</h3>
+<p>Momento introspectivo del set. Transición emocional. After con lágrima bonita.</p>
+`,
+
+'corazon-veneno':`
+<h2>🐍 CORAZÓN · VENENO</h2>
+<h3>Qué sientes</h3>
+<p>Thriller cinematográfico con arco. Suspense que crece en capítulos. Villano elegante con historia. Aguantas la respiración mientras el cuento oscuro avanza — hay giros, momentos de tensión y de liberación.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> suspense narrativo. Hay capítulos oscuros con evolución. Si adelantas 3 min, la tensión está en otro punto.<br>
+<b>NO ES:</b> tech-house oscuro de groove (CADERA+VENENO). No es hipnosis amenazante en loop (CEREBRO+VENENO).</p>
+<h3>Sonido</h3>
+<p>Breakdowns con tensión, builds oscuros, elementos que acechan y desaparecen. Capas de misterio que evolucionan. Melodías menores con dirección narrativa.</p>
+<h3>Géneros y sellos</h3>
+<p>Melodic techno oscuro · Afterlife · Diynamic (lado oscuro) · indie dance dark · progressive thriller</p>
+<h3>DJs de referencia</h3>
+<p>Tale of Us · Anyma · ARTBAT · Undercatt · Recondite (lado narrativo) · Mind Against</p>
+<h3>Tracks que te orientan</h3>
+<p>Undercatt "Crono" · Tale of Us "Another Earth" · Anyma con arco dramático oscuro</p>
+<h3>Cuándo pincharlo</h3>
+<p>Peak time melodic. Clímax oscuro con historia. El momento "peli de suspense" del set.</p>
+`,
+
+'corazon-hierro':`
+<h2>⚙️ CORAZÓN · HIERRO</h2>
+<h3>Qué sientes</h3>
+<p>Himno épico marcial con evolución. Pisotoncillo con cuento. Evoluciona lo mínimo para no ser un loop, pero menos que un Cattaneo. Te empodera con narrativa — hay un momento de transformación.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> marcial con capítulos. Hay un arco mínimo pero real — algo cambia durante el track.<br>
+<b>NO ES:</b> apisonadora hipnótica sin arco (CEREBRO+HIERRO). No es hardgroove de pista bailable (CADERA+HIERRO).</p>
+<h3>Sonido</h3>
+<p>Kicks contundentes con capas melódicas que evolucionan, builds marciales, momentos de ruptura y reconstrucción. Maceo Plex oscuro chulo con un poco de historia.</p>
+<h3>Géneros y sellos</h3>
+<p>Melodic techno épico · Systematic · Drumcode (lado narrativo) · SCI+TEC · indie dance EBM · progressive marcial</p>
+<h3>DJs de referencia</h3>
+<p>Rafael Cerato · Maksim Dark · Maceo Plex (lado épico) · Parissior · Charlotte de Witte (algunos)</p>
+<h3>Tracks que te orientan</h3>
+<p>Cerato "Alive" · Maksim Dark "Interlude" · Parissior "Rodiles"</p>
+<h3>Cuándo pincharlo</h3>
+<p>Peak time melodic-techno con pisotón. Rara pero potente cuando aparece. El guerrero con cuento.</p>
+<p><b>⚠️ Poco frecuente.</b> Si estás aquí, asegúrate de que el track realmente evoluciona — si no, probablemente es CEREBRO+HIERRO.</p>
+`,
+
+'cadera-luz':`
+<h2>☀️ CADERA · LUZ</h2>
+<h3>Qué sientes</h3>
+<p>Alegría pura en la pista. Sol, brazos arriba, sonrisa. Groove feliz sin sombra — cero oscuridad, cero malicia. Bailas y te sientes bien.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> groove alegre protagonista. Si quitas kick y bajo, se queda hueco. No hay evolución narrativa — es un estado feliz sostenido.<br>
+<b>NO ES:</b> una historia luminosa (eso es CORAZÓN+LUZ). No es groove sensual (eso es CADERA+FUEGO — hay roce, aquí no).</p>
+<h3>Sonido</h3>
+<p>Pianos alegres, cuerdas luminosas, samples vocales felices, kicks limpio, líneas de bajo redondas. Todo suena cálido y abierto.</p>
+<h3>Géneros y sellos</h3>
+<p>Chicago house · disco clásico · nu-disco · funky · soulful · balearic · future funk · Glitterbox · Defected (lado feliz)</p>
+<h3>DJs de referencia</h3>
+<p>Folamour · Crackazat · Oliver Dollar (lado feliz) · James Curd · DJ Harvey · Kerri Chandler · Todd Terje</p>
+<h3>Tracks que te orientan</h3>
+<p>James Curd "Disco Fool" · Folamour "The Power" · Kerri Chandler piano tracks</p>
+<h3>Cuándo pincharlo</h3>
+<p>Opening luminoso. Set de terraza o de día. Momento buen rollo de la noche.</p>
+`,
+
+'cadera-fuego':`
+<h2>🔥 CADERA · FUEGO</h2>
+<h3>Qué sientes</h3>
+<p>Club 3AM. Roce, sudor, chulería galante. Quieres acercarte a otro cuerpo. El groove manda pero está cargado de energía sexual. Vacile, seducción, calor de noche larga.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> groove sensual protagonista. El kick y el bajo son el track — si los quitas se queda hueco.<br>
+<b>NO ES:</b> romance con capítulos (CORAZÓN+FUEGO). No es groove alegre sin roce (CADERA+LUZ). No es groove oscuro con amenaza (CADERA+VENENO — aquí hay seducción, no miedo).</p>
+<h3>Sonido</h3>
+<p>Hi-hats trabajados, percusión tribal o latina, líneas de bajo con actitud, samples vocales sensuales o de actitud, groove que empuja las caderas. Beats sensuales con capas percusivas.</p>
+<h3>Géneros y sellos</h3>
+<p>Tech-house · Afro house · tribal · garage · soulful sexy · Latin house · Suara · Mindshake · Hot Creations · Cuttin' Headz</p>
+<h3>DJs de referencia</h3>
+<p>Marco Carola "Music On" · Danny Tenaglia · Fer BR (lado groovero) · Paco Osuna (lado sensual) · Oliver Dollar (lado funky) · Luciano · Ricardo Villalobos (lado tribal)</p>
+<h3>Tracks que te orientan</h3>
+<p>Fer BR "Envelopes" · Oliver Dollar "Doin' Ya Thang" · Kasper Marott "Metaxas Carnival"</p>
+<h3>Cuándo pincharlo</h3>
+<p>Maintime del set. La hora que la pista está llena y caliente. De 1AM a 4AM. El corazón de la sesión bailable.</p>
+`,
+
+'cadera-niebla':`
+<h2>🌫️ CADERA · NIEBLA</h2>
+<h3>Qué sientes</h3>
+<p>Bailas flotando con ojos cerrados. El groove te mueve pero estás en tu propia burbuja. Introspección bailable — el cuerpo va solo mientras la mente flota. Ro-minimal introspectivo que envuelve sin presionar.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> groove introspectivo. El groove manda pero en un espacio niebla.<br>
+<b>NO ES:</b> viaje progresivo con capítulos (CORAZÓN+NIEBLA). No es hipnosis pura que te anula (CEREBRO+NIEBLA). Sigues bailando, sigues siendo cuerpo.</p>
+<h3>Sonido</h3>
+<p>Loops de groove minimalistas, capas sutiles de texturas, elementos que aparecen y desaparecen sin drama. Todo es sutil. El groove es modesto pero constante. Espacios largos, poca información melódica.</p>
+<h3>Géneros y sellos</h3>
+<p>Ro-minimal · deep house profundo · minimal groovero · dub house · a:rpia:r · Ilian Tape (lado groovero) · Pampa · Perlon</p>
+<h3>DJs de referencia</h3>
+<p>Rhadoo · Raresh · Losoul · Archie Hamilton · Dubphone · Marc Galindo · Ricardo Villalobos (lado deep) · Petre Inspirescu</p>
+<h3>Tracks que te orientan</h3>
+<p>DJ Honesty "Moment" (Losoul Remix) · Marc Galindo "Ballad From Beyond" · Dubphone "Otrava Minut" (Archie Hamilton Remix)</p>
+<h3>Cuándo pincharlo</h3>
+<p>Warm up profundo de calidad. Las primeras horas de un set largo. After introspectivo. El momento donde menos es más.</p>
+<p><b>Tu saco más coherente en esta sesión.</b> Los tres tracks que tienes aquí (Losoul, Galindo, Dubphone) los mezclarías en 20 minutos sin despeinarte.</p>
+`,
+
+'cadera-lluvia':`
+<h2>🌧️ CADERA · LLUVIA</h2>
+<h3>Qué sientes</h3>
+<p>Bailas con peso en el pecho. Deep house triste con groove protagonista. El cuerpo se mueve pero algo pesa — una melancolía que no te para pero que sientes.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> groove melancólico. El groove manda pero el aire es triste.<br>
+<b>NO ES:</b> una película melancólica con capítulos (CORAZÓN+LLUVIA). No es un loop triste que te anula (CEREBRO+LLUVIA).</p>
+<h3>Sonido</h3>
+<p>Acordes menores sobre grooves de deep house, pads tristes, samples melancólicos. El kick y el bajo siguen siendo el ancla — pero todo lo que los rodea tiene peso emocional.</p>
+<h3>Géneros y sellos</h3>
+<p>Deep house melancólico · soulful triste · garage emocional · KDJ · Mahogani Music</p>
+<h3>DJs de referencia</h3>
+<p>Moodymann (lado triste) · Theo Parrish (lado melancólico) · Larry Heard nostálgico · Kerri Chandler (lado emocional)</p>
+<h3>Tracks que te orientan</h3>
+<p>Moodymann acordes menores · Theo Parrish triste · deep house de Detroit emocional</p>
+<h3>Cuándo pincharlo</h3>
+<p>Momento vulnerable del set. After con lágrima. Raro en sets normales pero potente cuando aparece.</p>
+<p><b>⚠️ Poco frecuente.</b> Si estás aquí, asegúrate de que el groove realmente manda — si la melancolía domina todo, probablemente es CORAZÓN+LLUVIA.</p>
+`,
+
+'cadera-veneno':`
+<h2>🐍 CADERA · VENENO</h2>
+<h3>Qué sientes</h3>
+<p>El groove te mueve y te ancla en la sala. PERO algo amenazante envuelve el espacio. Sigues bailando — el culo no para — pero algo oscuro rodea la pista. No es seducción (eso es FUEGO). No es miedo paralizante (eso sería CEREBRO). Es groove oscuro con una sombra que acecha.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> tech-house oscuro con groove protagonista. Si quitas kick y bajo, el track se queda hueco.<br>
+<b>NO ES:</b> anulación amenazante (CEREBRO+VENENO — ahí la sala desaparece, aquí sigues bailando). No es pisotón marcial empoderador (CADERA+HIERRO — ahí no hay amenaza). No es groove sensual (CADERA+FUEGO — hay roce, aquí hay sombra).</p>
+<h3>La distinción clave</h3>
+<p>La diferencia entre CADERA+VENENO y CEREBRO+VENENO es la que más cuesta. La prueba: si quitas el kick y el bajo, ¿el track se queda hueco (CADERA) o sigue funcionando como pieza atmosférica (CEREBRO)? En CADERA+VENENO el groove es el track — la oscuridad lo envuelve pero no lo sustituye.</p>
+<h3>Sonido</h3>
+<p>Kicks con peso, líneas de bajo oscuras y rodantes, texturas atmosféricas amenazantes pero subordinadas al groove. Hi-hats trabajados, percusión industrial pero groovera. El groove rueda mientras la atmósfera presiona.</p>
+<h3>Géneros y sellos</h3>
+<p>Tech-house oscuro · minimal dark · hardgroove con amenaza · Minus (lado groovero) · Truesoul · MOOD · Items & Things</p>
+<h3>DJs de referencia</h3>
+<p>Matador (Minus) · Fer BR (Minus) · Paco Osuna (lado dark) · Marco Carola (lado oscuro) · Carbon & Wahrlich · Siabazz</p>
+<h3>Tracks que te orientan</h3>
+<p>Matador "Kingswing" · Matador "Mambo" · Fer BR "Less Is Mass" · Carbon & Wahrlich "Kiefermauler" · Siabazz/Picazo "Mental Disorder"</p>
+<h3>Cuándo pincharlo</h3>
+<p>La hora oscura de la pista. De 3AM a 5AM. Después de CADERA+FUEGO, antes de entrar en CEREBRO. Es la transición natural del groove sensual al groove amenazante.</p>
+<h3>Toro o Ciervo</h3>
+<p>VENENO es siempre el ciervo. Algo te persigue. Miras atrás. La diferencia con HIERRO (el toro) es que en HIERRO avanzas empoderado sin amenaza — en VENENO hay algo oscuro detrás mientras bailas.</p>
+`,
+
+'cadera-hierro':`
+<h2>⚙️ CADERA · HIERRO</h2>
+<h3>Qué sientes</h3>
+<p>Pisotón empoderador con groove. Cabeza abajo, avanzas como un toro que carga. El groove manda pero hay contundencia marcial. No hay amenaza detrás — solo tu impulso hacia delante. Es el guerrero que baila.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> groove marcial bailable. Pisas fuerte y avanzas. Contundente y ORDENADO — áspero pero no caótico.<br>
+<b>NO ES:</b> apisonadora hipnótica (CEREBRO+HIERRO — ahí te anula). No es groove oscuro con amenaza (CADERA+VENENO — ahí hay algo detrás). No es caos sucio (CADERA+BARRO — ahí hay descontrol).</p>
+<h3>La distinción con BARRO</h3>
+<p>HIERRO es contundente y ORDENADO. BARRO es sucio e IRREGULAR. SAAH "Engage" no es BARRO aunque suene áspero — es ordenado y contundente. BARRO es cuando se le va la olla: Acid sucio, footwork, punk electrónico. Si el groove avanza compacto con fuerza, es HIERRO. Si es irregular y caótico, es BARRO.</p>
+<h3>Sonido</h3>
+<p>Kicks duros y limpios en su construcción, líneas de bajo pesadas pero compactas, percusión tribal o industrial pero con groove. Hi-hats metálicos, snares contundentes. Todo golpea con precisión.</p>
+<h3>Géneros y sellos</h3>
+<p>Bass house · hardgroove bailable (Ben Sims, Cristian Varela) · UK bass · tech-house marcial · EBM bailable · hard techno bailable · Hydraulix · Primate Recordings · Pornographic Records</p>
+<h3>DJs de referencia</h3>
+<p>Avision · Ben Sims · Cristian Varela · Amelie Lens (lado bailable) · MRDIE · SAAH · Cem G · Hector Oaks (lado groovero) · Trym (lado bailable)</p>
+<h3>Tracks que te orientan</h3>
+<p>Avision "Excess" · SAAH "Engage" · MRDIE "Klammer" (Terry Whyte Remix) · Cem G "Hot Night" (Phiorio Remix) · Cristian Varela "Hardsperm"</p>
+<h3>Cuándo pincharlo</h3>
+<p>Peak time bailable. El momento donde el groove se pone serio sin perder la pista. Todo el hardgroove ortodoxo vive aquí: Varela de hace 20 años y el nuevo revival.</p>
+`,
+
+'cadera-barro':`
+<h2>🛢️ CADERA · BARRO</h2>
+<h3>Qué sientes</h3>
+<p>Groove caótico e irregular. Punk, roto a propósito. Como si se le fuera la olla. Incomoda pero no hiere — y te mueve. No es elegante, no es limpio, no es ordenado. Es mugre con ritmo.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> groove IRREGULAR y SUCIO. El descontrol es el punto.<br>
+<b>NO ES:</b> groove contundente y ordenado (CADERA+HIERRO — eso es el toro, esto es punk). No es anulación caótica (CEREBRO+BARRO — ahí ya no bailas, el caos te atrapa).</p>
+<h3>Sonido</h3>
+<p>Ritmos rotos, kicks sucios, líneas de bajo distorsionadas o irregulares, samples lo-fi. Todo suena como si las máquinas estuvieran a punto de explotar. Producción cruda deliberada.</p>
+<h3>Géneros y sellos</h3>
+<p>Acid house sucio · footwork · grime · gabber bailable · electroclash · EBM sucio · electro punk · Plus 8 (lado sucio) · Hypercolour</p>
+<h3>DJs de referencia</h3>
+<p>Lemon8 · DJ Rashad · I-F · Bottin · DJ Stingray · Helena Hauff (lado sucio bailable) · DJ Pierre (acid sucio)</p>
+<h3>Tracks que te orientan</h3>
+<p>Lemon8 "Model 8" · EYE-BM "EYE-BM 2" (Bottin/Mammarella)</p>
+<h3>Cuándo pincharlo</h3>
+<p>Momento punk del set. Para romper la dinámica. After descontrolado.</p>
+`,
+
+'cerebro-niebla':`
+<h2>🌫️ CEREBRO · NIEBLA</h2>
+<h3>Qué sientes</h3>
+<p>Loop que te disuelve sin amenaza. Hipnosis atmosférica pura. Quirúrgico, marciano, espacial. La sala desaparece — solo queda el bucle infinito y tú flotando en él. Podrías quedarte quieto y seguir absorbido.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> hipnosis sin amenaza. La atmósfera te borra sin que nada te persiga.<br>
+<b>NO ES:</b> groove introspectivo bailable (CADERA+NIEBLA — ahí sigues bailando). No es viaje narrativo (CORAZÓN+NIEBLA — ahí hay capítulos). No es hipnosis amenazante (CEREBRO+VENENO — ahí algo te acecha).</p>
+<h3>La distinción con CADERA+NIEBLA</h3>
+<p>La pregunta es: ¿el groove te mueve o la atmósfera te anula? En Rhadoo, el groove protagonista te ancla en tu cuerpo. En Mulero, la repetición quirúrgica te anula — el groove es un vehículo de la hipnosis, no el punto. Si quitas el kick y el bajo de Mulero, la esencia sigue ahí. Si los quitas de Rhadoo, no queda nada.</p>
+<h3>Sonido</h3>
+<p>Loops minimalistas con texturas sintéticas, repetición quirúrgica, espacios amplios, kicks precisos subordinados a la atmósfera. Sonido marciano, frío, limpio. Poca información — mucho espacio.</p>
+<h3>Géneros y sellos</h3>
+<p>Dub techno · Detroit techno (lado cósmico) · minimal extremo · drone hipnótico · Tresor · Basic Channel · Chain Reaction · Echospace · Blueprint</p>
+<h3>DJs de referencia</h3>
+<p>Oscar Mulero · Jeff Mills · Donato Dozzy · Deepchord · Drexciya · Moritz Von Oswald · Robert Hood (lado minimal) · Surgeon (lado espacial)</p>
+<h3>Tracks que te orientan</h3>
+<p>Mulero cualquier loop marciano · Jeff Mills "The Bells" · Basic Channel "Phylyps Trak" · Donato Dozzy "Voices From The Lake"</p>
+<h3>Cuándo pincharlo</h3>
+<p>Set de inmersión. Las 2 horas de hipnosis que necesitan un contexto específico. After espacial. Clubs tipo Berghain/Tresor a las 6AM.</p>
+`,
+
+'cerebro-lluvia':`
+<h2>🌧️ CEREBRO · LLUVIA</h2>
+<h3>Qué sientes</h3>
+<p>Loop que te hace llorar sin escape. Atrapado en un bucle triste. La melancolía te anula — no bailas, no viajas, solo estás atrapado en un estado emocional repetitivo.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> anulación melancólica. El loop triste te borra.<br>
+<b>NO ES:</b> película triste con capítulos (CORAZÓN+LLUVIA). No es groove triste bailable (CADERA+LLUVIA).</p>
+<h3>Sonido</h3>
+<p>Dub techno melancólico extremo, drones tristes, texturas emocionales en loop infinito. Poca percusión, mucha atmósfera. Todo reverbera.</p>
+<h3>Géneros y sellos</h3>
+<p>Dub techno melancólico · drone triste · ambient techno emocional · Raster-Noton · Mille Plateaux</p>
+<h3>DJs de referencia</h3>
+<p>Vladislav Delay · Andy Stott (lado triste) · Pole · Monolake (lado emocional)</p>
+<h3>Cuándo pincharlo</h3>
+<p>Muy raro en sets normales. Contexto de escucha más que de club.</p>
+<p><b>⚠️ Poco frecuente.</b> Si estás aquí, pregúntate si hay groove (→ CADERA+LLUVIA) o si hay evolución (→ CORAZÓN+LLUVIA).</p>
+`,
+
+'cerebro-veneno':`
+<h2>🐍 CEREBRO · VENENO</h2>
+<h3>Qué sientes</h3>
+<p>Loop que te anula MIENTRAS algo te persigue por detrás. Como un ciervo en el bosque: algo te acecha, miras atrás, aguantas la respiración. No bailas — estás atrapado en una hipnosis amenazante. La sala desaparece y solo queda la oscuridad y tú.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> anulación amenazante. El loop + la atmósfera oscura te borran juntos.<br>
+<b>NO ES:</b> tech-house oscuro de groove (CADERA+VENENO — ahí sigues bailando, aquí no). No es apisonadora que avanza (CEREBRO+HIERRO — ahí eres el toro, aquí eres el ciervo). No es thriller con capítulos (CORAZÓN+VENENO — ahí hay arco narrativo).</p>
+<h3>La distinción con CADERA+VENENO</h3>
+<p><b>Fer BR en Minus NO es lo mismo que BORTZ.</b> Fer BR tiene groove protagonista — si quitas el kick se queda hueco (CADERA). BORTZ tiene atmósfera amenazante que funciona sola sin el kick (CEREBRO). Matador tampoco va aquí — te mueve, no te anula. CEREBRO+VENENO es para los tracks donde la oscuridad te absorbe y la sala desaparece.</p>
+<h3>Sonido</h3>
+<p>Loops oscuros con texturas amenazantes dominantes, atmósferas densas que pesan más que el groove, percusión subordinada a la oscuridad. Kicks subordinados a la tensión. El aire oscuro ES el track.</p>
+<h3>Géneros y sellos</h3>
+<p>Berlin techno oscuro · Ostgut Ton · Bedrock · psytrance dark · industrial amenazante · hard techno atmosférico</p>
+<h3>DJs de referencia</h3>
+<p>Ben Klock · Marcel Dettmann · Pig & Dan · BORTZ · Chymera · Len Faki (lado oscuro) · DVS1 (lado atmosférico)</p>
+<h3>Tracks que te orientan</h3>
+<p>Pig & Dan "Chemistry" · BORTZ "Steady Note" · Chymera "Tidal" · Ben Klock tracks atmosféricos</p>
+<h3>Cuándo pincharlo</h3>
+<p>Peak time hipnótico oscuro. Berghain 4AM. El momento donde la pista se convierte en una cueva y nadie habla.</p>
+<h3>Energía relativa</h3>
+<p>Un E1 dentro de CEREBRO+VENENO (como BORTZ "Steady Note") ya pesa más que muchos E3 de CADERA+FUEGO. La energía es relativa a la casilla.</p>
+`,
+
+'cerebro-hierro':`
+<h2>⚙️ CEREBRO · HIERRO</h2>
+<h3>Qué sientes</h3>
+<p>Tren de mercancías que te pasa por encima. Apisonadora hipnótica. Como un toro: cabeza abajo, avanzas — pero a diferencia de CADERA+HIERRO, aquí el groove no te hace bailar sino que te anula. La fuerza mecánica es tan brutal que te borra. La sala desaparece — solo queda la máquina.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> anulación marcial. La repetición mecánica potente te borra.<br>
+<b>NO ES:</b> hardgroove bailable (CADERA+HIERRO — ahí sigues siendo cuerpo bailando). No es hipnosis amenazante (CEREBRO+VENENO — ahí algo te persigue, aquí solo la máquina avanza). No es evolución épica (CORAZÓN+HIERRO — ahí hay capítulos).</p>
+<h3>La distinción con CADERA+HIERRO</h3>
+<p><b>Julian Jeweil te mete el cerebro en una batidora.</b> Cristian Varela te hace bailar con el culo. Los dos tienen kicks duros y groove marcial — pero Jeweil te anula con la repetición y Varela te mueve. La diferencia: ¿podrías quedarte quieto absorbido? Jeweil sí. Varela no.</p>
+<h3>Sonido</h3>
+<p>Kicks mecánicos potentes y repetitivos, loops de bajo industriales, texturas metálicas, producción limpia pero brutal. Todo avanza como un tren — sin parar, sin variar, sin historia. La ausencia de variación es el punto.</p>
+<h3>Géneros y sellos</h3>
+<p>Hard techno · Drumcode peak · EBM extremo · industrial marcial · Len Faki Records · Soma · Slam</p>
+<h3>DJs de referencia</h3>
+<p>Julian Jeweil · Dalton J · Amelie Lens (lado hipnótico) · Varela (extremo) · Function · Tone Of Arc · Maceo Plex (Conjure)</p>
+<h3>Tracks que te orientan</h3>
+<p>Jeweil "Encke" · Jeweil "South" · Dalton J "Fear Of Elicopter" (Poy Poy Remix) · Tone Of Arc "Dance Alone" · Maceo Plex "Conjure Bots" · Function "Disaffected"</p>
+<h3>Cuándo pincharlo</h3>
+<p>Peak time de hard techno. La hora de máxima potencia donde la sala es una máquina. El momento Drumcode.</p>
+`,
+
+'cerebro-barro':`
+<h2>🛢️ CEREBRO · BARRO</h2>
+<h3>Qué sientes</h3>
+<p>Hipnosis sucia. Caos en loop que no te suelta. No puedes escapar del descontrol — te atrapa. La mugre se repite y te anula con su irregularidad.</p>
+<h3>Qué es y qué NO es</h3>
+<p><b>ES:</b> anulación caótica. El caos te borra.<br>
+<b>NO ES:</b> groove caótico bailable (CADERA+BARRO — ahí bailas con la mugre). Aquí te quedas inmóvil absorbido por el descontrol.</p>
+<h3>Sonido</h3>
+<p>Acid techno raw, texturas industriales ruidosas, loops de distorsión, kicks sucios repetitivos. Todo suena a máquinas fallando a propósito.</p>
+<h3>Géneros y sellos</h3>
+<p>Acid techno raw · industrial (Perc) · noise techno · glitch extremo · Perc Trax · Hospital Productions</p>
+<h3>DJs de referencia</h3>
+<p>Hawtin (Spastik) · Perc · Surgeon raw · Regis · Ansome · Blawan (lado extremo)</p>
+<h3>Tracks que te orientan</h3>
+<p>Hawtin "Spastik" · Perc "Look What Your Love Has Done" · Surgeon live</p>
+<h3>Cuándo pincharlo</h3>
+<p>Peak time industrial. El momento donde todo se rompe. Sets especializados de industrial techno.</p>
+`
+};
+
 let body=null,tex=null,ener=null,hasBreak=false,hasVocal=false,trail=[];
 let trailBodyLen=0,trailTexLen=0;
 
@@ -571,7 +949,7 @@ function rTex(){
         return `<button class="choice" onclick="pickTex('${tid}')" style="border-color:${t.hx}40">
           <div class="choice-icon" style="background:${t.hx}20">${t.emoji}</div>
           <div class="choice-body">
-            <div class="choice-label" style="color:${t.cl}">${t.name}${rareTag}</div>
+            <div class="choice-label" style="color:${t.cl}">${t.name}${rareTag}<span class="help-btn" onclick="event.stopPropagation();showHelp('${tid}')">?</span></div>
             <div class="choice-desc"><b style="color:${t.hx}">${t.headline}</b> · ${t.desc}</div>
             <div class="choice-ex"><b>Géneros:</b> ${t.genres}</div>
             <div class="choice-ex" style="margin-top:4px"><b>Artistas:</b> ${t.artists}</div>
@@ -596,6 +974,35 @@ function pickTex(texId){
 
 function resetTex(){tex=null;trailTexLen=0;trail=trail.slice(0,trailBodyLen);us('tex');rTex();}
 function goEner(){us('ener');rE();}
+
+// ─── AYUDA DETALLADA ─────────────────────────────────────────────────────
+function showHelp(texId){
+  const key=body.id+'-'+texId;
+  const content=HELP[key];
+  if(!content)return;
+  const t=TEX[body.id][texId];
+  const overlay=document.createElement('div');
+  overlay.id='help-overlay';
+  overlay.className='help-overlay';
+  overlay.innerHTML=`
+    <div class="help-page">
+      <div class="help-top">
+        <button class="help-back" onclick="hideHelp()">← Volver a texturas</button>
+        <div class="bh" style="margin:0"><span class="bh-e">${body.emoji}</span><span class="bh-n" style="color:${body.cl}">${body.name}</span><span style="color:var(--tx4);margin:0 6px">·</span><span class="bh-e">${t.emoji}</span><span class="bh-n" style="color:${t.cl}">${t.name}</span></div>
+      </div>
+      <div class="help-body">${content}</div>
+      <div class="help-bottom">
+        <button class="btn btn-ok" onclick="hideHelp()" style="width:100%;padding:18px">← Volver a texturas</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(()=>overlay.classList.add('open'));
+}
+function hideHelp(){
+  const o=document.getElementById('help-overlay');
+  if(o){o.classList.remove('open');setTimeout(()=>o.remove(),250);}
+}
 
 // ─── PASO 3: ENERGÍA (descripciones personalizadas por casilla) ─────────────
 function rE(){
