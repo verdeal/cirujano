@@ -5,125 +5,189 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Cirujano v5 — Cuadros Vivos</title>
+<title>Cirujano v6 — Clasificador definitivo</title>
 <style>
 :root{
   --bg:#0A0A0F;--card:#14141C;--card2:#1C1C26;--brd:#2A2A38;
   --tx:#F0F0F5;--tx2:#C0C0CC;--tx3:#9090A0;--tx4:#606070;
-  --green:#34D399;--red:#EF4444;--amber:#F59E0B;
+  --green:#34D399;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;
   --calido:#F97316;--frio:#7CD4F4;--oscuro:#A78BFA;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.55;min-height:100vh;overscroll-behavior:none}
+html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;line-height:1.6;min-height:100vh;overscroll-behavior:none}
 body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-.app{max-width:600px;margin:0 auto;padding:18px 14px 32px}
+.app{max-width:720px;margin:0 auto;padding:18px 14px 40px}
 
-.hd{text-align:center;margin-bottom:18px;padding:8px 0}
-.hd-t{font-size:11px;letter-spacing:3px;color:var(--tx4);font-weight:600;margin-bottom:4px}
-.hd-n{font-size:22px;font-weight:800;color:var(--tx);letter-spacing:1px}
+/* Header */
+.hd{text-align:center;margin-bottom:16px;padding:8px 0}
+.hd-t{font-size:11px;letter-spacing:3px;color:var(--tx4);font-weight:700;margin-bottom:5px}
+.hd-n{font-size:22px;font-weight:800;color:var(--tx);letter-spacing:-0.3px}
 
-.tabs{display:flex;gap:6px;margin-bottom:18px;background:var(--card2);padding:4px;border-radius:10px}
-.tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--tx3);background:none;border:none;border-radius:8px;cursor:pointer;font-family:inherit}
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:16px;background:var(--card2);padding:4px;border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{flex:1;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:var(--tx3);background:none;border:none;border-radius:8px;cursor:pointer;font-family:inherit;white-space:nowrap;min-width:80px}
 .tab.on{background:var(--card);color:var(--tx)}
 
+/* Progress dots */
 .pg{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px}
 .pg-d{width:8px;height:8px;border-radius:50%;background:var(--brd);transition:.2s}
 .pg-d.on{background:var(--green);transform:scale(1.4)}
 .pg-d.done{background:var(--green);opacity:.5}
 
-.q{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:20px 16px;margin-bottom:14px}
-.q-num{font-size:11px;letter-spacing:2px;color:var(--tx4);font-weight:600;margin-bottom:8px}
-.q-t{font-size:18px;font-weight:700;color:var(--tx);margin-bottom:8px;line-height:1.3}
-.q-s{font-size:14px;color:var(--tx2);margin-bottom:16px;line-height:1.55}
+/* Question card */
+.q{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:18px 16px;margin-bottom:14px}
+.q-num{font-size:11px;letter-spacing:2px;color:var(--tx4);font-weight:700;margin-bottom:8px}
+.q-t{font-size:18px;font-weight:800;color:var(--tx);margin-bottom:8px;line-height:1.3}
+.q-s{font-size:13.5px;color:var(--tx2);margin-bottom:16px;line-height:1.6}
 .q-s b{color:var(--tx);font-weight:700}
 
+/* Options */
 .opts{display:flex;flex-direction:column;gap:10px}
 .opt{background:var(--card2);border:1.5px solid var(--brd);border-radius:14px;padding:14px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;text-align:left;color:var(--tx);font-family:inherit;font-size:14px;width:100%;transition:.15s}
 .opt:active{transform:scale(.98);background:var(--brd)}
 .opt-ic{font-size:24px;flex-shrink:0;line-height:1;width:32px;text-align:center}
 .opt-bd{flex:1;min-width:0}
-.opt-l{font-weight:700;color:var(--tx);margin-bottom:5px;font-size:15px;line-height:1.3}
+.opt-l{font-weight:800;color:var(--tx);margin-bottom:5px;font-size:15px;line-height:1.3}
 .opt-d{font-size:13px;color:var(--tx2);line-height:1.5}
-.opt-d b{color:var(--tx);font-weight:600}
-.opt-ex{font-size:12px;color:var(--tx3);line-height:1.5;margin-top:6px;padding-top:6px;border-top:1px solid var(--brd)}
+.opt-d b{color:var(--tx);font-weight:700}
+.opt-ex{font-size:11.5px;color:var(--tx3);line-height:1.5;margin-top:6px;padding-top:6px;border-top:1px solid var(--brd)}
 .opt-ex b{color:var(--tx2)}
 
+/* Back/buttons */
 .back{background:none;border:none;color:var(--tx3);font-family:inherit;font-size:14px;padding:10px;cursor:pointer;margin-top:10px;display:block;width:100%;text-align:center}
 .back:active{color:var(--tx)}
 .btn{padding:14px;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;border:1.5px solid var(--brd);background:var(--card);color:var(--tx);width:100%;margin-top:10px}
 .btn-pri{background:var(--green);color:#0A0A0F;border-color:var(--green)}
-.btn:active{transform:scale(.98)}
+.btn-pri:active{transform:scale(.98)}
 
-.res{background:var(--card);border-radius:20px;padding:20px 16px;margin-bottom:12px;border:2px solid var(--brd)}
+/* Result */
+.res{background:var(--card);border-radius:20px;padding:20px 16px;margin-bottom:14px;border:2px solid var(--brd)}
 .res.primary{border-color:var(--green)}
 .res.secondary{border-color:var(--amber);opacity:.95}
-.res-tag{font-size:10px;letter-spacing:2px;font-weight:700;margin-bottom:8px;text-transform:uppercase}
+.res-tag{font-size:10px;letter-spacing:2px;font-weight:800;margin-bottom:8px;text-transform:uppercase}
 .res.primary .res-tag{color:var(--green)}
 .res.secondary .res-tag{color:var(--amber)}
-.res-id{display:inline-block;padding:3px 8px;border-radius:6px;background:var(--card2);font-size:12px;font-weight:700;margin-right:8px;letter-spacing:1px}
-.res-n{font-size:20px;font-weight:800;color:var(--tx);margin-bottom:8px;line-height:1.25}
-.res-temp{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;font-size:13px;font-weight:700;margin-bottom:14px}
+.res-id{display:inline-block;padding:4px 10px;border-radius:6px;background:var(--card2);font-size:13px;font-weight:800;margin-right:8px;letter-spacing:1px}
+.res-id.calido{background:rgba(249,115,22,.18);color:var(--calido)}
+.res-id.frio{background:rgba(124,212,244,.18);color:var(--frio)}
+.res-id.oscuro{background:rgba(167,139,250,.18);color:var(--oscuro)}
+.res-id.mixto{background:linear-gradient(135deg,rgba(249,115,22,.15),rgba(124,212,244,.15));color:var(--tx)}
+.res-n{font-size:20px;font-weight:800;color:var(--tx);margin-bottom:6px;line-height:1.25}
+.res-temp{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;font-size:13px;font-weight:800;margin-bottom:14px}
 .res-temp.calido{background:rgba(249,115,22,.15);color:var(--calido)}
 .res-temp.frio{background:rgba(124,212,244,.15);color:var(--frio)}
 .res-temp.oscuro{background:rgba(167,139,250,.15);color:var(--oscuro)}
-.res-d{font-size:14px;color:var(--tx2);line-height:1.6;margin-bottom:14px}
+.res-d{font-size:14px;color:var(--tx2);line-height:1.6;margin-bottom:14px;font-style:italic;padding-left:10px;border-left:2px solid var(--brd)}
 .res-section{margin-top:14px;padding-top:14px;border-top:1px solid var(--brd)}
-.res-section-t{font-size:11px;letter-spacing:1.5px;color:var(--tx4);font-weight:700;margin-bottom:8px;text-transform:uppercase}
-.res-meta{font-size:13.5px;color:var(--tx2);line-height:1.6;margin-bottom:6px}
+.res-section-t{font-size:10px;letter-spacing:1.5px;color:var(--tx4);font-weight:800;margin-bottom:8px;text-transform:uppercase}
+.res-meta{font-size:13px;color:var(--tx2);line-height:1.6;margin-bottom:6px}
 .res-meta b{color:var(--tx);font-weight:700}
 
-.val{background:var(--card2);border:1.5px solid var(--brd);border-radius:12px;padding:14px;margin-top:14px}
-.val-t{font-size:11px;letter-spacing:1.5px;color:var(--amber);font-weight:700;margin-bottom:10px}
-.val-q{font-size:13.5px;color:var(--tx);margin-bottom:10px;line-height:1.55;padding-left:20px;position:relative}
-.val-q:before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:700}
+/* Validation */
+.val{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:12px;margin-top:12px}
+.val-t{font-size:10px;letter-spacing:1.5px;color:var(--amber);font-weight:800;margin-bottom:8px}
+.val-q{font-size:13px;color:var(--tx);margin-bottom:8px;line-height:1.55;padding-left:18px;position:relative}
+.val-q:before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
 
+/* Trail */
 .trail{background:var(--card2);border-radius:12px;padding:12px;margin-top:12px;font-size:11px;color:var(--tx3);line-height:1.7}
 .trail b{color:var(--tx2)}
 
+/* Lista browser */
 .lst{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:14px;margin-bottom:8px;cursor:pointer;display:flex;gap:12px;align-items:flex-start}
 .lst:active{background:var(--card2)}
-.lst-ic{font-size:24px;flex-shrink:0}
+.lst-id{padding:5px 10px;border-radius:6px;font-size:13px;font-weight:800;letter-spacing:1px;flex-shrink:0;min-width:42px;text-align:center}
 .lst-bd{flex:1;min-width:0}
-.lst-id{font-size:11px;color:var(--tx4);font-weight:700;letter-spacing:1px;margin-bottom:2px}
-.lst-n{font-weight:700;color:var(--tx);margin-bottom:3px;font-size:15px}
+.lst-n{font-weight:800;color:var(--tx);margin-bottom:3px;font-size:15px}
 .lst-d{font-size:12.5px;color:var(--tx3);line-height:1.45}
-.section-h{font-size:11px;letter-spacing:2px;color:var(--tx4);font-weight:700;margin:18px 0 10px;text-transform:uppercase}
+.section-h{font-size:11px;letter-spacing:2px;color:var(--green);font-weight:800;margin:18px 0 10px;text-transform:uppercase}
 .section-h:first-child{margin-top:0}
 
-.intro{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:12px;padding:14px;margin-bottom:14px;font-size:13.5px;color:var(--tx2);line-height:1.6}
+/* Intro/help */
+.intro{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:12px;padding:14px;margin-bottom:14px;font-size:13px;color:var(--tx2);line-height:1.6}
 .intro b{color:var(--green)}
 
-.multi-hdr{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:14px;margin-bottom:14px;font-size:13.5px;color:var(--tx2);line-height:1.6;text-align:center}
+.warning-banner{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--tx2);line-height:1.55}
+.warning-banner b{color:var(--amber)}
+
+.multi-hdr{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:14px;margin-bottom:14px;font-size:13px;color:var(--tx2);line-height:1.6;text-align:center}
 .multi-hdr b{color:var(--amber)}
 
+/* Temperature picker - shows ALL 3 temperatures with relative context per cuadro */
 .temp-pick{background:var(--card2);border:1.5px solid var(--brd);border-radius:14px;padding:14px;cursor:pointer;text-align:left;color:var(--tx);font-family:inherit;width:100%;font-size:14px;margin-bottom:10px;transition:.15s}
 .temp-pick:active{transform:scale(.98)}
 .temp-pick.calido{border-color:rgba(249,115,22,.4)}
 .temp-pick.frio{border-color:rgba(124,212,244,.4)}
 .temp-pick.oscuro{border-color:rgba(167,139,250,.4)}
-.temp-pick-h{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.temp-pick-h-ic{font-size:22px}
+.temp-pick.rare{opacity:0.85}
+.temp-pick-h{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.temp-pick-h-ic{font-size:20px}
 .temp-pick-h-l{font-weight:800;font-size:15px}
 .temp-pick-h-l.calido{color:var(--calido)}
 .temp-pick-h-l.frio{color:var(--frio)}
 .temp-pick-h-l.oscuro{color:var(--oscuro)}
-.temp-pick-def{font-size:13px;color:var(--tx2);line-height:1.5;margin-bottom:8px}
-.temp-pick-ctx{font-size:12px;color:var(--tx3);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:8px;margin-top:6px}
-.temp-pick-ctx b{color:var(--tx2)}
-.temp-pick-empty{font-size:12px;color:var(--tx4);font-style:italic;padding:8px 10px;background:var(--card);border-radius:8px;margin-top:6px}
+.temp-pick-rare-tag{display:inline-block;padding:2px 8px;border-radius:6px;background:rgba(245,158,11,.18);color:var(--amber);font-size:10px;font-weight:700;letter-spacing:.5px}
+.temp-pick-def{font-size:13px;color:var(--tx);line-height:1.5;margin-bottom:8px}
+.temp-pick-ctx{font-size:12px;color:var(--tx2);line-height:1.55;padding:8px 10px;background:var(--card);border-radius:8px;margin-top:6px}
+.temp-pick-ctx b{color:var(--tx)}
+
+/* Energy picker */
+.energy-pick{background:var(--card2);border:1.5px solid var(--brd);border-radius:14px;padding:14px;cursor:pointer;text-align:left;color:var(--tx);font-family:inherit;width:100%;font-size:14px;margin-bottom:10px;transition:.15s}
+.energy-pick:active{transform:scale(.98)}
+.energy-pick-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.energy-pick-l{font-weight:800;font-size:15px;color:var(--tx)}
+.energy-pick-d{font-size:13px;color:var(--tx2);line-height:1.5}
+
+/* Reference page */
+.ref-card{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:18px;margin-bottom:14px}
+.ref-card-h{font-size:11px;letter-spacing:2px;color:var(--green);font-weight:800;margin-bottom:10px;text-transform:uppercase}
+.ref-card-t{font-size:18px;font-weight:800;margin-bottom:8px}
+.ref-card-d{font-size:13.5px;color:var(--tx2);line-height:1.65;margin-bottom:10px}
+.ref-card-d b{color:var(--tx)}
+
+.principle-row{display:flex;gap:10px;margin-bottom:10px;font-size:13px;color:var(--tx2);line-height:1.55}
+.principle-num{font-weight:800;color:var(--green);min-width:22px;flex-shrink:0}
+
+/* Mecanismos */
+.mech{background:var(--card2);border-radius:10px;padding:12px;margin-bottom:8px}
+.mech-h{font-weight:800;font-size:13px;margin-bottom:4px;color:var(--tx)}
+.mech-h.arriba{color:var(--green)}
+.mech-h.horiz{color:var(--frio)}
+.mech-h.abajo{color:var(--oscuro)}
+.mech-d{font-size:12.5px;color:var(--tx2);line-height:1.55}
+.mech-d b{color:var(--tx)}
+
+/* Matrix */
+.matrix-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:12px}
+table.matrix{width:100%;border-collapse:collapse;font-size:11px}
+.matrix th{text-align:left;padding:7px 5px;color:var(--tx3);font-weight:700;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--brd)}
+.matrix td{padding:6px 5px;border-bottom:1px solid var(--brd);color:var(--tx2);vertical-align:top}
+.matrix td.id{font-weight:800;font-family:monospace;font-size:11px;background:var(--card2);text-align:center}
+.matrix td.name{font-weight:700;color:var(--tx);font-size:11.5px}
+.matrix .has{color:var(--green);font-weight:700}
+.matrix .min{color:var(--tx3);font-size:10.5px}
+.matrix .rare{color:var(--amber);font-size:10.5px}
+
+/* Dist card */
+.dist-c{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:14px;margin-bottom:10px}
+.dist-c-h{font-weight:800;color:var(--tx);margin-bottom:8px;font-size:14px}
+.dist-c-row{display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--tx2);line-height:1.55;margin-bottom:5px}
+.dist-c-row b{color:var(--tx)}
+.dist-c-vs{color:var(--amber);font-weight:800}
 </style>
 </head>
 <body>
 <div class="app">
 
 <div class="hd">
-  <div class="hd-t">CIRUJANO V5 · CUADROS VIVOS</div>
+  <div class="hd-t">CIRUJANO V6 · CLASIFICADOR DEFINITIVO</div>
   <div class="hd-n">¿Dónde va este track?</div>
 </div>
 
 <div class="tabs">
   <button class="tab on" id="tab-clas" onclick="showTab('clas')">Clasificar</button>
-  <button class="tab" id="tab-list" onclick="showTab('list')">Ver listas</button>
+  <button class="tab" id="tab-list" onclick="showTab('list')">Listas</button>
+  <button class="tab" id="tab-ref" onclick="showTab('ref')">Sistema</button>
 </div>
 
 <div id="main"></div>
@@ -134,526 +198,714 @@ body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 'use strict';
 
 // ═══════════════════════════════════════════════════════════════════════════
-// CUADROS — texto técnico amplio, sin abstracción
+// CUADROS — letras A-M reasignadas por flujo natural
+// Cada cuadro tiene las 3 temperaturas relativas (siempre se ofrecen las 3,
+// con marca rare cuando sea poco habitual pero NUNCA imposible)
+// Vocabulario: PRINCIPAL y PICO (no Sostén)
 // ═══════════════════════════════════════════════════════════════════════════
 
-const CUADROS={
-  A:{
-    tipo:'nuclear',
-    icon:'🏛️',
-    n:"Local mediano oscuro envolvente",
-    short:"Club selecto comprimido",
-    intro:"Sala mediana cerrada (300-1500 personas) con sonido envolvente y producción cuidada. Hora 1-3am. Público que ha pagado por ir a un club específico porque conocen al DJ o el sello. La gente baila moviendo el cuerpo poco — más cabeza y torso que culo. Vienen a escuchar tanto como a bailar.",
-    detalle:"El sonido protagonista son sintetizadores marcados (bajos profundos, pads largos, leads retro) y baterías limpias. Producción nítida, mezcla con espacio. El track tiende a evolucionar despacio durante 7-10 minutos. NO hay vocales evidentes ni hits — predomina lo instrumental con ego. Marco BPM 118-128. Si suena Maceo Plex modo Conjure, Bodzin, Mind Against, Marco Pohl deep tech, Innellea, A Sagittariun, este es el sitio.",
-    djs:"Maceo Plex (Conjure series) · Stephan Bodzin · Mind Against · Innellea · Marco Pohl · Boris Brejcha · Recondite · Tale of Us en sala mediana · ANNA · Worakls modo club",
-    lugares:"Watergate Berlin · Razzmatazz salas · Fuse London · clubs medianos cerrados con buen sound system · giras de DJs purista en clubs de 500-1500 cap",
-    bpm:"118-128 BPM · indie dark techno · deep tech · melodic techno modo club · Italo moderno · synthpop oscuro de 2010+ · microhouse atmosférico de pista",
+const CUADROS = {
+  A: {
+    tipo:'escucha', icon:'🌅',
+    n:"Cafe del Mar",
+    short:"Atardecer balearic — escucha mecedora",
+    intro:"Atardecer en terraza mediterránea con copa al sol cayendo. La música acompaña la conversación, el mar de fondo, la luz dorada. NO se baila activamente — el cuerpo se mueve poco o nada.",
+    detalle:"Balearic clásico, ambient cálido, cosmic disco relajado, downtempo Bonobo, lo-fi atmosférico, chillwave. Producción suave sin kicks contundentes. Funciona como apertura de día (warm up de pool, festival selecto al aire libre) o como salida emocional de pre-cierre.",
+    djs:"José Padilla · DJ Harvey relajado · Caribou 'Sun' · Lane 8 luminoso · Bonobo · cosmic disco Baldelli relajado · Lindstrøm extendido",
+    lugares:"Cafe Mambo Ibiza · terrazas mediterráneas · sunset sets · apertura festival al aire libre · brunch chill",
+    bpm:"100-122 BPM",
+    cuerpo:"Arriba-estático (cabeza alta, copa en mano, casi quieto)",
+    tempColor:"calido",
+    energias:["principal"],  // solo principal (no baile activo, no peak)
     temps:{
       calido:{
-        def:"Synth con calor humano residual o anhelo emocional. Hay melodía que evoca, pero la producción sigue siendo sintética y de ego. NO es Postureo sexual de pista.",
-        examples:"Bodzin 'Singularity', Recondite cálido, Innellea melódico cálido, Bicep 'Glue', Maksim Dark con melodía emocional. Tracks que tienen synth lead protagonista que canta sin cantar.",
-        signal:"Cuando lo escuchas piensas \"qué pena que no haya vocal\" pero el synth ocupa ese hueco emocional."
+        rare:false,
+        def:"Temperatura natural y dominante. Calor humano elegante mediterráneo con leads largos amables y percusión orgánica relajada.",
+        examples:"José Padilla, DJ Harvey relajado, Caribou 'Sun', Lane 8 luminoso, Bonobo 'Migration', Floating Points luminoso, Lindstrøm extendido"
       },
       frio:{
-        def:"Synth retro o sintético sin emoción humana. Ego puro, distancia, chulería autoreferencial. La textura es maquinal, no humana. Te ignora.",
-        examples:"Maceo Plex 'Conjure Bots' / 'Mutant Future', Marco Pohl deep tech, A Sagittariun 'Vanishing Point', Boris Brejcha, ro-minimal Rhadoo modo club. Tracks que suenan a synth retro Carpenter o a máquina autorreferencial.",
-        signal:"Cuando lo escuchas no sientes nada humano, pero te mola la chulería sintética."
+        rare:true,
+        def:"Balearic con leads sintéticos distantes, cosmic disco con producción más fría. Bailable suavísimo o atmosférico sin calor humano explícito.",
+        examples:"Caribou 'Odessa' modo cosmic, cosmic disco Baldelli más distante, ambient sintético mediterráneo, Lone modo cosmic"
       },
       oscuro:{
-        def:"Sombra envolviendo el track sin amenaza explícita de villano. La sala se vuelve oscura por el peso atmosférico, no por una narrativa de suspense. Más denso que frío.",
-        examples:"Tale of Us 'Astral' (modo hipnótico), Mind Against modo dark, dark synthwave Perturbator club, Carbon & Wahrlich club, Boris Brejcha modo dark.",
-        signal:"Cuando lo escuchas la pista se vuelve más densa, hay peso, pero sigues bailando."
-      }
-    },
-    test:[
-      "¿Te imaginas una sala mediana cerrada con sonido envolvente y gente que ESCUCHA tanto como baila?",
-      "¿Hay synth retro / sintético protagonista (no vocal, no riff de pista, no kick puro)?",
-      "¿BPM entre 118 y 128, con evolución lenta de 7-10 minutos?"
-    ]
-  },
-  B:{
-    tipo:'nuclear',
-    icon:'🔥',
-    n:"Pista de club a tope",
-    short:"Pista caliente",
-    intro:"DC10 Circoloco, Music On con Carola, Sankeys. Hora 3-5am. La sala llena de cuerpos pegados sudando. Música tech-house de Postureo elegante, donde el groove sensual manda y la gente se mueve con el culo y el torso pegado a otros.",
-    detalle:"El sonido protagonista son percusión sensual (congas, shakers, bombo cargado), bajos rodantes, pequeños samples vocales o gritos puntuales. NO hay sintes melódicos largos — predomina el groove. La estructura es loop con breakdowns cortos que devuelven al groove rápido. BPM 122-128. Es la música de pista internacional bailable: Marco Carola, Jamie Jones, Hot Creations, Cuttin' Headz, todo el sello Solid Grooves.",
-    djs:"Marco Carola · Jamie Jones · Loco Dice · Solardo · Pablo Fierro · Apollonia · Hot Creations sound · Lee Foss · Steve Lawler · Cuartero modo caliente",
-    lugares:"DC10 Circoloco lunes · Music On Amnesia · Sankeys · Pacha lunes · Hï techno room · Cocoon Frankfurt · WooMooN Cova Santa",
-    bpm:"122-128 BPM · tech-house · Afro house bailable · tribal house · Latin house · UK garage groovero · amapiano de pista · big beat moderno",
-    temps:{
-      calido:{
-        def:"Groove con calor humano sensual. Vocales sample, percusión latina/tribal, ambiente de Postureo elegante con sonrisa.",
-        examples:"Marco Carola tribal latino, Jamie Jones con vocal hooks, Hot Creations clásico, Pablo Fierro Afro bailable, Latin house, baile funk groovero.",
-        signal:"Cuando lo escuchas piensas 'cuerpos pegados moviéndose con descaro elegante'."
-      },
-      frio:{
-        def:"Groove con producción seca o mecánica, percusión menos orgánica, samples más sintéticos. Bailable pero sin Postureo cálido.",
-        examples:"Tech-house más limpio y minimal, electroclash bailable, electro funk de pista. Apollonia modo seco, algún DJ Sneak frío.",
-        signal:"Lo bailas pero no es para frotarse — es más mecánico."
-      },
-      oscuro:{
-        def:"El mismo groove bailable pero con sombra puntual envolviendo. La pista a tope se vuelve más seria pero todavía no es Pista oscura 4am del cuadro G — sigue siendo peak caliente.",
-        examples:"Carola 'Fly With Me' modo dark, dubstep de pista oscuro pero bailable, Afro tech con sombra de Themba.",
-        signal:"Sigues bailando con cuerpo pegado pero la sala está más seria."
-      }
-    },
-    test:[
-      "¿BPM 122-128 con groove de Postureo elegante (no oscuro Minus, no marcial duro)?",
-      "¿La percusión protagonista (congas, shakers, bombos sensuales) por encima de cualquier synth?",
-      "¿Te imaginas a Marco Carola pinchando esto en Music On clásico a las 3am?"
-    ]
-  },
-  C:{
-    tipo:'nuclear',
-    icon:'🏔️',
-    n:"Festival selecto al aire libre (tipo Lilás)",
-    short:"Festival selecto",
-    intro:"Festival al aire libre en monte o naturaleza, capacidad 800-3000 personas. Atardecer y noche. La gente paga la entrada por la SELECCIÓN del DJ — saben que viene Kerri Chandler, Garnier, Larry Heard. Bailan pero también valoran lo que suena. Hay sonrisas y conversaciones, no es un club cerrado oscuro.",
-    detalle:"El sonido protagonista es Chicago house antiguo sintético en versión extendida, soulful elegante con piano, Detroit emocional, cosmic disco serio. Tracks largos (8-12 minutos) que evolucionan con clase. NO hay drops ni hits comerciales. Versiones de vinilo que no suenan en pool parties. BPM 116-126. Lilás (Lisboa), Eléctrico (Portugal), Sunsetstrip (Mendoza) son referencias.",
-    djs:"Kerri Chandler en monte · Larry Heard extended · Theo Parrish · Garnier modo serio · Black Coffee narrativo · DJ Harvey serio · Moodymann elegante · Ron Trent extended",
-    lugares:"Lilás Lisboa monte · Eléctrico Portugal · festivales boutique al aire libre · Sunsetstrip Mendoza · backyard festivals selectos · monte con sonido bueno",
-    bpm:"116-126 BPM · soulful elegante extended · Chicago house serio sintético · Detroit emocional narrativo · cosmic disco serio · liquid d&b · Afro house narrativo",
-    temps:{
-      calido:{
-        def:"Calor humano elegante, vocal o piano emotivo, melodía con clase. La mayoría de tracks de este cuadro caen aquí — es la temperatura natural del Lilás.",
-        examples:"Kerri Chandler 'Bar A Thym', Larry Heard 'Mystery of Love' extended, Garnier 'Acid Eiffel', Detroit emocional Carl Craig, Caribou 'Odessa', Moodymann elegante.",
-        signal:"Lo escuchas y sientes 'cómo me gustaría estar en monte con esto sonando'."
-      },
-      frio:{
-        def:"Synth distante elegante sin calor humano, retro Carpenter, producción seca elegante. Raro pero existe — Garnier sintético, A Sagittariun, Italo moderno serio.",
-        examples:"A Sagittariun 'Vanishing Point', Italo moderno Tensnake, cosmic indie dance Lena Willikens, Garnier modo synth seco.",
-        signal:"Tiene clase y es de monte, pero no te toca el corazón — te toca la cabeza."
-      },
-      oscuro:{
-        def:"Casi vacío en este cuadro. Si aparece sería Detroit techno cósmico con sombra, o algún Mind Against narrativo cuando el festival selecto se vuelve nocturno tarde.",
-        examples:"Detroit techno cósmico oscuro Carl Craig nocturno, Mind Against narrativo cuando entra noche cerrada.",
-        signal:"Raro en Lilás. Si lo pondrías es muy entrada la noche cuando el festival se ha vuelto club."
-      }
-    },
-    test:[
-      "¿Es una versión EXTENDIDA o B-side, no un hit que también suena en pool parties?",
-      "¿La gente vendría aquí por la SELECCIÓN (saben quién pincha) y no solo por el ambiente?",
-      "¿Te imaginas el track sonando con monte detrás y atardecer cayendo, no en sala cerrada?"
-    ]
-  },
-  D:{
-    tipo:'nuclear',
-    icon:'🕳️',
-    n:"Cueva grande (Berghain main floor)",
-    short:"Cueva opresiva",
-    intro:"Berghain main floor a las 4am. Cueva industrial enorme con techos altos de 12 metros. Capacidad 1500-3000 personas. La gente lleva 6+ horas dentro y se ha rendido al sitio. La atmósfera densa del lugar te aplasta — no te persigue un villano, es el LUGAR el que pesa por su acústica, su escala y su hora.",
-    detalle:"El sonido protagonista es techno Berlin con kick contundente seco, pads atmosféricos densos, percusión metálica, EBM techno con riff oscuro. NO hay calor humano residual ni vocales emotivas. Producción cruda con compresión brutal. Los tracks suelen ser 7-10 minutos sin breakdowns evidentes. BPM 130-138. Khidi Tbilisi y Bassiani son las otras referencias mundiales del mismo cuadro.",
-    djs:"Ben Klock · Marcel Dettmann · Rødhåd · Marcel Fengler · Pig & Dan · BORTZ · Phase Fatale · Etapp Kyle · Norman Nodge · Function · DVS1",
-    lugares:"Berghain main floor 4am · Khidi Tbilisi · Bassiani · Tresor Globus · Robert Johnson modo dark · clubs techno serios europeos con sound system industrial",
-    bpm:"130-138 BPM · Berlin techno oscuro · EBM techno · dark techno atmosférico · industrial groovero · psytrance dark hipnótico bailable",
-    temps:{
-      calido:{
-        def:"Casi vacío en este cuadro. El calor humano no encaja en Berghain main floor — si un track Berghain tiene calor, probablemente va al cuadro A (Local mediano selecto) o al cuadro F (Nave grande con épica).",
-        examples:"Raro. Algún track Ben Klock con synth vagamente emotivo, pero infrecuente.",
-        signal:"Si te encaja en cuadro D pero suena cálido, revisa si va a A o F."
-      },
-      frio:{
-        def:"Producción seca, mecánica, percusión metálica sin emoción. Frialdad industrial. La sala te aplasta sin sombra — te aplasta por mecánica.",
-        examples:"Marcel Dettmann modo minimal, electro Detroit frío DJ Stingray, dub techno groovero Basic Channel modo bailable, Etapp Kyle frío, Norman Nodge.",
-        signal:"Te aplasta sin tocarte el corazón. Solo mecánica."
-      },
-      oscuro:{
-        def:"La temperatura natural del cuadro D. Sombra atmosférica densa, peso opresivo, pads largos oscuros, riffs amenazantes envolviendo. EBM techno protagonista.",
-        examples:"Ben Klock atmosférico, Pig & Dan 'Chemistry', Rødhåd, Phase Fatale, BORTZ 'Steady Note', Marcel Fengler modo dark, dark techno atmosférico DVS1.",
-        signal:"La sala se vuelve cueva tenebrosa. Sigues bailando pero con peso encima."
-      }
-    },
-    test:[
-      "¿Suena al SITIO más que al track? ¿La atmósfera densa de la sala se nota más que la melodía del track?",
-      "¿Ben Klock o Marcel Dettmann lo pincharían en Berghain main floor a las 4am de un sábado?",
-      "¿BPM 130-138, kick seco contundente, sin vocales emotivas ni synth lead retro?"
-    ]
-  },
-  E:{
-    tipo:'nuclear',
-    icon:'🌫️',
-    n:"Sesión larga de viaje",
-    short:"Viaje progressive deep",
-    intro:"Cattaneo open-to-close 8 horas. Sunwaves Romania con Rhadoo 8 horas. fabric Room 1 con un solo DJ pinchando 6 horas. La gente entra al club a las 23h y sale a las 7-9h. Se baila con ojos cerrados, el tiempo desaparece. El DJ construye un viaje narrativo lento.",
-    detalle:"El sonido protagonista es progressive deep introspectivo o ro-minimal atmosférico bailable. Tracks de 9-12 minutos con evolución muy lenta — un elemento entra cada 2 minutos. NO hay drops dramáticos ni cambios de carácter bruscos. La progresión es gradual. BPM 118-126. Se distingue de cuadro A porque los tracks son más largos, más atmosféricos y menos chuleros, y se distingue de cuadro D porque es bailable sin aplastar.",
-    djs:"Hernán Cattaneo · Sasha & Digweed · Brian Cid · Rhadoo · Raresh · John Digweed · Guy J · Nick Warren · Petar Dundov · Audion narrativo · Henry Saiz · Cid Inc",
-    lugares:"Sunwaves Romania · fabric Room 1 · Cattaneo Buenos Aires open-to-close · Sunsetstrip Mendoza nocturno · sets de 6-12h con un solo DJ",
-    bpm:"118-126 BPM · progressive deep · ro-minimal bailable · deep tech profundo · Sudbeat sound · Bedrock sound · trance techno hipnótico modo viaje",
-    temps:{
-      calido:{
-        def:"Viaje con melodía emocional, leads largos que evocan, deep house elegante apertura. Cattaneo emocional, Brian Cid lado luminoso.",
-        examples:"Cattaneo 'Sudbeat tracks' emocionales, Brian Cid 'Light In The Lotus', Sasha 'Xpander' modo loop largo, Guy J emotional, Nick Warren con melodía.",
-        signal:"Vas viajando y sientes melodía emotiva en cada vuelta de 16 compases."
-      },
-      frio:{
-        def:"Viaje con texturas frías sintéticas, ro-minimal puro, microhouse atmosférico. La cabeza viaja sin que el corazón se enchufe.",
-        examples:"Rhadoo, Raresh, Petre Inspirescu, microhouse atmosférico, Donato Dozzy 'Voices From The Lake', Italian techno hipnótico Neel.",
-        signal:"Bailas en bucle introspectivo sin melodía cálida."
-      },
-      oscuro:{
-        def:"Raro en este cuadro. Algún progressive narrativo con sombra modo Mind Against o algún track de viaje cuando se entra a noche cerrada.",
-        examples:"Mind Against narrativo modo viaje, algún Audion oscuro, Adriatique modo dark progressive.",
-        signal:"Raro. Si pasa, normalmente al final del set."
-      }
-    },
-    test:[
-      "¿Lo pondrías en un set open-to-close de 6+ horas donde el tiempo desaparece?",
-      "¿Evoluciona MUY LENTAMENTE durante 9-12 minutos, sin drops dramáticos ni cambios bruscos?",
-      "¿Cattaneo o Rhadoo lo pondrían en Sunwaves o en su set largo de Buenos Aires?"
-    ]
-  },
-  F:{
-    tipo:'nuclear',
-    icon:'💥',
-    n:"Nave gigante mainstage (Neopop)",
-    short:"Festival masivo",
-    intro:"Neopop nave gigante. Awakenings hard stage. Tomorrowland mainstage. 5000-15000 personas. Pantalla LED brutal, pirotecnia, sonido masivo. La gente está aquí para ser aplastada por la potencia de la sala. Hard techno hipnótico, peak épico transformador, o apocalipsis sintético. La intención es hipnotizar a la masa con potencia.",
-    detalle:"El sonido protagonista es kick brutal a 130-150 BPM, riffs cortos repetitivos hipnóticos, capas de pads densos, screams de sintetizador. Producción mastering muy fuerte (-6dB). Los tracks viven entre 6-9 minutos. Aquí caben tanto el hard techno apisonadora puro (Jeweil, Sara Landry) como el peak épico melódico narrativo (Indepth, Cerato 'Alive', Bodzin 'Powers Of Ten').",
-    djs:"Julian Jeweil · Sara Landry · Charlotte de Witte loop · Amelie Lens loop · 999999999 · I Hate Models · Indira Paganotto · Reinier Zonneveld · Adam Beyer · Cerato · Indepth · Bodzin épico",
-    lugares:"Neopop nave grande · Awakenings hard stage · Verknipt Amsterdam · HÖR Berlin sets duros · Time Warp · Tomorrowland mainstage techno · Brunch Electronik mainstage",
-    bpm:"128-150 BPM · hard techno · Drumcode peak · mainline techno · big room techno · hardgroove peak festival · trance épico mainstage · melodic techno épico narrativo",
-    temps:{
-      calido:{
-        def:"Fuerza enorme con calor humano emocional. Synth lead épico, melodía orchestral, pads emotivos. Aplastante PERO con corazón. Indepth, Cerato, Bodzin épico, Worakls, N'to viven aquí.",
-        examples:"Indepth 'Into Your Arms', Cerato 'Alive', Bodzin 'Powers Of Ten', Maksim Dark con épica, Worakls techno orchestral, N'to.",
-        signal:"Te aplasta con potencia PERO el synth lead te toca el corazón al mismo tiempo. Hay momento de transformación dentro del track."
-      },
-      frio:{
-        def:"Fuerza enorme mecánica sin emoción. Kick + riff repetitivo. Te ignora mientras te aplasta. La gran mayoría del hard techno mainstream actual cae aquí.",
-        examples:"Jeweil 'South', Sara Landry, Charlotte de Witte loop, Amelie Lens loop, hardgroove festival modo loop, 999999999.",
-        signal:"Apisonadora pura sin emoción. Te aplasta como una máquina, no como un dios."
-      },
-      oscuro:{
-        def:"Fuerza con sombra amenazante. Hard techno mainline brutal, schranz, gabber bailable, dark psytrance peak. La amenaza es más explícita que en frío.",
-        examples:"I Hate Models, Indira Paganotto modo brutal, dark psytrance peak, schranz, hard techno mainline con riffs amenazantes.",
-        signal:"Te aplasta y además sientes amenaza. Más oscuro que solo mecánico."
-      }
-    },
-    test:[
-      "¿Suena a NAVE GIGANTE con 5000+ personas y pantalla LED enorme detrás del DJ?",
-      "¿BPM 128-150 con kick brutal y mastering muy alto?",
-      "¿Aplasta con potencia masiva (con o sin cambio de carácter narrativo dentro)?"
-    ]
-  },
-  G:{
-    tipo:'nuclear',
-    icon:'🌑',
-    n:"Pista oscura tech-house 4am",
-    short:"Pista oscura Minus",
-    intro:"Music On Amnesia a las 4am, cuando Carola entra en su tramo oscuro. Florida 135. Sankeys oscuro. La pista de club a tope (cuadro B) ha pasado a su fase oscura. La gente sigue bailando pero la sala se ha vuelto seria, los cuerpos están menos pegados y más en su mundo. Tech-house de pisotón con sombra envolvente.",
-    detalle:"El sonido protagonista es tech-house oscuro con bajos profundos, percusión seca menos sensual, pads atmosféricos cortos, samples vocales recortados oscuros. La familia Minus, Cécille, Items & Things define el sonido. BPM 124-128. Se distingue del cuadro D (Berghain) porque sigue siendo bailable con groove, no aplasta. Se distingue del cuadro B (Pista caliente) porque la sombra ha entrado en la sala.",
-    djs:"Matador (Minus) · Fer BR (Minus) · Paco Osuna dark · Carbon & Wahrlich · Reboot · De La Swing · Cuartero dark · Hector Couto · Mendo · Magda dark",
-    lugares:"Music On Amnesia 4am · Florida 135 · Sankeys oscuro · Industrial Copera Granada · clubs nocturnos tech-house dark · Sunwaves modo nocturno tarde",
-    bpm:"124-128 BPM · tech-house oscuro · minimal dark groovero · Cécille sound · Minus sound · acid tech oscuro · deep tech con sombra",
-    temps:{
-      calido:{
-        def:"Casi vacío. Si un track de pista oscura tiene calor, probablemente va al cuadro B (Pista caliente). El calor en G es excepción.",
-        examples:"Raro. Algún Loco Dice oscuro con synth lead emocional residual.",
-        signal:"Si encaja en G pero suena cálido, revisa si va a B."
-      },
-      frio:{
-        def:"Tech-house dark con producción seca y mecánica, percusión sin sensualidad, sintes fríos. Bailable sin emoción.",
-        examples:"Minimal dark Paco Osuna seco, deep tech con distancia mecánica, Reboot frío, algún Carbon & Wahrlich modo seco.",
-        signal:"Bailable pero ni Postureo cálido ni sombra densa — solo distancia."
-      },
-      oscuro:{
-        def:"La temperatura natural del cuadro G. Sombra envolviendo el groove, pads oscuros cortos, vocales chops oscuros, ambiente de Music On 4am.",
-        examples:"Matador 'Kingswing', Fer BR 'Less Is Mass', Paco Osuna dark, Carbon & Wahrlich 'Kiefermauler', De La Swing.",
-        signal:"Sigues bailando con culo pero la sala está oscura — la familia Minus."
-      }
-    },
-    test:[
-      "¿Hay sombra ENVOLVIENDO el groove pero sigues bailando con culo (no aplastado como en Berghain)?",
-      "¿Suena a familia Minus / Cécille / Items & Things / BCN dark?",
-      "¿BPM 124-128 con tech-house oscuro, no Berlin techno seco ni hard techno mainstage?"
-    ]
-  },
-  H:{
-    tipo:'nuclear',
-    icon:'🏖️',
-    n:"Pool party / día abierto",
-    short:"Pool / día social",
-    intro:"Pool party Ibiza, brunch electrónico, barco verano un día de calor (puede ser de día O de noche en barco — la luz del sol no es lo que define el cuadro). Sol o no, lo que define es la GENTE: público mixto, copa en mano, hits que rebotan, alegría sin sombra ni ego. La gente baila feliz sin juzgar la música.",
-    detalle:"El sonido protagonista es disco-house, soulful house feliz, funky, nu-disco bailable, French touch alegre. Vocales reconocibles, riffs claros, melodía amable, percusión orgánica feliz. Defected Records, Glitterbox son los sellos referencia. BPM 118-126. NO hay oscuridad ni techno serio aquí — esto es para que la gente sonría.",
-    djs:"Folamour · Honey Dijon · Purple Disco Machine · Crackazat · Roger Sanchez · Bob Sinclar · Defected residents · Sandy Rivera · David Penn · Dimitri From Paris",
-    lugares:"Glitterbox Hï · Defected Croatia · pool parties Ibiza · O Beach · brunch electrónico · barcos verano · Cafe Del Mar bailable · WE Party",
-    bpm:"118-126 BPM · disco-house · soulful house feliz · funky house · nu-disco bailable · French touch feliz · Latin house alegre · jackin house",
-    temps:{
-      calido:{
-        def:"La temperatura natural y dominante del cuadro H. Vocal feliz, piano, riff alegre, percusión orgánica, melodía amable. TODO disco-house cae aquí.",
-        examples:"Folamour 'The Power', Honey Dijon hits, Defected/Glitterbox residents hits, Crackazat, Purple Disco Machine, Latin house feliz, French touch alegre.",
-        signal:"La gente sonríe al escuchar el track."
-      },
-      frio:{
-        def:"Raro. Acid house clásico distanciado, algún electro funk que pueda colar en pool sin romper. Es excepción.",
-        examples:"Phuture acid lado feliz, electro funk Egyptian Lover bailable, algún Daft Punk frío.",
-        signal:"Raro en pool. Si pasa, es track con producción synth fría pero ambiente todavía amable."
-      },
-      oscuro:{
-        def:"PRÁCTICAMENTE NO EXISTE en pool. La oscuridad rompe el ambiente del cuadro. Si tu track es oscuro y crees que va a pool, revisa otros cuadros.",
-        examples:"Casi inexistente.",
-        signal:"Si te sale oscuro en H, probablemente el cuadro es otro."
-      }
-    },
-    test:[
-      "¿Hay vocal o riff que cualquier persona en una pool party reconoce?",
-      "¿Lo pondrías en un brunch a las 14h de domingo o en un barco verano?",
-      "¿La gente sonríe al escuchar el track sin tener que entender de música?"
-    ]
-  },
-
-  // ─── ESCENAS-PUENTE ─────────────────────────────────────────────────────
-  Solar:{
-    tipo:'puente',
-    icon:'🌅',
-    n:"Solar — atardecer balearic",
-    short:"Solar",
-    intro:"Atardecer en terraza mediterránea con copa al sol cayendo. Música balearic atmosférica para mecerse, conversar, ver el mar. NO se baila duro — el cuerpo se mueve poco. Funciona como apertura de día (warm up de pool, festival selecto al aire libre) o como salida emocional de pre-cierre.",
-    detalle:"BPM 100-122. Ambient cálido, balearic clásico, cosmic disco relajado, downtempo Bonobo, lo-fi house atmosférico, chillwave. Producción suave, sin kicks contundentes, percusión orgánica relajada, leads largos.",
-    djs:"José Padilla · DJ Harvey relajado · Caribou 'Sun' · Lane 8 luminoso · Bonobo · Floating Points relajado · cosmic disco Baldelli relajado",
-    lugares:"Cafe Mambo Ibiza atardecer · terrazas mediterráneas · sunset sets · apertura festival al aire libre · brunch chill",
-    bpm:"100-122 BPM · balearic · cosmic disco relajado · ambient cálido · downtempo · chillwave · lo-fi atmosférico",
-    temps:{
-      calido:{
-        def:"La temperatura natural y casi exclusiva del cuadro Solar.",
-        examples:"José Padilla, DJ Harvey relajado, Caribou 'Sun', Lane 8 luminoso, Bonobo, Floating Points luminoso.",
-        signal:"Atardecer mediterráneo con copa, todo amable."
-      },
-      frio:{
-        def:"Raro.",
-        examples:"Algún ambient sintético frío pero con atmósfera mediterránea.",
-        signal:"Raro en Solar."
-      },
-      oscuro:{
-        def:"No existe.",
-        examples:"-",
-        signal:"Si te sale oscuro en Solar, no es Solar."
+        rare:true,
+        def:"Atardecer melancólico que retuerce un poco, balearic más nostálgico denso. No es Lloroso (M) — sigue siendo atardecer, pero con sombra de despedida.",
+        examples:"Penguin Cafe Orchestra modo nostálgico, Ultramarine, balearic melancólico, ambient con peso pero al aire libre"
       }
     },
     test:[
       "¿BPM 100-122 sin kick contundente?",
-      "¿Lo pondrías al atardecer en una terraza con copa, sin que nadie baile fuerte?",
+      "¿Lo pondrías al atardecer en terraza con copa, sin que nadie baile fuerte?",
       "¿Si lo subes a 130 BPM perdería su gracia atmosférica?"
     ]
   },
-  Deep:{
-    tipo:'puente',
-    icon:'🌊',
-    n:"Deep — apertura progressive lenta",
-    short:"Deep apertura",
-    intro:"Warm up de progressive deep o ro-minimal lento. Apertura de sesión larga, club selecto cuando empieza la noche, primera hora de festival selecto al aire libre. Bailable pero atmosférico — no engancha aún la pista, prepara el viaje.",
-    detalle:"BPM 118-124. Progressive deep lento, ro-minimal apertura, deep tech profundo modo apertura. Tracks de 9-12 minutos con muy poca evolución, leads largos, percusión sutil, kick presente pero no contundente. Es el sonido que pone Brian Cid en su primera hora, lo que abre Cattaneo, lo que toca Rhadoo cuando empieza Sunwaves.",
-    djs:"Brian Cid lento · Dimuth K · Marco Pohl modo apertura · Cattaneo warm up · Rhadoo apertura · Cid Inc · Hraach modo apertura",
-    lugares:"warm up para Cattaneo · apertura Sunwaves Romania · primera hora club selecto · apertura sesión larga · primera hora festival selecto",
-    bpm:"118-124 BPM · progressive deep lento · ro-minimal apertura · deep tech profundo · melodic deep techno modo apertura",
+  B: {
+    tipo:'nuclear', icon:'🏖️',
+    n:"DC10 Terraza",
+    short:"Pool / día abierto — social alegre",
+    intro:"Pool party Ibiza, brunch electrónico, barco verano un día de calor. Sol o noche en barco — lo que define es la GENTE: público mixto, copa en mano, hits que rebotan, alegría sin oscuridad. La gente baila feliz sin juzgar la música.",
+    detalle:"Disco-house, soulful house feliz, funky, nu-disco bailable, French touch alegre, Latin house feliz, jackin house. Vocales reconocibles, riffs claros, melodía amable. Defected y Glitterbox son los sellos referencia.",
+    djs:"Folamour · Honey Dijon · Purple Disco Machine · Crackazat · Roger Sanchez · Bob Sinclar · Defected residents · Dimitri From Paris · Sandy Rivera",
+    lugares:"DC10 Terraza · Glitterbox Hï · Defected Croatia · O Beach Ibiza · pool parties · brunch electrónico · barcos verano",
+    bpm:"118-126 BPM",
+    cuerpo:"En pista-ligero (bailas con copa en mano, sin sudor extremo)",
+    tempColor:"calido",
+    energias:["principal","pico"],
     temps:{
       calido:{
-        def:"Apertura emocional con leads cálidos. Brian Cid lento, Cattaneo apertura emocional, deep house elegante apertura.",
-        examples:"Brian Cid 'Light In The Lotus' modo apertura, Cattaneo emocional lento, Hraach con melodía, deep house elegante de apertura.",
-        signal:"Te invita a entrar con calor humano lento."
+        rare:false,
+        def:"Temperatura natural y dominante. Vocal feliz, piano, riff alegre, percusión orgánica, melodía amable.",
+        examples:"Folamour 'The Power', Honey Dijon hits, Defected/Glitterbox residents hits, Crackazat, Purple Disco Machine, Latin house feliz, French touch"
       },
       frio:{
-        def:"Apertura introspectiva fría. Marco Pohl deep tech modo apertura, Rhadoo apertura, microhouse atmosférico.",
-        examples:"Marco Pohl deep tech apertura, Rhadoo apertura, microhouse Akufen atmosférico, ro-minimal apertura sin emoción.",
-        signal:"Te invita a entrar mentalmente, sin emoción cálida."
+        rare:true,
+        def:"Pool con producción más mecánica o sintética sin calor humano cálido pero todavía bailable feliz. Acid house clásico, electro funk distanciado.",
+        examples:"Phuture acid lado feliz, electro funk Egyptian Lover bailable, algún Daft Punk frío, Mr Oizo modo pool"
       },
       oscuro:{
-        def:"Raro.",
-        examples:"Algún progressive con sombra leve modo apertura.",
-        signal:"Raro en Deep."
+        rare:true,
+        def:"Disco-house con riff oscuro o vocal melancólico DENTRO del ambiente alegre. Track de pool con sombra puntual sin romper la fiesta.",
+        examples:"Honey Dijon más serio, disco-house con vocal triste, algún Folamour modo melancólico, soul house con riff oscuro"
       }
     },
     test:[
-      "¿Es lento, atmosférico, te invita a entrar pero sin pegar fuerte?",
-      "¿Lo pondrías al ABRIR un club selecto, una sesión larga o un festival selecto?",
-      "¿Tracks de 9-12 minutos con muy poca evolución?"
+      "¿Hay vocal o riff que cualquier persona en pool reconoce?",
+      "¿Lo pondrías en brunch domingo 14h o barco verano?",
+      "¿La gente sonríe sin tener que entender de música?"
     ]
   },
-  Dub:{
-    tipo:'puente',
-    icon:'👽',
-    n:"Dub espacial — hipnosis fría",
-    short:"Dub espacial",
-    intro:"Dub techno, ambient hipnótico, atmósfera espacial fría. Marte. Berghain Klubnacht 8am de domingo. Tresor abajo. Apertura espacial de set largo cuando se busca hipnosis, o salida de Berghain cuando el peak duro ya ha pasado y queda hipnosis pura.",
-    detalle:"BPM 118-128. Dub techno, minimal hipnótico extremo, drone hipnótico, ambient techno frío, clicks & cuts. Tracks largos (8-15 minutos) con cambios mínimos, atmósferas espaciales, percusión metálica suave, kick lento dub. Sin emoción humana — solo máquinas en el vacío.",
-    djs:"Basic Channel · Maurizio · Rhythm & Sound · Deepchord · Donato Dozzy 'Voices' · Pole · Vladislav Delay frío · Yagya · Fluxion · Mulero modo apertura · Jeff Mills hipnótico",
-    lugares:"Berghain Klubnacht 8am · Tresor abajo · Kraftwerk Berlin · Atonal festival · sets de hipnosis fría · clubs experimentales",
-    bpm:"118-128 BPM · dub techno · minimal hipnótico extremo · drone hipnótico · ambient techno frío · clicks & cuts · trance techno hipnótico Donato Dozzy",
+  C: {
+    tipo:'nuclear', icon:'🏔️',
+    n:"Elétrico Fest Porto",
+    short:"Festival selecto outdoor — pureta bailongo",
+    intro:"Festival al aire libre en monte o naturaleza, capacidad 800-3000 personas. Atardecer y noche. La gente paga la entrada por la SELECCIÓN del DJ — saben que viene Kerri Chandler, Garnier, Larry Heard. Bailan pero también valoran lo que suena.",
+    detalle:"Chicago house antiguo extendido, soulful elegante, Detroit emocional narrativo, cosmic disco serio, balearic bailable, Afro house narrativo. Versiones extendidas no hits. Tracks largos (8-12 min) con clase. Sonrisas y conversaciones, no club cerrado oscuro.",
+    djs:"Kerri Chandler en monte · Larry Heard extended · Theo Parrish · Garnier modo serio · Black Coffee narrativo · DJ Harvey serio · Moodymann elegante · Ron Trent extended",
+    lugares:"Elétrico Fest Porto · Lilás Lisboa monte · festivales boutique outdoor · Sunsetstrip Mendoza · backyard festivals selectos",
+    bpm:"116-126 BPM",
+    cuerpo:"En pista-consciente (bailas pero también valoras)",
+    tempColor:"calido",
+    energias:["principal","pico"],
     temps:{
       calido:{
-        def:"Raro.",
-        examples:"Algún ambient con calor lejano residual.",
-        signal:"Raro en Dub."
+        rare:false,
+        def:"Temperatura natural y dominante. Calor humano elegante, vocal o piano emotivo, melodía con clase.",
+        examples:"Kerri Chandler 'Bar A Thym', Larry Heard 'Mystery of Love' extended, Garnier 'Acid Eiffel', Detroit emocional Carl Craig, Caribou 'Odessa', Moodymann elegante"
       },
       frio:{
-        def:"La temperatura natural y casi exclusiva del cuadro Dub. Marte puro, máquinas en el vacío, hipnosis sin emoción.",
-        examples:"Basic Channel 'Phylyps Trak', Maurizio, Pole, Donato Dozzy 'Voices From The Lake', Mulero loop frío, Jeff Mills hipnótico, Vladislav Delay frío.",
-        signal:"Marte. Sin humanos. Solo máquinas y vacío."
+        rare:false,
+        def:"Synth distante elegante, retro Carpenter, producción seca elegante. Existe minoritario.",
+        examples:"A Sagittariun 'Vanishing Point', Italo moderno serio Tensnake, cosmic indie dance Lena Willikens, Garnier modo synth seco"
       },
       oscuro:{
-        def:"Cuando el frío se vuelve denso. Vladislav Delay oscuro, dark ambient hipnótico extremo. Frontera fina con D.",
-        examples:"Vladislav Delay oscuro, dark ambient hipnótico extremo, drone con sombra.",
-        signal:"Frío que ha cogido peso oscuro."
+        rare:true,
+        def:"Detroit techno cósmico nocturno tarde con sombra, Mind Against narrativo cuando entra noche cerrada. Lilás se vuelve nocturno.",
+        examples:"Detroit techno cósmico oscuro Carl Craig nocturno, Mind Against narrativo, Adriatique modo dark, Tale of Us en versión Lilás"
       }
     },
     test:[
-      "¿Suena a Marte — frío, sin humanos, máquinas hipnóticas en el espacio?",
-      "¿Mulero, Jeff Mills, Basic Channel o Donato Dozzy lo pondrían?",
-      "¿Track largo (8-15 min) con cambios mínimos y atmósfera espacial fría?"
+      "¿Es versión EXTENDIDA o B-side, no un hit que también suena en pool?",
+      "¿La gente vendría aquí por la SELECCIÓN del DJ y no solo por ambiente?",
+      "¿Te imaginas el track con monte detrás y atardecer cayendo?"
     ]
   },
-  Lloroso:{
-    tipo:'puente',
-    icon:'💧',
-    n:"Lloroso — cierre emocional",
-    short:"Lloroso",
-    intro:"After con luz entrando por la ventana a las 8-10am. Burial 'Archangel' con la luz del amanecer entrando. Música triste con peso humano — no se baila, se siente. Cierre emocional de un set largo, escucha doméstica reflexiva, momento de bajar emocionalmente.",
-    detalle:"BPM 100-122. Trip hop, post-dubstep emocional, downtempo dramático triste, ambient cálido emocional, darkwave narrativo. Producción con espacios largos, texturas, vocales emocionales o samples envueltos en reverb. NO bailable — invita a sentir o llorar.",
+  WC: {
+    tipo:'warmup', icon:'🌊',
+    n:"Warm up Cálido",
+    short:"Apertura abierta — saco transversal laxo",
+    intro:"Saco LAXO de aperturas con calor humano. Sirve para abrir cualquier cuadro luminoso/social. Tracks bailables suaves, deep house elegante apertura, soulful apertura, balearic bailable. NO engancha aún la pista — prepara el viaje cálido.",
+    detalle:"Para abrir B (DC10 Terraza), C (Elétrico Fest), D (DC10 Circoloco primera hora), H (Sunwaves apertura). Tracks largos con muy poca evolución, leads cálidos, percusión sutil, kick presente pero no contundente.",
+    djs:"Brian Cid lento · Cattaneo warm up · Hraach con melodía · Larry Heard apertura · Lane 8 apertura · Cid Inc cálido · Edu Imbernon",
+    lugares:"warm up para pool · apertura festival selecto · primera hora club caliente · primera hora sesión larga",
+    bpm:"116-124 BPM",
+    cuerpo:"Variable según hora del set (entrada al cuadro)",
+    tempColor:"calido",
+    energias:["apertura"],
+    temps:{
+      calido:{
+        rare:false,
+        def:"Apertura cálida pura. Calor humano emocional con leads largos amables. La temperatura natural del warm up cálido.",
+        examples:"Brian Cid 'Light In The Lotus' modo apertura, Cattaneo emocional lento, Hraach melódico, deep house elegante apertura"
+      },
+      frio:{
+        rare:true,
+        def:"Apertura cálida pero con producción más distante, leads más sintéticos dentro de la calidez general. Cattaneo modo más sintético.",
+        examples:"Cattaneo apertura más distante, Edu Imbernon synth, deep tech con calor residual"
+      },
+      oscuro:{
+        rare:true,
+        def:"Apertura cálida pero MELANCÓLICA — track de inicio con peso emocional, deep house elegante con vocal triste o leads nostálgicos. No es Lloroso — sigue siendo apertura, pero teñida.",
+        examples:"Brian Cid lento melancólico, Cattaneo apertura emocional triste, deep house elegante con vocal triste"
+      }
+    },
+    test:[
+      "¿Es lento y atmosférico, te invita a entrar pero sin pegar fuerte?",
+      "¿Lo pondrías al ABRIR un festival selecto, pool al atardecer o sesión larga?",
+      "¿Tiene calor humano, no es synth frío sintético distante?"
+    ]
+  },
+  D: {
+    tipo:'nuclear', icon:'🔥',
+    n:"DC10 Circoloco",
+    short:"Pista de club a tope — Postureo caliente",
+    intro:"DC10 Circoloco lunes, Music On clásico, Sankeys. Hora 3-5am. La sala llena de cuerpos pegados sudando. Tech-house de Postureo elegante, percusión sensual protagonista, calor humano caliente.",
+    detalle:"Tech-house caliente, Afro house bailable, tribal house, Latin house, UK garage groovero, amapiano de pista. Percusión sensual (congas, shakers, bombo cargado) protagonista. NO synth lead largo — predomina el groove.",
+    djs:"Marco Carola · Jamie Jones · Loco Dice · Solardo · Hot Creations sound · Lee Foss · Steve Lawler · Apollonia · Pablo Fierro · Cuartero modo caliente",
+    lugares:"DC10 Circoloco lunes · Music On Amnesia · Sankeys · Pacha lunes · Hï techno room · Cocoon Frankfurt · WooMooN Cova Santa",
+    bpm:"122-128 BPM",
+    cuerpo:"En pista-intenso (sudor, frotamiento, cuerpos pegados)",
+    tempColor:"calido",
+    energias:["principal","pico"],
+    temps:{
+      calido:{
+        rare:false,
+        def:"Temperatura natural y dominante. Groove con calor humano sensual. Vocales sample, percusión latina/tribal, ambiente Postureo elegante con sonrisa.",
+        examples:"Marco Carola tribal latino, Jamie Jones vocal hooks, Hot Creations clásico, Pablo Fierro Afro bailable, Latin house"
+      },
+      frio:{
+        rare:true,
+        def:"Tech-house más limpio y minimal, electroclash bailable, electro funk de pista. Bailable sin Postureo cálido.",
+        examples:"Apollonia modo seco, electro funk Egyptian Lover bailable, algún DJ Sneak frío, tech-house minimal seco"
+      },
+      oscuro:{
+        rare:false,
+        def:"Mismo groove pista a tope pero con sombra puntual. La pista caliente que se vuelve seria. Frontera porosa con G.",
+        examples:"Carola 'Fly With Me' modo dark, dubstep groovero oscuro, Afro tech con sombra Themba, Loco Dice oscuro"
+      }
+    },
+    test:[
+      "¿BPM 122-128 con groove de Postureo elegante (no oscuro Minus, no marcial)?",
+      "¿Percusión protagonista (congas, shakers) por encima de cualquier synth?",
+      "¿Te imaginas a Marco Carola en Music On clásico a las 3am?"
+    ]
+  },
+  WF: {
+    tipo:'warmup', icon:'❄️',
+    n:"Warm up Frío",
+    short:"Apertura selecta — tech-house frío atmosférico",
+    intro:"Saco LAXO de aperturas selectas no calientes. Tech-house frío atmosférico, deep tech apertura, ro-minimal lento. NO engancha aún la pista — prepara el viaje frío selecto.",
+    detalle:"Para abrir E (Central Club Porto), F (The Loft), G (Enter Space), I (Tresor Berlin). Producción atmosférica, percusión seca, sin calor humano cálido protagonista.",
+    djs:"Marc Pohl modo apertura · Rhadoo apertura · Raresh apertura · microhouse Akufen atmosférico · Petre Inspirescu apertura · Setaoc Mass apertura",
+    lugares:"warm up para club selecto · primera hora local mediano · apertura sesión purista · primera hora pista oscura",
+    bpm:"118-126 BPM",
+    cuerpo:"Variable según hora del set",
+    tempColor:"frio",
+    energias:["apertura"],
+    temps:{
+      calido:{
+        rare:true,
+        def:"Apertura fría con texturas más amables dentro del frío general. Marc Pohl con leads más cálidos, ro-minimal con calor residual.",
+        examples:"Marc Pohl con texturas amables, ro-minimal con calor residual, deep tech con leads cálidos minoritarios"
+      },
+      frio:{
+        rare:false,
+        def:"Apertura introspectiva fría pura. Ro-minimal puro, Marc Pohl deep tech apertura, microhouse atmosférico.",
+        examples:"Marc Pohl deep tech apertura, Rhadoo apertura ro-minimal, microhouse Akufen atmosférico, Raresh primera hora"
+      },
+      oscuro:{
+        rare:true,
+        def:"Apertura fría con sombra denso — deep tech con sombra elegante, ro-minimal con riff oscuro distante.",
+        examples:"deep tech con sombra elegante, ro-minimal con riff oscuro, Rhadoo modo dark distante"
+      }
+    },
+    test:[
+      "¿Es lento atmosférico SIN calor humano cálido?",
+      "¿Lo pondrías al ABRIR un club selecto frío tipo Central Club Porto o Enter Space?",
+      "¿Marc Pohl o Rhadoo lo pondrían en su primera hora?"
+    ]
+  },
+  E: {
+    tipo:'nuclear', icon:'🏛️',
+    n:"Central Club Porto",
+    short:"Local mediano oscuro envolvente — TOMA con synth retro chulo",
+    intro:"Sala mediana cerrada (300-1500 personas) con sonido envolvente y producción cuidada. Hora 1-3am. Gente que sabe — escucha tanto como baila. Synth retro chulo TE TOMA — bailas como cuerpo consciente.",
+    detalle:"Indie dark techno, deep tech, melodic techno club, Italo moderno, synthpop oscuro, microhouse atmosférico de pista. Synth retro chulo protagonista. Producción nítida, mezcla con espacio, evolución lenta 7-10 min.",
+    djs:"Maceo Plex (Conjure series) · Stephan Bodzin · Mind Against · Innellea · Marco Pohl · Boris Brejcha · Recondite · Tale of Us en sala mediana · ANNA",
+    lugares:"Central Club Porto · Watergate Berlin · Razzmatazz salas · Fuse London · clubs medianos cerrados con buen sound system",
+    bpm:"118-128 BPM",
+    cuerpo:"En pista-consciente (más cabeza y torso que culo)",
+    mecanismo:"TOMA con synth retro chulo — atrapa el cuerpo activo",
+    tempColor:"frio",
+    energias:["principal","pico"],
+    temps:{
+      calido:{
+        rare:false,
+        def:"Synth con calor humano residual o anhelo emocional. Hay melodía que evoca pero la producción sigue siendo sintética.",
+        examples:"Bodzin 'Singularity', Recondite cálido, Innellea melódico cálido, Bicep 'Glue', Maksim Dark con melodía emocional"
+      },
+      frio:{
+        rare:false,
+        def:"Temperatura natural y dominante. Synth retro o sintético sin emoción humana. Ego puro, distancia, chulería autoreferencial.",
+        examples:"Maceo Plex 'Conjure Bots', Marco Pohl deep tech, A Sagittariun, Boris Brejcha, ro-minimal Rhadoo modo club"
+      },
+      oscuro:{
+        rare:false,
+        def:"Sombra envolviendo el track. La sala se vuelve oscura por peso atmosférico denso.",
+        examples:"Tale of Us 'Astral', Mind Against modo dark, dark synthwave Perturbator club, Carbon & Wahrlich club, Boris Brejcha modo dark"
+      }
+    },
+    test:[
+      "¿Sala mediana cerrada con sonido envolvente y gente que ESCUCHA tanto como baila?",
+      "¿Synth retro/sintético protagonista (no vocal, no riff de pista, no kick puro)?",
+      "¿Bailas con cabeza y torso, no solo con culo?"
+    ]
+  },
+  F: {
+    tipo:'nuclear', icon:'🪶',
+    n:"The Loft",
+    short:"Deep tech elegante flotante — ATRAPA pero NO ANULA, flotas",
+    intro:"Rooftop selecto, copa en mano, puretas que conversan y bailan suave. Atmósferas con latigazos sintéticos, niebla, elegancia. Loops EVOLUTIVOS te ATRAPAN pero no te anulan — flotas. Bailas suave con cabeza alta.",
+    detalle:"Deep tech elegante atmósferas latigazos sintéticos, niebla, loops evolutivos no atrapantes, ambient techno con groove sutil. Cuadro flotante sin peak — sostiene un estado elegante atmosférico continuo.",
+    djs:"Tornado Wallace · Lena Willikens elegante · Powder · DJ Harvey selecto noche · Jonathan Kaspar · Daniel Bortz melodic · Innellea modo flotante",
+    lugares:"Rooftops selectos · terrazas elegantes nocturnas · backyards selectos · clubs con zona rooftop · sets BPM ambient-bailable selecto",
+    bpm:"118-126 BPM",
+    cuerpo:"Arriba-ligero (bailas suave, copa en mano, cabeza alta)",
+    mecanismo:"ATRAPA pero NO ANULA — flotas (loops evolutivos elegantes te elevan)",
+    tempColor:"frio",
+    energias:["principal"],  // sin peak — cuadro flotante sostenido
+    temps:{
+      calido:{
+        rare:true,
+        def:"Cuando el deep tech elegante incorpora calor humano sutil. Innellea cálido, Daniel Bortz melódico.",
+        examples:"Innellea cálido elegante, Daniel Bortz melodic, Powder con melodía suave, Jonathan Kaspar emocional"
+      },
+      frio:{
+        rare:false,
+        def:"Temperatura natural y dominante. Deep tech elegante synth distante, niebla, latigazos sintéticos sin emoción humana. Loops evolutivos elegantes.",
+        examples:"Tornado Wallace, Lena Willikens elegante, indie dance Berlin elegante, deep tech atmosférico, Powder distante"
+      },
+      oscuro:{
+        rare:true,
+        def:"Cuando el deep tech se vuelve denso con sombra elegante. Frontera porosa con E oscuro y G frío.",
+        examples:"deep tech con sombra elegante, Lena Willikens modo dark, Powder modo nocturno denso"
+      }
+    },
+    test:[
+      "¿La música ATRAPA pero NO ANULA — flotas con cabeza alta?",
+      "¿Lo pondrías en rooftop selecto con copa donde puretas conversan?",
+      "¿Loops EVOLUTIVOS elegantes con latigazos sintéticos y niebla?"
+    ]
+  },
+  G: {
+    tipo:'nuclear', icon:'🌑',
+    n:"Enter Space main room",
+    short:"Pista oscura tech-house 4am — BAILA con sombra envolvente",
+    intro:"Music On Amnesia 4am cuando Carola entra en su tramo oscuro. Florida 135. La pista de club a tope ha pasado a su fase oscura. Sigues bailando pero la sala se ha vuelto seria — los cuerpos están menos pegados y más en su mundo.",
+    detalle:"Tech-house oscuro Minus/Cécille, percusión seca, pads atmosféricos cortos, samples vocales chops oscuros, deep tech con sombra. Familia Items & Things, BCN dark.",
+    djs:"Matador (Minus) · Fer BR (Minus) · Paco Osuna dark · Carbon & Wahrlich · Reboot · De La Swing · Cuartero dark · Hector Couto · Mendo · Whyt Noyz · Joop Junior",
+    lugares:"Enter Space main room · Music On 4am · Florida 135 · Sankeys oscuro · Industrial Copera Granada · clubs nocturnos tech-house dark",
+    bpm:"124-128 BPM",
+    cuerpo:"En pista-oscuro (bailas con sombra envolvente)",
+    mecanismo:"BAILA con SOMBRA envolvente — atrapa con groove oscuro",
+    tempColor:"oscuro",
+    energias:["principal","pico"],
+    temps:{
+      calido:{
+        rare:true,
+        def:"Track de pista oscura con calor humano residual. Algún Loco Dice oscuro con synth lead emocional. Excepción.",
+        examples:"Loco Dice oscuro con synth emocional, tech-house dark con vocal cálido, Cuartero modo más cálido dentro de oscuridad"
+      },
+      frio:{
+        rare:false,
+        def:"Tech-house dark con producción seca y mecánica, percusión sin sensualidad, sintes fríos. Bailable sin emoción.",
+        examples:"Paco Osuna seco, deep tech con distancia mecánica, Reboot frío, Whyt Noyz frío"
+      },
+      oscuro:{
+        rare:false,
+        def:"Temperatura natural y dominante. Sombra envolviendo el groove, pads oscuros cortos, vocales chops oscuros, ambiente Music On 4am.",
+        examples:"Matador 'Kingswing', Fer BR 'Less Is Mass', Paco Osuna dark, Carbon & Wahrlich 'Kiefermauler', De La Swing"
+      }
+    },
+    test:[
+      "¿Hay sombra ENVOLVIENDO el groove pero sigues bailando con culo?",
+      "¿Suena a familia Minus / Cécille / Items & Things / BCN dark?",
+      "¿BPM 124-128 con tech-house oscuro, no Berlin techno seco ni hard mainstage?"
+    ]
+  },
+  H: {
+    tipo:'nuclear', icon:'🌫️',
+    n:"Sunwaves Romania",
+    short:"Sesión larga progressive — viaje narrativo bailable",
+    intro:"Cattaneo open-to-close 8 horas. Sunwaves Romania con Rhadoo. fabric Room 1. La gente entra a las 23h y sale a las 7-9h. Se baila con ojos cerrados, el tiempo desaparece. Construcción narrativa lenta.",
+    detalle:"Progressive deep, ro-minimal bailable, deep tech profundo, Sudbeat sound, Bedrock sound, trance techno hipnótico viaje. Tracks 9-12 min muy poca evolución. Sin drops dramáticos ni cambios de carácter bruscos.",
+    djs:"Hernán Cattaneo · Sasha & Digweed · Brian Cid · Rhadoo · Raresh · John Digweed · Guy J · Nick Warren · Petar Dundov · Henry Saiz · Cid Inc · Audion narrativo",
+    lugares:"Sunwaves Romania · fabric Room 1 · Cattaneo Buenos Aires · sets open-to-close · Sunsetstrip nocturno",
+    bpm:"118-126 BPM",
+    cuerpo:"En pista-hipnótico (bailas en bucle introspectivo, ojos cerrados)",
+    tempColor:"frio",
+    energias:["principal","pico"],
+    temps:{
+      calido:{
+        rare:false,
+        def:"Viaje con melodía emocional, leads largos que evocan, deep house elegante apertura. Cattaneo emocional, Brian Cid lado luminoso.",
+        examples:"Cattaneo emocional, Brian Cid 'Light In The Lotus', Sasha 'Xpander' loop largo, Guy J emotional, Nick Warren melódico"
+      },
+      frio:{
+        rare:false,
+        def:"Viaje con texturas frías sintéticas, ro-minimal puro, microhouse atmosférico. Cabeza viaja sin que corazón se enchufe.",
+        examples:"Rhadoo, Raresh, Petre Inspirescu, microhouse atmosférico, Donato Dozzy 'Voices' modo bailable, Italian techno hipnótico"
+      },
+      oscuro:{
+        rare:false,
+        def:"Misterioso que retuerce dentro del viaje — track que tiene un toque que retuerce, no oscuro absoluto Berghain. Es oscuridad DENTRO de un viaje, no aplastante.",
+        examples:"Mind Against narrativo modo viaje, Audion oscuro, Adriatique modo dark progressive, algún Henry Saiz misterioso"
+      }
+    },
+    test:[
+      "¿Lo pondrías en set open-to-close 6+ horas donde el tiempo desaparece?",
+      "¿Evoluciona MUY LENTAMENTE durante 9-12 min, sin drops dramáticos ni cambios bruscos?",
+      "¿Cattaneo o Rhadoo lo pondrían en su set largo?"
+    ]
+  },
+  WO: {
+    tipo:'warmup', icon:'🌚',
+    n:"Warm up Oscuro",
+    short:"Apertura atmosférica oscura — saco transversal laxo",
+    intro:"Saco LAXO de aperturas atmosféricas oscuras. Tracks BPM más lento que el principal del cuadro de destino, te van metiendo en sombra. NO anulan todavía — preparan el viaje aplastante.",
+    detalle:"Para abrir I (Tresor Berlin), J (Berghain), K (Neopop). Techno atmosférico oscuro lento, EBM techno apertura, dub techno con sombra, dark techno apertura.",
+    djs:"Etapp Kyle apertura · Norman Nodge atmosférico · DVS1 apertura · Volruptus apertura · dub techno apertura · Function apertura",
+    lugares:"warm up para Berghain · apertura Neopop · primera hora Tresor Berlin · sets de hipnosis oscura inicial",
+    bpm:"118-126 BPM (más lento que principal del destino)",
+    cuerpo:"Variable según hora del set",
+    tempColor:"oscuro",
+    energias:["apertura"],
+    temps:{
+      calido:{
+        rare:true,
+        def:"Apertura oscura con punto cálido emocional residual. Ben Klock modo synth lead apertura, EBM techno con calor.",
+        examples:"Ben Klock modo synth atmosférico, EBM techno con synth lead emocional, dark techno con calor residual"
+      },
+      frio:{
+        rare:false,
+        def:"Apertura fría oscura — mecánica sin emoción pero ya con sombra. Etapp Kyle modo apertura.",
+        examples:"Etapp Kyle apertura, Norman Nodge fría, DVS1 modo distante, Marcel Dettmann minimal apertura"
+      },
+      oscuro:{
+        rare:false,
+        def:"Temperatura natural y dominante. Apertura oscura plena, dub techno con sombra, dark techno apertura denso.",
+        examples:"DVS1 modo dark apertura, Volruptus, dub techno con sombra, Phase Fatale apertura"
+      }
+    },
+    test:[
+      "¿Es atmosférico oscuro lento, te va metiendo SIN aplastar todavía?",
+      "¿Lo pondrías al ABRIR un set Berghain, Neopop o Tresor Berlin?",
+      "¿BPM más lento que el principal del cuadro de destino?"
+    ]
+  },
+  I: {
+    tipo:'nuclear', icon:'⚪',
+    n:"Tresor Berlin",
+    short:"Garito techno purista — ANULA con loops quirúrgicos",
+    intro:"Tresor Berlin sala Globus subterránea. Garito techno purista selecto. Loops fríos quirúrgicos limpios pero intensos. Te ATRAPAN Y TE ANULAN — bajas la cabeza. Hipnosis fría tipo Mulero/Jeff Mills.",
+    detalle:"Hipnosis fría tipo Mulero, Jeff Mills hipnótico, loops puros mecánicos limpios quirúrgicos, dub techno bailable hipnótico, Detroit cósmico bailable. 200-800 personas selectas técnicas, puretas techno, sin postureo.",
+    djs:"Oscar Mulero · Jeff Mills hipnótico · Function · DVS1 · Robert Hood · Setaoc Mass · Mod-21 · Donato Dozzy modo bailable · Norman Nodge · Marcel Dettmann minimal frío",
+    lugares:"Tresor Berlin Globus · Khidi Tbilisi · HÖR Berlin · Cocoricó Italia · fabric Room 2 · clubs techno frío selecto subterráneo",
+    bpm:"125-138 BPM",
+    cuerpo:"Abajo-disuelto (cabeza baja, te disuelves en repetición limpia)",
+    mecanismo:"ANULA con LOOPS quirúrgicos limpios — disuelve por repetición fría sin emoción",
+    tempColor:"frio",
+    energias:["principal","pico"],
+    temps:{
+      calido:{
+        rare:true,
+        def:"Loops fríos con calor residual, synth lead emocional dentro de la frialdad. Donato Dozzy modo bailable con leads casi emotivos.",
+        examples:"Donato Dozzy modo bailable emocional, algún Jeff Mills con melodía residual, loops fríos con synth lead emotional"
+      },
+      frio:{
+        rare:false,
+        def:"Temperatura natural y dominante. Loops quirúrgicos limpios sin emoción humana. Marte mecánico bailable. Anula sin sentimiento.",
+        examples:"Mulero loop frío, Jeff Mills 'The Bells' hipnótico, Function modo loop, DVS1 frío, Robert Hood minimal Detroit, Setaoc Mass"
+      },
+      oscuro:{
+        rare:false,
+        def:"Loops fríos densos con sombra. Frontera con J Berghain pero manteniendo limpieza quirúrgica.",
+        examples:"Marcel Dettmann minimal oscuro, Volruptus, Norman Nodge oscuro, Function modo dark, Mod-21 denso"
+      }
+    },
+    test:[
+      "¿Loop QUIRÚRGICO LIMPIO sin emoción humana?",
+      "¿Te ANULA — bajas la cabeza, te disuelves en repetición?",
+      "¿NO hay atmósfera densa de cueva (eso sería J Berghain)?"
+    ]
+  },
+  J: {
+    tipo:'nuclear', icon:'🕳️',
+    n:"Berghain main floor",
+    short:"Cueva grande — APLASTA con atmósfera densa",
+    intro:"Berghain main floor 4am. Cueva industrial enorme con techos altos de 12 metros. La gente lleva 6+ horas dentro y se ha rendido al sitio. La atmósfera densa del lugar te APLASTA — no te persigue villano, es el LUGAR el que pesa.",
+    detalle:"Berlin techno oscuro con kick contundente seco, pads atmosféricos densos, percusión metálica, EBM techno con riff oscuro. Producción cruda compresión brutal. 1500-3000 personas rendidas al sitio, cabeza baja absorbidos por sala.",
+    djs:"Ben Klock · Marcel Dettmann · Rødhåd · Marcel Fengler · Pig & Dan · BORTZ · Phase Fatale · Etapp Kyle · Norman Nodge · DVS1",
+    lugares:"Berghain main floor · Khidi Tbilisi · Bassiani · Tresor Globus modo atmósfera · clubs techno serios europeos con sound system industrial",
+    bpm:"130-138 BPM",
+    cuerpo:"Abajo-rendido (cabeza baja, te aplasta el SITIO)",
+    mecanismo:"APLASTA con ATMÓSFERA densa — te aplasta el LUGAR, no el track solo",
+    tempColor:"oscuro",
+    energias:["principal","pico"],
+    temps:{
+      calido:{
+        rare:true,
+        def:"Berghain con synth lead atmosférico residual. Ben Klock modo synth lead emocional dentro de la oscuridad.",
+        examples:"Ben Klock modo synth atmosférico emocional, EBM techno con calor residual, dark techno con leads emotivos"
+      },
+      frio:{
+        rare:false,
+        def:"Producción seca, mecánica, percusión metálica sin emoción. Frialdad industrial sin sombra explícita.",
+        examples:"Marcel Dettmann minimal seco, electro Detroit frío DJ Stingray, Etapp Kyle frío, Norman Nodge"
+      },
+      oscuro:{
+        rare:false,
+        def:"Temperatura natural y dominante. Sombra atmosférica densa, peso opresivo, pads largos oscuros, riffs amenazantes envolviendo. EBM techno protagonista.",
+        examples:"Ben Klock atmosférico, Pig & Dan 'Chemistry', Rødhåd, Phase Fatale, BORTZ 'Steady Note', Marcel Fengler dark"
+      }
+    },
+    test:[
+      "¿Suena al SITIO más que al track? ¿Atmósfera densa que aplasta más que melodía?",
+      "¿Ben Klock o Dettmann lo pincharían en Berghain main floor a las 4am?",
+      "¿BPM 130-138 con kick seco contundente y SIN loops quirúrgicos limpios (eso sería I)?"
+    ]
+  },
+  K: {
+    tipo:'nuclear', icon:'💥',
+    n:"Neopop main stage",
+    short:"Nave gigante mainstage — APLASTA con escala masiva",
+    intro:"Neopop nave gigante. Awakenings hard stage. Tomorrowland mainstage techno. 5000-15000 personas. Pantalla LED brutal, pirotecnia, sonido masivo. La intención es hipnotizar a la masa con potencia. Aplastas con ESCALA, no con atmósfera.",
+    detalle:"Kick brutal a 130-150 BPM, riffs cortos repetitivos hipnóticos, capas de pads densos, screams de sintetizador, peak épico melódico narrativo. Mastering -6dB. Aquí caben tanto el hard techno apisonadora puro como el peak épico melódico transformador.",
+    djs:"Julian Jeweil · Sara Landry · Charlotte de Witte loop · Amelie Lens loop · 999999999 · I Hate Models · Indira Paganotto · Reinier Zonneveld · Adam Beyer · Cerato · Indepth · Bodzin épico · Maksim Dark · Worakls · N'to",
+    lugares:"Neopop nave grande · Awakenings hard stage · Verknipt Amsterdam · Time Warp · Tomorrowland mainstage techno · Brunch Electronik mainstage",
+    bpm:"128-150 BPM",
+    cuerpo:"Abajo-masivo (cabeza baja con la masa, energía colectiva)",
+    mecanismo:"APLASTA con ESCALA masiva — te aplasta la magnitud del evento",
+    tempColor:"mixto",
+    energias:["principal","pico"],
+    temps:{
+      calido:{
+        rare:false,
+        def:"Fuerza enorme con calor humano emocional. Synth lead épico, melodía orquestal, pads emotivos. Aplastante PERO con corazón.",
+        examples:"Indepth 'Into Your Arms', Cerato 'Alive', Bodzin 'Powers Of Ten', Maksim Dark con épica, Worakls techno orquestal, N'to"
+      },
+      frio:{
+        rare:false,
+        def:"Fuerza enorme mecánica sin emoción. Kick + riff repetitivo. Te ignora mientras te aplasta. Mainstream hard techno actual.",
+        examples:"Jeweil 'South', Sara Landry, Charlotte de Witte loop, Amelie Lens loop, hardgroove festival, 999999999"
+      },
+      oscuro:{
+        rare:false,
+        def:"Fuerza con sombra amenazante. Hard techno mainline brutal, schranz, gabber bailable, dark psytrance peak.",
+        examples:"I Hate Models, Indira Paganotto modo brutal, dark psytrance peak, schranz, hard techno con riffs amenazantes"
+      }
+    },
+    test:[
+      "¿Suena a NAVE GIGANTE con 5000+ personas y pantalla LED?",
+      "¿BPM 128-150 con kick brutal y mastering muy alto?",
+      "¿Aplasta con ESCALA masiva (no con atmósfera de cueva ni con loop quirúrgico)?"
+    ]
+  },
+  L: {
+    tipo:'escucha', icon:'🌲',
+    n:"Atonal Berlin",
+    short:"Bosque mental con niebla — ambient profundo emotivo misterioso",
+    intro:"Atonal Berlin festival, Kraftwerk antigua central eléctrica. Bosque misterioso amplio con niebla mental. Lento masivo, profundo emotivo y misterioso. Tren de mercancías que no para. Borderline entre escucha activa y baile suavísimo.",
+    detalle:"Deep techno ambient (Voices From The Lake), trance techno hipnótico lento, soundscapes envolventes, kick suave presente, capas atmosféricas masivas. Público de pie escuchando o moviéndose suavísimo, atención completa, sin baile activo, sin conversación.",
+    djs:"Donato Dozzy & Neel (Voices From The Lake) · Donato Dozzy modo álbum · Pole · Yagya · Vladislav Delay emocional · Andy Stott emotivo · Lucy · Sigha",
+    lugares:"Atonal Berlin · Kraftwerk Berlin · sets ambient especiales en festivales selectos · escucha doméstica con headphones · Boiler Room ambient sets",
+    bpm:"100-125 BPM",
+    cuerpo:"Borderline (entre escucha activa quieta y baile suavísimo de pie)",
+    tempColor:"calido",
+    energias:["principal"],  // sin peak
+    temps:{
+      calido:{
+        rare:false,
+        def:"Temperatura natural emocional dominante. Calor emocional residual MISTERIOSO. No es alegre cálido, es bosque mental cálido emotivo profundo.",
+        examples:"Voices From The Lake 'Iyo', Donato Dozzy & Neel modo emotivo, ambient techno emocional, Andy Stott modo lento"
+      },
+      frio:{
+        rare:false,
+        def:"Cuando el bosque mental se vuelve más distante mecánico. Frontera con I/Dub.",
+        examples:"Pole, Vladislav Delay frío, Yagya distante, deep techno ambient sin emoción"
+      },
+      oscuro:{
+        rare:false,
+        def:"Cuando el bosque se vuelve denso amenazante. Frontera con M oscuro.",
+        examples:"Lucy modo dark, Sigha denso, dark ambient hipnótico, Vatican Shadow"
+      }
+    },
+    test:[
+      "¿Es lento masivo (100-125 BPM), tren de mercancías que no para?",
+      "¿Profundo emotivo MISTERIOSO (no triste como Lloroso, no luminoso como Solar)?",
+      "¿Voices From The Lake / Donato Dozzy modo álbum lo capturarían?"
+    ]
+  },
+  M: {
+    tipo:'escucha', icon:'💧',
+    n:"Sonar Closing",
+    short:"Cierre lloroso emocional — triste con peso humano",
+    intro:"After con luz entrando por la ventana a las 8-10am. Burial 'Archangel' con la luz del amanecer entrando. Música triste con peso humano — no se baila, se siente. Cierre emocional de set largo, momento de bajar emocionalmente.",
+    detalle:"Trip hop, post-dubstep emocional, downtempo dramático triste, ambient cálido emocional, darkwave narrativo. Espacios largos, texturas, vocales emocionales o samples envueltos en reverb. NO bailable — invita a sentir o llorar.",
     djs:"Burial · Portishead · Massive Attack · Floating Points 'Last Bloom' · Jon Hopkins · Bonobo triste · Garnier melancólico · Andy Stott emocional · James Blake",
-    lugares:"after lloroso con luz entrando · cierre emocional · escucha doméstica · cierre de set largo · momento de despedida",
-    bpm:"100-122 BPM · trip hop · post-dubstep emocional · downtempo dramático · ambient cálido emocional · darkwave narrativo",
+    lugares:"Sonar Closing Barcelona · after lloroso con luz entrando · cierre emocional festival · escucha doméstica · cierre set largo",
+    bpm:"100-122 BPM",
+    cuerpo:"Arriba-contemplativo (no baile, sentir o llorar)",
+    tempColor:"calido",
+    energias:["principal"],  // sin peak
     temps:{
       calido:{
-        def:"La temperatura natural y dominante del cuadro Lloroso. Peso emocional con calor humano. Triste pero amable.",
-        examples:"Burial 'Archangel', Portishead, Floating Points 'Last Bloom', Garnier 'A Bout De Souffle', Bonobo triste, Massive Attack, James Blake emocional.",
-        signal:"Triste con peso humano, no oscuridad amenazante."
+        rare:false,
+        def:"Temperatura natural y dominante. Peso emocional con calor humano. Triste pero amable.",
+        examples:"Burial 'Archangel', Portishead, Floating Points 'Last Bloom', Garnier 'A Bout De Souffle', Bonobo triste, James Blake emocional"
       },
       frio:{
-        def:"Raro. Algún post-dubstep sintético sin calor humano.",
-        examples:"Andy Stott modo seco, algún track sintético triste sin emoción humana.",
-        signal:"Raro en Lloroso."
+        rare:true,
+        def:"Post-dubstep sintético sin calor humano, downtempo distante. Triste pero sin emoción cálida residual.",
+        examples:"Andy Stott modo seco, post-dubstep sintético sin alma, downtempo distante mecánico"
       },
       oscuro:{
-        def:"Cuando el peso emocional se vuelve oscuridad amenazante. Lustmord, dark ambient triste, drone oscuro emocional.",
-        examples:"Lustmord, Coil triste oscuro, dark ambient emocional, drone oscuro Stars Of The Lid lado más denso.",
-        signal:"Triste con sombra encima del peso humano."
+        rare:false,
+        def:"Cuando el peso emocional se vuelve oscuridad amenazante. Lustmord, dark ambient triste denso.",
+        examples:"Lustmord, Coil triste oscuro, dark ambient emocional denso, drone Stars Of The Lid lado denso, Forest Swords"
       }
     },
     test:[
-      "¿Te quita las ganas de bailar y empuja a sentir o reflexionar?",
-      "¿Burial / Portishead / Floating Points triste lo pondrían en un cierre emocional?",
+      "¿Te quita ganas de bailar y empuja a sentir o reflexionar?",
+      "¿Burial / Portishead / Floating Points triste lo pondrían en cierre emocional?",
       "¿Funciona en escucha doméstica con headphones, no solo en club?"
     ]
   }
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-// ÁRBOL — preguntas con texto técnico amplio
+// ÁRBOL DE PREGUNTAS — flujo limpio para llegar a los 16 cuadros
 // ═══════════════════════════════════════════════════════════════════════════
 
-const TREE={
+const TREE = {
   start:{
-    q:"¿El track tiene KICK 4×4 sostenido y la gente baila al groove?",
-    s:"<b>Bailar</b> = mover cuerpo activamente a un beat 4×4 sostenido durante el track entero. <b>NO cuenta</b> como bailable: mecerse con copa, estar sentado escuchando con headphones, mover solo la cabeza, escucha doméstica reflexiva. Si el track es atmosférico sin kick contundente o si funciona mejor en escucha pasiva, marca No.",
+    q:"¿El track es BAILABLE ACTIVO o de ESCUCHA?",
+    s:"<b>Bailable activo</b> = kick 4×4 sostenido durante todo el track y la gente lo baila moviendo cuerpo activamente. <b>Escucha</b> = atmosférico, narrativo, triste, de copa al sol — no invita a baile activo aunque haya beat suave.",
     opts:[
-      {ic:'💃',l:"Sí, bailable activo",d:"Hay kick 4×4 sostenido durante todo el track y la gente lo baila moviendo cuerpo activamente.",ex:"<b>Encajan:</b> tech-house, techno, hard techno, house bailable, progressive deep bailable, hard groove. <b>No encajan:</b> ambient, downtempo, trip hop, IDM no bailable.",next:"Q_lugar"},
-      {ic:'🥂',l:"No — para escuchar, mecerse o sentir",d:"Atmosférico, narrativo emocional, triste, o producción que no invita a baile activo aunque haya beat suave.",ex:"<b>Encajan:</b> Burial, Floating Points triste, ambient cálido, balearic atmosférico, trip hop emocional, downtempo narrativo. Tracks de cierre o atardecer.",next:"Q_no_baile"}
+      {ic:'💃',l:"Bailable activo",d:"Kick 4×4 sostenido, la gente baila moviendo cuerpo.",ex:"<b>Encajan:</b> tech-house, techno, hard techno, house bailable, progressive deep bailable, hard groove. <b>No encajan:</b> ambient, downtempo, trip hop, IDM no bailable.",next:"Q_funcion"},
+      {ic:'🎧',l:"Escucha — para sentir, mecerse, mente",d:"Atmosférico, narrativo emocional, triste, o producción que no invita a baile activo.",ex:"<b>Encajan:</b> Burial, Voices From The Lake, ambient cálido, balearic atmosférico, trip hop emocional, downtempo narrativo, dark ambient.",next:"Q_escucha"}
     ]
   },
 
-  Q_no_baile:{
-    q:"¿Te empuja a SENTIR con peso emocional o a MECERSE relajado al sol?",
-    s:"<b>Sentir con peso</b> = música triste, melancólica, con peso emocional humano, te quita ganas de moverte. <b>Mecerse al sol</b> = música atmosférica relajada de atardecer, balearic, copa al sol, te invita a mecerte sin sentir tristeza.",
+  // ───────── ESCUCHA ─────────
+  Q_escucha:{
+    q:"¿Qué TIPO de escucha?",
+    s:"Tres cuadros de escucha distintos. <b>Solar</b> luminoso atardecer. <b>Atonal Berlin</b> bosque mental misterioso. <b>Sonar Closing</b> cierre lloroso triste.",
     opts:[
-      {ic:'💧',l:"Triste con peso — Cierre lloroso",d:"Música triste con peso humano. Burial, Portishead, Floating Points triste, post-dubstep emocional, trip hop. Cierre emocional o escucha doméstica reflexiva.",ex:"<b>Ejemplos clave:</b> Burial 'Archangel', Garnier 'A Bout De Souffle', Floating Points 'Last Bloom', Portishead, James Blake.",next:{cuadro:"Lloroso"}},
-      {ic:'🌅',l:"Relajado al sol — Atardecer balearic",d:"Música atmosférica de atardecer mediterráneo. Balearic clásico, ambient cálido, cosmic disco relajado, downtempo de copa al sol.",ex:"<b>Ejemplos clave:</b> José Padilla, DJ Harvey relajado, Caribou 'Sun', Lane 8 luminoso, Bonobo modo atardecer.",next:{cuadro:"Solar"}},
-      {ic:'🤔',l:"Cabe en las dos",d:"Track tipo Floating Points 'Last Bloom' — triste pero bonito, podría ir tanto a cierre lloroso como a atardecer balearic dependiendo del momento.",ex:"<b>Ejemplos:</b> Floating Points 'Last Bloom', Caribou modo triste-bonito, algún Bonobo triste-luminoso.",next:"M_no_baile"}
+      {ic:'🌅',l:"Atardecer balearic — copa al sol",d:"Música atmosférica de atardecer mediterráneo. Cafe del Mar, José Padilla. Luminoso amable.",ex:"<b>Ejemplos:</b> José Padilla, DJ Harvey relajado, Caribou 'Sun', Lane 8 luminoso, Bonobo modo atardecer.",next:{cuadro:"A"}},
+      {ic:'🌲',l:"Bosque mental con niebla — Voices From The Lake",d:"Lento masivo profundo emotivo MISTERIOSO. Tren de mercancías. Borderline baile suavísimo o escucha de pie.",ex:"<b>Ejemplos:</b> Voices From The Lake, Donato Dozzy modo álbum, Pole, Andy Stott emotivo, Lucy.",next:{cuadro:"L"}},
+      {ic:'💧',l:"Cierre lloroso — triste con peso humano",d:"Burial, Portishead, Floating Points triste. Cierre emocional, escucha doméstica reflexiva.",ex:"<b>Ejemplos:</b> Burial 'Archangel', Garnier 'A Bout De Souffle', Floating Points 'Last Bloom', Portishead, James Blake.",next:{cuadro:"M"}},
+      {ic:'🤔',l:"Cabe entre Atardecer y Cierre lloroso",d:"Track tipo Floating Points 'Last Bloom' — triste pero bonito, podría ir tanto a cierre como a atardecer.",ex:"<b>Ejemplos:</b> Floating Points 'Last Bloom', Caribou modo triste-bonito, Bonobo triste-luminoso.",next:"M_solar_lloroso"},
+      {ic:'🤔',l:"Cabe entre Bosque mental y Cierre lloroso",d:"Track entre ambient misterioso y lloroso emocional — Donato Dozzy modo emotivo denso, Andy Stott oscuro.",ex:"<b>Ejemplos:</b> Donato Dozzy denso emotivo, Andy Stott oscuro triste, dark ambient triste.",next:"M_atonal_lloroso"}
+    ]
+  },
+
+  // ───────── BAILABLE ─────────
+  Q_funcion:{
+    q:"¿Es track de NÚCLEO de set o de APERTURA / WARM UP?",
+    s:"<b>Núcleo</b> = sostiene el cuadro o es peak (energía media-alta). <b>Apertura/Warm up</b> = primera hora del set, lento, atmosférico, prepara el viaje sin enganchar aún.",
+    opts:[
+      {ic:'⚡',l:"Núcleo — sostiene o es peak",d:"Track que define el cuadro o que es clímax. La pista está activada.",ex:"<b>Ejemplos:</b> Carola DC10 peak, Maceo Plex Conjure sostén, Indepth peak, Mulero loop peak.",next:"Q_lugar"},
+      {ic:'🌱',l:"Warm up — apertura primera hora",d:"Track lento atmosférico de inicio que prepara el cuadro pero no engancha aún.",ex:"<b>Ejemplos:</b> Brian Cid lento, Marc Pohl apertura, Etapp Kyle modo apertura, Cattaneo warm up.",next:"Q_warmup"}
+    ]
+  },
+
+  Q_warmup:{
+    q:"¿Qué TIPO de warm up?",
+    s:"Tres warm ups laxos transversales. <b>Cálido</b> abre cuadros luminosos/sociales. <b>Frío</b> abre cuadros selectos no calientes. <b>Oscuro</b> abre cuadros aplastantes.",
+    opts:[
+      {ic:'🌊',l:"Warm up Cálido — apertura abierta",d:"Brian Cid, Cattaneo apertura, deep house elegante. Abre B (DC10 Terraza), C (Elétrico), D (DC10 Circoloco), H (Sunwaves).",ex:"<b>Ejemplos:</b> Brian Cid 'Light In The Lotus' lento, Cattaneo emocional apertura, Hraach melódico, Edu Imbernon.",next:{cuadro:"WC"}},
+      {ic:'❄️',l:"Warm up Frío — apertura selecta tech-house frío",d:"Marc Pohl apertura, Rhadoo, ro-minimal lento. Abre E (Central Club Porto), F (The Loft), G (Enter Space), I (Tresor Berlin).",ex:"<b>Ejemplos:</b> Marc Pohl deep tech apertura, Rhadoo apertura ro-minimal, microhouse Akufen.",next:{cuadro:"WF"}},
+      {ic:'🌚',l:"Warm up Oscuro — apertura atmosférica oscura",d:"Etapp Kyle apertura, dub techno con sombra, dark techno apertura. Abre I (Tresor Berlin), J (Berghain), K (Neopop).",ex:"<b>Ejemplos:</b> Etapp Kyle apertura, Norman Nodge atmosférico, DVS1 apertura, Volruptus.",next:{cuadro:"WO"}},
+      {ic:'🤔',l:"Cabe entre Warm up Frío y Oscuro",d:"Apertura introspectiva fría con sombra — Marc Pohl con texturas dub, Donato Dozzy apertura no muy frío.",ex:"<b>Ejemplos:</b> Marc Pohl con texturas dub, Donato Dozzy modo apertura, Rhadoo modo dark distante.",next:"M_wf_wo"}
     ]
   },
 
   Q_lugar:{
     q:"¿En qué TIPO DE FIESTA o CONTEXTO lo pinchas?",
-    s:"El contexto manda — define el cuadro. <b>NO importa la hora del día</b> (una pool party puede ser de noche en barco). <b>SÍ importa</b> qué gente está, qué esperan, qué tipo de local es y a qué intensidad va el set.",
+    s:"El contexto manda — define el cuadro. <b>NO importa la hora del día</b> (una pool puede ser de noche en barco). <b>SÍ importa</b> qué gente, qué local y a qué intensidad va el set.",
     opts:[
-      {ic:'🏖️',l:"Pool party / fiesta de día social",d:"Sol o no, lo que define es el público mixto con copa, hits que rebotan, alegría sin oscuridad. Defected, Glitterbox, brunch, barco verano. La gente baila feliz sin juzgar la música.",ex:"<b>Ejemplos:</b> Folamour 'The Power', Honey Dijon, Purple Disco Machine, Crackazat, Defected residents.",next:{cuadro:"H"}},
-      {ic:'🏔️',l:"Festival selecto al aire libre (tipo Lilás)",d:"Festival al aire libre en monte o naturaleza. La gente paga por la SELECCIÓN del DJ — saben quién pincha. Bailan pero también valoran. Versiones extendidas, no hits.",ex:"<b>Ejemplos:</b> Kerri Chandler 'Bar A Thym' extended, Larry Heard 'Mystery of Love' extended, Garnier 'Acid Eiffel', Theo Parrish elegante.",next:{cuadro:"C"}},
-      {ic:'🌙',l:"Club nocturno (sala mediana o grande)",d:"Cualquier club nocturno: pista caliente DC10, pista oscura Music On 4am, sala mediana selecta con Maceo Plex, Berghain main floor. Define mejor en la siguiente pregunta.",ex:"<b>Ejemplos:</b> tech-house Carola, Maceo Plex Conjure, Matador, Ben Klock — todos van por aquí y se afinan después.",next:"Q_club_anula"},
-      {ic:'💥',l:"Festival masivo / nave gigante mainstage",d:"Neopop, Awakenings hard stage, Tomorrowland mainstage. 5000+ personas, pantalla LED brutal, sonido masivo. Hard techno hipnótico o peak épico transformador.",ex:"<b>Ejemplos:</b> Jeweil 'South', Sara Landry, Charlotte de Witte loop, Indepth 'Into Your Arms', Cerato 'Alive', Bodzin épico.",next:{cuadro:"F"}},
-      {ic:'🌫️',l:"Sesión larga de viaje (6+ horas)",d:"Cattaneo open-to-close 8 horas, Sunwaves Romania con Rhadoo, fabric Room 1. La gente entra y sale con el sol. Música de viaje narrativo lento — progressive deep o ro-minimal.",ex:"<b>Ejemplos:</b> Cattaneo 'Buenos Aires set', Brian Cid 'Light In The Lotus', Rhadoo en Sunwaves, Sasha 'Xpander'.",next:{cuadro:"E"}},
-      {ic:'🌊',l:"Apertura / warm up — todavía está calentando",d:"Primera hora de la noche, primera hora del festival selecto, apertura del club. El track no engancha aún la pista — prepara el viaje. Lento, atmosférico, deep o balearic o hipnosis.",ex:"<b>Ejemplos:</b> Brian Cid lento, Marco Pohl apertura, balearic, dub techno apertura, ro-minimal lento.",next:"Q_warmup"},
-      {ic:'🤔',l:"Cabe en pool party Y festival selecto (los dos)",d:"Track tipo Kerri Chandler que puede ir tanto a Glitterbox (pool) como a Lilás (selecto) según la versión y el momento. Duplicación permitida.",ex:"<b>Ejemplos:</b> Kerri Chandler con tracks que sirven a los dos, Larry Heard versión corta vs extendida.",next:"M_dia"}
-    ]
-  },
-
-  Q_warmup:{
-    q:"¿Qué TIPO de apertura o warm up?",
-    s:"Cada warm up tiene un sabor distinto. <b>Solar</b> = atardecer balearic con copa. <b>Deep</b> = progressive deep o ro-minimal lento bailable suave. <b>Dub espacial</b> = hipnosis fría tipo Marte para sets largos.",
-    opts:[
-      {ic:'🌅',l:"Solar — atardecer balearic",d:"Música atardecer mediterráneo. José Padilla, balearic clásico, ambient cálido, cosmic disco relajado. NO bailable activo.",ex:"<b>Ejemplos:</b> José Padilla, DJ Harvey relajado, Caribou 'Sun', Lane 8 luminoso.",next:{cuadro:"Solar"}},
-      {ic:'🌊',l:"Deep — progressive deep / ro-minimal lento",d:"Apertura bailable suave. Brian Cid lento, Marco Pohl deep tech apertura, Rhadoo apertura, Cattaneo warm up. Bailable pero atmosférico — no engancha aún.",ex:"<b>Ejemplos:</b> Brian Cid 'Light In The Lotus' lento, Marco Pohl apertura, Cattaneo warm up.",next:{cuadro:"Deep"}},
-      {ic:'👽',l:"Dub espacial — hipnosis fría tipo Marte",d:"Dub techno, ambient hipnótico, atmósfera espacial fría. Apertura de set largo cuando se busca hipnosis. Mulero, Basic Channel, Jeff Mills hipnótico.",ex:"<b>Ejemplos:</b> Basic Channel, Maurizio, Donato Dozzy 'Voices', Mulero modo apertura, Pole.",next:{cuadro:"Dub"}},
-      {ic:'🤔',l:"Cabe en Deep y Dub espacial",d:"Apertura introspectiva fría que podría ir a deep progressive o a hipnosis dub. Frontera porosa — track que sirve a los dos.",ex:"<b>Ejemplos:</b> Marco Pohl con texturas dub, Donato Dozzy modo apertura no muy frío.",next:"M_warmup"}
+      {ic:'🏖️',l:"Pool / día abierto social — DC10 Terraza",d:"Sol o no, lo que define es el público mixto con copa, hits, alegría. Defected, Glitterbox, brunch, barco.",ex:"<b>Ejemplos:</b> Folamour 'The Power', Honey Dijon, Purple Disco Machine, Crackazat.",next:{cuadro:"B"}},
+      {ic:'🏔️',l:"Festival selecto outdoor — Elétrico Fest",d:"Festival al aire libre. Gente paga por SELECCIÓN del DJ. Versiones extendidas no hits.",ex:"<b>Ejemplos:</b> Kerri Chandler 'Bar A Thym', Larry Heard 'Mystery of Love' extended, Garnier 'Acid Eiffel', Theo Parrish.",next:{cuadro:"C"}},
+      {ic:'🌙',l:"Club nocturno — sala mediana o pista",d:"Cualquier club nocturno: pista caliente, pista oscura, sala mediana selecta, rooftop. Define en siguiente pregunta.",ex:"<b>Ejemplos:</b> tech-house Carola, Maceo Plex Conjure, Matador, Ben Klock, deep tech elegante.",next:"Q_club_anula"},
+      {ic:'💥',l:"Festival masivo mainstage — Neopop",d:"Neopop, Awakenings, Tomorrowland mainstage. 5000+ personas, pantalla LED. Hard techno o peak épico.",ex:"<b>Ejemplos:</b> Jeweil 'South', Sara Landry, Indepth 'Into Your Arms', Cerato 'Alive', Bodzin épico.",next:{cuadro:"K"}},
+      {ic:'🌫️',l:"Sesión larga 6+ horas — Sunwaves Romania",d:"Cattaneo open-to-close, Sunwaves con Rhadoo. Viaje narrativo lento. Tracks 9-12 min.",ex:"<b>Ejemplos:</b> Cattaneo 'Buenos Aires set', Brian Cid, Rhadoo en Sunwaves, Sasha 'Xpander'.",next:{cuadro:"H"}},
+      {ic:'🤔',l:"Cabe en pool y festival selecto",d:"Track tipo Kerri Chandler que sirve a pool y a Lilás según versión.",ex:"<b>Ejemplos:</b> Kerri Chandler tracks para los dos, Larry Heard versión corta vs extendida.",next:"M_pool_lilas"}
     ]
   },
 
   Q_club_anula:{
-    q:"En la pista del club, ¿BAILAS como persona consciente o te ANULA / aplasta?",
-    s:"<b>Bailas como persona</b> = sigues siendo cuerpo consciente, hay calor humano residual, todavía es fiesta donde hay otros cuerpos. <b>Te anula</b> = la sala te puede, podrías estar inmóvil absorbido por la atmósfera densa o por la hipnosis fría. La diferencia define si vamos a Berghain (anula) o a pista de baile activo.",
+    q:"En la pista del club, ¿BAILAS como persona consciente, FLOTAS, o te ANULA / aplasta?",
+    s:"<b>Bailas</b> = sigues siendo cuerpo consciente. <b>Flotas</b> = atrapado pero arriba, copa en mano, cabeza alta. <b>Anula/aplasta</b> = bajas la cabeza, te disuelves o te disuelve la sala.",
     opts:[
-      {ic:'💃',l:"Bailo como persona — soy cuerpo en pista",d:"Sigo siendo consciente del cuerpo, hay calor humano residual, hay otros cuerpos en la sala con los que comparto pista. La música me mueve activamente.",ex:"<b>Ejemplos:</b> Carola DC10, Maceo Plex Conjure, Matador, hardgroove festival — todos van por aquí.",next:"Q_club_ambiente"},
-      {ic:'🌀',l:"Me anula / me aplasta — ya no soy cuerpo",d:"La sala te puede. Atmósfera densa Berghain o hipnosis fría tipo Marte. Podrías estar inmóvil absorbido. Te disuelves en la sala o en el track.",ex:"<b>Ejemplos:</b> Ben Klock atmosférico Berghain, Mulero loop frío, Jeff Mills hipnótico.",next:"Q_anula_tipo"}
+      {ic:'💃',l:"Bailo como persona — pista activa",d:"Sigo siendo cuerpo consciente, hay calor humano residual, hay otros cuerpos.",ex:"<b>Ejemplos:</b> Carola DC10, Maceo Plex Conjure, Matador, hardgroove festival.",next:"Q_club_ambiente"},
+      {ic:'🪶',l:"Floto — atrapado pero arriba, no anula",d:"Loops elegantes evolutivos, deep tech con latigazos sintéticos y niebla, copa en mano cabeza alta.",ex:"<b>Ejemplos:</b> Tornado Wallace, Lena Willikens elegante, Powder, Daniel Bortz melodic.",next:{cuadro:"F"}},
+      {ic:'🌀',l:"Me anula / me aplasta",d:"Bajas la cabeza. Atmósfera densa Berghain, hipnosis fría Mulero, escala masiva Neopop.",ex:"<b>Ejemplos:</b> Ben Klock atmosférico, Mulero loop frío, Jeff Mills hipnótico.",next:"Q_anula_tipo"}
     ]
   },
 
   Q_anula_tipo:{
-    q:"¿Cómo te anula la sala?",
-    s:"<b>Berghain main floor</b> = atmósfera densa con tensión humana / EBM, el SITIO te aplasta con presencia humana opresiva. <b>Marte / Dub espacial</b> = hipnosis fría sin humanos, máquinas en el vacío, el track te disuelve sin sombra.",
+    q:"¿Cómo te anula / aplasta?",
+    s:"Tres mecanismos distintos. <b>Tresor Berlin (I)</b>: loops quirúrgicos limpios. <b>Berghain (J)</b>: atmósfera densa cueva. <b>Neopop (K)</b>: escala masiva nave. Misma intensidad, distinto lugar y mecanismo.",
     opts:[
-      {ic:'🕳️',l:"Densa con tensión humana — Berghain main floor",d:"Berghain main floor 4am. Cueva industrial enorme con techos altos. Atmósfera densa que te aplasta por su escala y peso. Hay tensión humana residual y EBM.",ex:"<b>Ejemplos:</b> Ben Klock atmosférico, Marcel Dettmann, Pig & Dan, Rødhåd, Phase Fatale, BORTZ.",next:{cuadro:"D"}},
-      {ic:'👽',l:"Fría espacial sin humanos — Marte / Dub espacial",d:"Hipnosis fría tipo Marte. Sin humanos, sin tensión, solo máquinas en el vacío. Track largo hipnótico que te disuelve.",ex:"<b>Ejemplos:</b> Mulero loop frío, Jeff Mills hipnótico, Basic Channel, Donato Dozzy 'Voices', Pole.",next:{cuadro:"Dub"}},
-      {ic:'🤔',l:"Cabe en los dos",d:"Frontera porosa entre Berghain main floor y Klubnacht hipnótico (8am en Berghain ya no es main floor — es Marte).",ex:"<b>Ejemplos:</b> tracks de Berghain Klubnacht 8am que ya viven entre los dos cuadros.",next:"M_anula"}
+      {ic:'⚪',l:"ANULA con loops quirúrgicos — Tresor Berlin",d:"Garito techno purista selecto, loops fríos limpios mecánicos. Mulero, Jeff Mills hipnótico.",ex:"<b>Ejemplos:</b> Mulero loop frío, Jeff Mills 'The Bells', Function modo loop, DVS1, Setaoc Mass.",next:{cuadro:"I"}},
+      {ic:'🕳️',l:"APLASTA con atmósfera densa — Berghain main floor",d:"Cueva industrial enorme, EBM techno, atmósfera densa que aplasta por escala+sombra+hora.",ex:"<b>Ejemplos:</b> Ben Klock atmosférico, Marcel Dettmann, Pig & Dan, Rødhåd, Phase Fatale.",next:{cuadro:"J"}},
+      {ic:'🤔',l:"Cabe entre Tresor Berlin y Berghain",d:"Track entre loops quirúrgicos y atmósfera densa — Function modo dark, Volruptus.",ex:"<b>Ejemplos:</b> Function dark, Volruptus, Norman Nodge denso, Marcel Dettmann modo dark.",next:"M_tresor_berghain"}
     ]
   },
 
   Q_club_ambiente:{
     q:"¿Cómo es el AMBIENTE del club donde lo pinchas?",
-    s:"Cuatro ambientes distintos del baile en club nocturno. <b>Pista a tope</b> = DC10/Music On con Postureo caliente. <b>Pista oscura 4am</b> = Music On 4am con sombra envolvente. <b>Local mediano selecto</b> = sala mediana cerrada con Maceo Plex retro chulo. <b>Frontera</b> = track entre dos cuadros.",
+    s:"Tres ambientes de baile activo. <b>Pista a tope</b> = DC10/Music On con Postureo caliente. <b>Pista oscura 4am</b> = Music On 4am con sombra. <b>Local mediano selecto</b> = sala mediana cerrada synth retro.",
     opts:[
-      {ic:'🔥',l:"Pista a tope — Postureo elegante caliente",d:"DC10 Circoloco lunes, Music On clásico, Sankeys 3-5am. Pista llena de cuerpos pegados, tech-house de Postureo elegante, percusión sensual protagonista.",ex:"<b>Ejemplos:</b> Marco Carola tribal, Jamie Jones, Hot Creations sound, Pablo Fierro Afro bailable, Latin house.",next:{cuadro:"B"}},
-      {ic:'🌑',l:"Pista oscura 4am — Music On dark",d:"Music On a las 4am cuando entra el tramo oscuro. Tech-house oscuro de pisotón con sombra envolvente. Familia Minus, Cécille, BCN dark.",ex:"<b>Ejemplos:</b> Matador 'Kingswing', Fer BR, Paco Osuna dark, Carbon & Wahrlich.",next:{cuadro:"G"}},
-      {ic:'🏛️',l:"Local mediano selecto — Maceo Plex retro chulo",d:"Sala mediana cerrada (300-1500 personas) con sonido envolvente. Indie dark techno, deep tech mental, chulería retro sintética. Maceo Plex Conjure, Marco Pohl, Bodzin.",ex:"<b>Ejemplos:</b> Maceo Plex 'Conjure Bots', Bodzin 'Singularity', Marco Pohl deep tech, Mind Against, Tale of Us en sala mediana.",next:{cuadro:"A"}},
-      {ic:'🤔',l:"Frontera Pista a tope ↔ Pista oscura 4am",d:"Track de transición caliente→oscuro, típico de Carola entrando en su tramo dark. Vive en B y G a la vez.",ex:"<b>Ejemplos:</b> Carola modo dark de transición, Jamie Jones lado oscuro.",next:"M_pista"},
-      {ic:'🤔',l:"Frontera Local mediano ↔ Pista oscura",d:"Track ambiguo entre A (sala mediana selecta retro) y G (pista oscura tech-house). Vive en los dos.",ex:"<b>Ejemplos:</b> Maceo Plex modo más bailable de pista, Matador con synth retro.",next:"M_selecto"}
+      {ic:'🔥',l:"Pista a tope caliente — DC10 Circoloco",d:"DC10, Music On clásico. Cuerpos pegados, percusión sensual protagonista, Postureo elegante.",ex:"<b>Ejemplos:</b> Marco Carola tribal, Jamie Jones, Hot Creations, Pablo Fierro, Latin house.",next:{cuadro:"D"}},
+      {ic:'🌑',l:"Pista oscura 4am — Enter Space main room",d:"Music On 4am, Florida 135. Tech-house oscuro Minus/Cécille pisotón con sombra.",ex:"<b>Ejemplos:</b> Matador 'Kingswing', Fer BR, Paco Osuna dark, Carbon & Wahrlich.",next:{cuadro:"G"}},
+      {ic:'🏛️',l:"Local mediano selecto — Central Club Porto",d:"Sala mediana cerrada (300-1500). Indie dark techno, deep tech mental, synth retro chulo.",ex:"<b>Ejemplos:</b> Maceo Plex 'Conjure Bots', Bodzin 'Singularity', Marco Pohl deep tech, Mind Against, Tale of Us.",next:{cuadro:"E"}},
+      {ic:'🤔',l:"Frontera Pista a tope ↔ Pista oscura",d:"Track de transición caliente→oscuro. Carola entrando en tramo dark.",ex:"<b>Ejemplos:</b> Carola modo dark de transición, Jamie Jones lado oscuro.",next:"M_pista"},
+      {ic:'🤔',l:"Frontera Local mediano ↔ Pista oscura",d:"Track ambiguo entre E (sala selecta retro) y G (pista oscura). Vive en ambos.",ex:"<b>Ejemplos:</b> Maceo Plex modo más bailable de pista, Matador con synth retro.",next:"M_selecto"}
     ]
   },
 
   // ───── RESULTADOS MÚLTIPLES ─────
-  M_no_baile:{multi:["Lloroso","Solar"]},
-  M_dia:{multi:["H","C"]},
-  M_warmup:{multi:["Deep","Dub"]},
-  M_anula:{multi:["D","Dub"]},
-  M_pista:{multi:["B","G"]},
-  M_selecto:{multi:["A","G"]}
+  M_solar_lloroso:{multi:["A","M"]},
+  M_atonal_lloroso:{multi:["L","M"]},
+  M_wf_wo:{multi:["WF","WO"]},
+  M_pool_lilas:{multi:["B","C"]},
+  M_tresor_berghain:{multi:["I","J"]},
+  M_pista:{multi:["D","G"]},
+  M_selecto:{multi:["E","G"]}
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
 // STATE & RENDER
 // ═══════════════════════════════════════════════════════════════════════════
-let state={node:"start",path:[],trail:[],resultCuadros:null,temp:null};
-let tab="clas";
+
+let state = {node:"start", path:[], trail:[], resultCuadros:null, temp:null, energy:null};
+let tab = "clas";
 
 function showTab(t){
-  tab=t;
-  document.getElementById("tab-clas").classList.toggle("on",t==="clas");
-  document.getElementById("tab-list").classList.toggle("on",t==="list");
-  if(t==="clas")render(); else renderListBrowser();
+  tab = t;
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('on'));
+  document.getElementById("tab-"+t).classList.add("on");
+  if(t==="clas") render();
+  else if(t==="list") renderListBrowser();
+  else renderReference();
 }
 
 function reset(){
-  state={node:"start",path:[],trail:[],resultCuadros:null,temp:null};
+  state = {node:"start", path:[], trail:[], resultCuadros:null, temp:null, energy:null};
   render();
 }
 
-function pick(next,label){
-  state.trail.push({q:TREE[state.node]?.q||"",a:label});
+function pick(next, label){
+  state.trail.push({q:TREE[state.node]?.q || "", a:label});
   state.path.push(state.node);
   if(typeof next==="object" && next.cuadro){
     state.resultCuadros=[next.cuadro];
     renderTemperaturaSelector();
     return;
   }
-  if(TREE[next]&&TREE[next].multi){
+  if(TREE[next] && TREE[next].multi){
     state.resultCuadros=TREE[next].multi;
     renderTemperaturaSelector();
     return;
@@ -663,11 +915,8 @@ function pick(next,label){
 }
 
 function back(){
-  if(state.temp){
-    state.temp=null;
-    renderTemperaturaSelector();
-    return;
-  }
+  if(state.energy){state.energy=null; renderEnergiaSelector(); return;}
+  if(state.temp){state.temp=null; renderTemperaturaSelector(); return;}
   if(state.resultCuadros){
     state.resultCuadros=null;
     state.node=state.path.pop();
@@ -675,18 +924,17 @@ function back(){
     render();
     return;
   }
-  if(state.path.length===0)return;
+  if(state.path.length===0) return;
   state.node=state.path.pop();
   state.trail.pop();
   render();
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// RENDER PREGUNTA
-// ═══════════════════════════════════════════════════════════════════════════
+// ─── PREGUNTA ───
 function render(){
-  if(tab!=="clas")return;
-  const node=TREE[state.node];if(!node)return;
+  if(tab!=="clas") return;
+  const node=TREE[state.node];
+  if(!node) return;
   const totalDepth=4;
   const dots=[];
   for(let i=0;i<totalDepth;i++){
@@ -703,14 +951,14 @@ function render(){
       </div>
     </button>
   `).join("");
-  const trailHtml=state.trail.length?`<div class="trail">${state.trail.map(t=>`<div><b>${t.q}</b> → ${t.a}</div>`).join("")}</div>`:"";
+  const trailHtml=state.trail.length?`<div class="trail">${state.trail.map(t=>`<div><b>${t.q.replace(/<[^>]+>/g,'')}</b> → ${t.a}</div>`).join("")}</div>`:"";
   const isFirst=state.node==="start";
-  const intro=isFirst?`<div class="intro"><b>Cómo funciona el clasificador:</b><br>2-4 preguntas técnicas → te lleva a 1 o 2 cuadros (escenas vivas) → seleccionas la temperatura del track contextualizada por cuadro → ficha completa con DJs, lugares, BPM, géneros y validación final.</div>`:"";
+  const intro=isFirst?`<div class="intro"><b>Cómo funciona el clasificador:</b><br>Preguntas técnicas → 1 o 2 cuadros (escenas) → temperatura contextualizada en ese cuadro → energía (principal o pico) → ficha completa con DJs, lugares, BPM, validación.</div>`:"";
   document.getElementById("main").innerHTML=`
     <div class="pg">${dots.join("")}</div>
     ${intro}
     <div class="q">
-      <div class="q-num">PREGUNTA ${state.path.length+1} DE ~3</div>
+      <div class="q-num">PREGUNTA ${state.path.length+1}</div>
       <div class="q-t">${node.q}</div>
       ${node.s?`<div class="q-s">${node.s}</div>`:""}
       <div class="opts">${opts}</div>
@@ -721,9 +969,7 @@ function render(){
   window.scrollTo({top:0});
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// RENDER SELECTOR DE TEMPERATURA — contextualizada por cuadro
-// ═══════════════════════════════════════════════════════════════════════════
+// ─── TEMPERATURA ───
 function renderTemperaturaSelector(){
   const cuadros=state.resultCuadros;
   const isMulti=cuadros.length>1;
@@ -732,8 +978,8 @@ function renderTemperaturaSelector(){
     const C=CUADROS[id];
     return `
       <div class="res ${i===0?'primary':'secondary'}">
-        <div class="res-tag">${i===0?'CUADRO PRINCIPAL':'TAMBIÉN PODRÍA SER'} · ${id}</div>
-        <div><span class="res-id">${id}</span></div>
+        <div class="res-tag">${i===0?'CUADRO PRINCIPAL':'TAMBIÉN PODRÍA SER'}</div>
+        <div><span class="res-id ${C.tempColor}">${id}</span></div>
         <div class="res-n" style="margin-top:6px">${C.icon} ${C.n}</div>
         <div class="res-d">${C.intro}</div>
       </div>
@@ -741,33 +987,32 @@ function renderTemperaturaSelector(){
   }).join("");
 
   const tempOptions=[
-    {id:'calido',ic:'🟠',l:'Cálido',def:"Temperatura emocional cálida — calor humano residual o protagonista. Vocal, melodía, anhelo, percusión orgánica, ambiente social."},
-    {id:'frio',ic:'⚪',l:'Frío',def:"Temperatura emocional fría — sin emoción humana. Sintético, mecánico, distancia, ego retro autoreferencial. <b>Te ignora</b> mientras suena."},
-    {id:'oscuro',ic:'⚫',l:'Oscuro',def:"Temperatura emocional oscura — sombra envolviendo el track. Peso, amenaza, atmósfera densa. <b>Te presiona</b> mientras suena."}
+    {id:'calido', ic:'🟠', l:'Cálido'},
+    {id:'frio', ic:'⚪', l:'Frío'},
+    {id:'oscuro', ic:'⚫', l:'Oscuro'}
   ];
 
   const tempCards=tempOptions.map(t=>{
+    // Compute if rare in any of the cuadros
+    const anyRare=cuadros.some(cid=>CUADROS[cid].temps[t.id].rare);
     const ctxBlocks=cuadros.map(cid=>{
       const C=CUADROS[cid];
       const ctx=C.temps[t.id];
-      const isEmpty=ctx.def.toLowerCase().includes("casi vacío")||ctx.def.toLowerCase().includes("no existe")||ctx.def.toLowerCase().includes("raro");
-      const cls=isEmpty?"temp-pick-empty":"temp-pick-ctx";
+      const rareTag=ctx.rare?`<span class="temp-pick-rare-tag">RARO PERO POSIBLE</span>`:'';
       return `
-        <div class="${cls}">
-          <b>En ${cid} (${C.short}):</b><br>
+        <div class="temp-pick-ctx">
+          <b>En ${cid} ${C.n}:</b> ${rareTag}<br>
           ${ctx.def}
-          ${!isEmpty&&ctx.examples?`<br><br><b>Ejemplos:</b> ${ctx.examples}`:""}
-          ${!isEmpty&&ctx.signal?`<br><br><b>Cuándo:</b> ${ctx.signal}`:""}
+          ${ctx.examples?`<br><br><b>Ejemplos:</b> ${ctx.examples}`:""}
         </div>
       `;
     }).join("");
     return `
-      <button class="temp-pick ${t.id}" onclick='pickTemp(${JSON.stringify(t.id)})'>
+      <button class="temp-pick ${t.id} ${anyRare?'rare':''}" onclick='pickTemp(${JSON.stringify(t.id)})'>
         <div class="temp-pick-h">
           <div class="temp-pick-h-ic">${t.ic}</div>
           <div class="temp-pick-h-l ${t.id}">${t.l.toUpperCase()}</div>
         </div>
-        <div class="temp-pick-def">${t.def}</div>
         ${ctxBlocks}
       </button>
     `;
@@ -779,9 +1024,9 @@ function renderTemperaturaSelector(){
     ${multiHdr}
     ${cuadrosInfo}
     <div class="q" style="margin-top:14px">
-      <div class="q-num">PASO FINAL · TEMPERATURA</div>
-      <div class="q-t">¿Qué TEMPERATURA tiene el track en este cuadro?</div>
-      <div class="q-s">La temperatura es <b>una sola dimensión emocional</b> con tres niveles. <b>Cálido = humano</b>. <b>Frío = mecánico (te ignora)</b>. <b>Oscuro = sombra (te presiona)</b>. La definición es general — la diferencia está en cómo se concreta dentro de cada cuadro. Lee los bloques contextuales por cuadro para decidir.</div>
+      <div class="q-num">PASO 2 · TEMPERATURA</div>
+      <div class="q-t">¿Qué TEMPERATURA tiene el track?</div>
+      <div class="q-s">La temperatura es <b>relativa al cuadro</b> — significa cosas distintas en cada uno. <b>Cálido = humano</b>. <b>Frío = mecánico (te ignora)</b>. <b>Oscuro = sombra (te presiona)</b>. Lee los bloques contextuales de cada cuadro. Las opciones marcadas como <b>RARO</b> son menos habituales pero válidas para matices.</div>
       ${tempCards}
     </div>
     <button class="back" onclick="back()">← Atrás (cambiar cuadro)</button>
@@ -791,30 +1036,88 @@ function renderTemperaturaSelector(){
 
 function pickTemp(temp){
   state.temp=temp;
+  // Check if all cuadros have only one energy option ("principal" or "apertura")
+  const allSimple=state.resultCuadros.every(id=>CUADROS[id].energias.length===1);
+  if(allSimple){
+    state.energy=CUADROS[state.resultCuadros[0]].energias[0];
+    renderResult();
+  } else {
+    renderEnergiaSelector();
+  }
+}
+
+// ─── ENERGIA ───
+function renderEnergiaSelector(){
+  const cuadros=state.resultCuadros;
+  const C=CUADROS[cuadros[0]]; // assume main cuadro for energy options
+
+  // Check what energy options exist across the cuadros
+  const energyOptions=[];
+  if(C.energias.includes("principal")){
+    energyOptions.push({
+      id:"principal", l:"PRINCIPAL", d:"La energía base del cuadro, donde puedes estar 1 hora sin cambio. Sostiene el cuadro sin romper."
+    });
+  }
+  if(C.energias.includes("pico")){
+    energyOptions.push({
+      id:"pico", l:"PICO", d:"El clímax dentro del cuadro. Track de rotura, peak rotundo, momento álgido."
+    });
+  }
+  if(C.energias.includes("apertura")){
+    energyOptions.push({
+      id:"apertura", l:"APERTURA", d:"Track de inicio que prepara el cuadro. Los warm ups son siempre apertura."
+    });
+  }
+
+  const cards=energyOptions.map(e=>`
+    <button class="energy-pick" onclick='pickEnergy(${JSON.stringify(e.id)})'>
+      <div class="energy-pick-h">
+        <div class="energy-pick-l">${e.l}</div>
+      </div>
+      <div class="energy-pick-d">${e.d}</div>
+    </button>
+  `).join("");
+
+  document.getElementById("main").innerHTML=`
+    <div class="q">
+      <div class="q-num">PASO 3 · ENERGÍA</div>
+      <div class="q-t">¿Es PRINCIPAL o PICO?</div>
+      <div class="q-s">Dentro del cuadro <b>${C.n}</b>, la energía indica el momento del set. <b>Principal</b> = sostén del cuadro, te puedes quedar ahí 1 hora. <b>Pico</b> = clímax, momento álgido, rotura.</div>
+      ${cards}
+    </div>
+    <button class="back" onclick="back()">← Atrás (cambiar temperatura)</button>
+  `;
+  window.scrollTo({top:0});
+}
+
+function pickEnergy(e){
+  state.energy=e;
   renderResult();
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// RENDER RESULTADO FINAL
-// ═══════════════════════════════════════════════════════════════════════════
+// ─── RESULTADO ───
 function renderResult(){
   const cuadros=state.resultCuadros;
   const temp=state.temp;
+  const energy=state.energy;
   const isMulti=cuadros.length>1;
   const tempLabel={calido:"🟠 CÁLIDO",frio:"⚪ FRÍO",oscuro:"⚫ OSCURO"}[temp];
-  const tempClass={calido:"calido",frio:"frio",oscuro:"oscuro"}[temp];
+  const tempClass=temp;
 
   const cards=cuadros.map((id,i)=>{
     const C=CUADROS[id];
     const cls=i===0?"res primary":"res secondary";
     const tag=i===0?(isMulti?"CUADRO PRINCIPAL":"DIAGNÓSTICO"):"TAMBIÉN VIVE EN";
     const tempCtx=C.temps[temp];
+    const rareWarning=tempCtx.rare?`<div class="warning-banner" style="margin-bottom:14px"><b>⚠ Temperatura inusual en este cuadro:</b> es válida y útil para matices, pero no es la temperatura natural. Verifica con los tests al final.</div>`:'';
     return `
       <div class="${cls}">
         <div class="res-tag">${tag}</div>
-        <div><span class="res-id">${id}</span></div>
+        <div><span class="res-id ${C.tempColor}">${id}</span></div>
         <div class="res-n" style="margin-top:6px">${C.icon} ${C.n}</div>
         <div class="res-temp ${tempClass}">${tempLabel}</div>
+        <div style="margin-bottom:14px"><b style="color:var(--green);font-size:11px;letter-spacing:1.5px">ENERGÍA: ${energy.toUpperCase()}</b></div>
+        ${rareWarning}
         <div class="res-d">${C.intro}</div>
 
         <div class="res-section">
@@ -823,21 +1126,22 @@ function renderResult(){
         </div>
 
         <div class="res-section">
-          <div class="res-section-t">${tempLabel} en este cuadro</div>
+          <div class="res-section-t">${tempLabel} en ${C.n}</div>
           <div class="res-meta"><b>Definición:</b> ${tempCtx.def}</div>
           ${tempCtx.examples?`<div class="res-meta" style="margin-top:6px"><b>Ejemplos:</b> ${tempCtx.examples}</div>`:""}
-          ${tempCtx.signal?`<div class="res-meta" style="margin-top:6px"><b>Cómo lo reconoces:</b> ${tempCtx.signal}</div>`:""}
         </div>
 
         <div class="res-section">
           <div class="res-section-t">REFERENCIAS</div>
           <div class="res-meta"><b>📍 Lugares:</b> ${C.lugares}</div>
           <div class="res-meta"><b>🎧 DJs:</b> ${C.djs}</div>
-          <div class="res-meta"><b>🎵 Géneros y BPM:</b> ${C.bpm}</div>
+          <div class="res-meta"><b>🎵 BPM:</b> ${C.bpm}</div>
+          <div class="res-meta"><b>🧍 Cuerpo:</b> ${C.cuerpo}</div>
+          ${C.mecanismo?`<div class="res-meta"><b>⚙️ Mecanismo:</b> ${C.mecanismo}</div>`:""}
         </div>
 
         <div class="val">
-          <div class="val-t">⚠️ VALIDACIÓN — comprueba que no has fallado</div>
+          <div class="val-t">⚠ VALIDACIÓN — comprueba que no has fallado</div>
           ${C.test.map(t=>`<div class="val-q">${t}</div>`).join("")}
         </div>
       </div>
@@ -846,48 +1150,59 @@ function renderResult(){
 
   const trailHtml=state.trail.length?`<div class="trail"><b>Camino recorrido:</b><br>${state.trail.map(t=>`<div>${t.q.replace(/<[^>]+>/g,'')} → <b>${t.a}</b></div>`).join("")}</div>`:"";
 
+  const energyLabel=energy.charAt(0).toUpperCase()+energy.slice(1);
   const playlistInstr=`
     <div class="intro" style="margin-top:14px">
-      <b>📂 En Apple Music:</b> añade el track a la lista <b>${cuadros.join(' + ')}</b> con la etiqueta de temperatura <b>${temp.toUpperCase()}</b>.${isMulti?' Va a las dos listas — duplicación permitida.':''} La etiqueta de temperatura puedes ponerla en el campo "comentarios" del track o en el nombre de la lista (ej: "B-Cálido", "B-Frío").
+      <b>📂 En Apple Music:</b> añade el track a la lista <b>${cuadros.join(' + ')}</b> con etiquetas <b>${temp.toUpperCase()} · ${energyLabel.toUpperCase()}</b>.${isMulti?' Va a las dos listas — duplicación permitida.':''}<br><br>
+      Las etiquetas de temperatura y energía van en el campo "comentarios" del track. Formato sugerido: <b>"${temp.charAt(0).toUpperCase()}${energy.charAt(0).toUpperCase()}"</b> (ej: <b>FP</b> = Frío Principal, <b>OPi</b> = Oscuro Pico).
     </div>
   `;
 
   document.getElementById("main").innerHTML=`
-    ${isMulti?`<div class="multi-hdr"><b>Track con duplicación.</b> Vive en ${cuadros.length} cuadros simultáneamente con la misma temperatura.</div>`:""}
+    ${isMulti?`<div class="multi-hdr"><b>Track con duplicación.</b> Vive en ${cuadros.length} cuadros simultáneamente con la misma temperatura y energía.</div>`:""}
     ${cards}
     ${playlistInstr}
     ${trailHtml}
     <button class="btn btn-pri" onclick="reset()">Clasificar otro track</button>
-    <button class="back" onclick="back()">← Cambiar temperatura</button>
+    <button class="back" onclick="back()">← Cambiar energía</button>
   `;
   window.scrollTo({top:0});
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// LIST BROWSER
-// ═══════════════════════════════════════════════════════════════════════════
+// ─── LIST BROWSER ───
 function renderListBrowser(){
-  const nucleares=Object.entries(CUADROS).filter(([id,C])=>C.tipo==='nuclear');
-  const puentes=Object.entries(CUADROS).filter(([id,C])=>C.tipo==='puente');
-  const renderGroup=(title,items)=>`
-    <div class="section-h">${title}</div>
-    ${items.map(([id,C])=>`
-      <div class="lst" onclick="showListDetail('${id}')">
-        <div class="lst-ic">${C.icon}</div>
-        <div class="lst-bd">
-          <div class="lst-id">${id}</div>
-          <div class="lst-n">${C.n}</div>
-          <div class="lst-d">${C.short}</div>
+  const groups=[
+    {h:"Zona Luz Abierta",ids:["A","B","C"]},
+    {h:"Warm up Cálido",ids:["WC"]},
+    {h:"Zona Pista Caliente",ids:["D"]},
+    {h:"Warm up Frío",ids:["WF"]},
+    {h:"Zona Club Selecto",ids:["E","F","G"]},
+    {h:"Zona Viaje",ids:["H"]},
+    {h:"Warm up Oscuro",ids:["WO"]},
+    {h:"Zona Techno Intenso",ids:["I","J","K"]},
+    {h:"Zona Ambient Misterioso",ids:["L"]},
+    {h:"Zona Cierre",ids:["M"]}
+  ];
+  const html=groups.map(g=>`
+    <div class="section-h">${g.h}</div>
+    ${g.ids.map(id=>{
+      const C=CUADROS[id];
+      return `
+        <div class="lst" onclick="showListDetail('${id}')">
+          <div class="lst-id ${C.tempColor==='mixto'?'':C.tempColor}" style="background:${C.tempColor==='calido'?'rgba(249,115,22,.18)':C.tempColor==='frio'?'rgba(124,212,244,.18)':C.tempColor==='oscuro'?'rgba(167,139,250,.18)':'var(--card2)'};color:${C.tempColor==='calido'?'var(--calido)':C.tempColor==='frio'?'var(--frio)':C.tempColor==='oscuro'?'var(--oscuro)':'var(--tx)'}">${id}</div>
+          <div class="lst-bd">
+            <div class="lst-n">${C.icon} ${C.n}</div>
+            <div class="lst-d">${C.short}</div>
+          </div>
         </div>
-      </div>
-    `).join("")}
-  `;
+      `;
+    }).join("")}
+  `).join("");
   document.getElementById("main").innerHTML=`
     <div class="intro">
-      <b>12 listas en total:</b> 8 cuadros nucleares (escenas vivas principales) + 4 escenas-puente (warm ups laxos y cierres). Cada una con descripción técnica, DJs, lugares, BPM y las 3 temperaturas contextualizadas.
+      <b>16 listas en total:</b> 13 cuadros propios (A-M) + 3 warm ups laxos transversales (WC, WF, WO). Cada lista con descripción técnica completa, las 3 temperaturas relativas y energías (principal/pico).
     </div>
-    ${renderGroup("CUADROS NUCLEARES (8)",nucleares)}
-    ${renderGroup("ESCENAS-PUENTE (4)",puentes)}
+    ${html}
   `;
   window.scrollTo({top:0});
 }
@@ -896,20 +1211,21 @@ function showListDetail(id){
   const C=CUADROS[id];
   const tempBlocks=Object.entries(C.temps).map(([k,v])=>{
     const lbl={calido:"🟠 CÁLIDO",frio:"⚪ FRÍO",oscuro:"⚫ OSCURO"}[k];
-    const cls={calido:"calido",frio:"frio",oscuro:"oscuro"}[k];
+    const cls=k;
+    const rareTag=v.rare?` <span class="temp-pick-rare-tag" style="margin-left:6px">RARO POSIBLE</span>`:'';
     return `
       <div class="res-section">
-        <div class="res-section-t" style="color:var(--${cls})">${lbl} en este cuadro</div>
+        <div class="res-section-t" style="color:var(--${cls})">${lbl} en este cuadro${rareTag}</div>
         <div class="res-meta"><b>Definición:</b> ${v.def}</div>
         ${v.examples?`<div class="res-meta" style="margin-top:6px"><b>Ejemplos:</b> ${v.examples}</div>`:""}
-        ${v.signal?`<div class="res-meta" style="margin-top:6px"><b>Señal de reconocimiento:</b> ${v.signal}</div>`:""}
       </div>
     `;
   }).join("");
+  const energiasText=C.energias.map(e=>e.charAt(0).toUpperCase()+e.slice(1)).join(" · ");
   document.getElementById("main").innerHTML=`
     <div class="res primary">
-      <div class="res-tag">${C.tipo==='nuclear'?'CUADRO NUCLEAR':'ESCENA-PUENTE'}</div>
-      <div><span class="res-id">${id}</span></div>
+      <div class="res-tag">${C.tipo==='nuclear'?'CUADRO NUCLEAR':C.tipo==='warmup'?'WARM UP':'CUADRO ESCUCHA'}</div>
+      <div><span class="res-id ${C.tempColor}">${id}</span></div>
       <div class="res-n" style="margin-top:6px">${C.icon} ${C.n}</div>
       <div class="res-d">${C.intro}</div>
 
@@ -922,7 +1238,10 @@ function showListDetail(id){
         <div class="res-section-t">REFERENCIAS</div>
         <div class="res-meta"><b>📍 Lugares:</b> ${C.lugares}</div>
         <div class="res-meta"><b>🎧 DJs:</b> ${C.djs}</div>
-        <div class="res-meta"><b>🎵 Géneros y BPM:</b> ${C.bpm}</div>
+        <div class="res-meta"><b>🎵 BPM:</b> ${C.bpm}</div>
+        <div class="res-meta"><b>🧍 Cuerpo:</b> ${C.cuerpo}</div>
+        ${C.mecanismo?`<div class="res-meta"><b>⚙️ Mecanismo:</b> ${C.mecanismo}</div>`:""}
+        <div class="res-meta"><b>⚡ Energías disponibles:</b> ${energiasText}</div>
       </div>
 
       ${tempBlocks}
@@ -937,6 +1256,115 @@ function showListDetail(id){
   window.scrollTo({top:0});
 }
 
+// ─── REFERENCE PAGE ───
+function renderReference(){
+  document.getElementById("main").innerHTML=`
+    <div class="intro">
+      <b>Sistema Cirujano v6 — referencia técnica</b><br>
+      Esta es la "constitución" del sistema. Consultar siempre que haya duda sobre cómo funciona.
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-h">PRINCIPIOS FUNDACIONALES</div>
+      <div class="ref-card-t">Las 6 reglas del sistema</div>
+      <div class="principle-row"><span class="principle-num">1.</span><span><b>El cuadro es UNA SENSACIÓN concreta</b>, no un lugar ni un género. Lugar + gente + hora + intención + sonido. El nombre del local es etiqueta.</span></div>
+      <div class="principle-row"><span class="principle-num">2.</span><span><b>3 ejes separados sin mezclar:</b> Cuadro (lista física), Temperatura (color del track), Energía (principal/pico). Tres etiquetas independientes.</span></div>
+      <div class="principle-row"><span class="principle-num">3.</span><span><b>La temperatura es relativa al cuadro.</b> Cálido en pool no es lo mismo que cálido en Berghain. Siempre se ofrecen las 3 temperaturas — algunas marcadas como RARO PERO POSIBLE para matices.</span></div>
+      <div class="principle-row"><span class="principle-num">4.</span><span><b>Asimetría es información.</b> No todos los cuadros tienen las 3 temperaturas iguales. No todos tienen pico. No todos necesitan warm up. Eso es válido.</span></div>
+      <div class="principle-row"><span class="principle-num">5.</span><span><b>Duplicación permitida</b> cuando un track sirve a 2 cuadros. Apple Music lo permite. Tale of Us puede vivir en E y K.</span></div>
+      <div class="principle-row"><span class="principle-num">6.</span><span><b>Sistema portátil</b> — funciona con CDJ + mixer estándar, no requiere setup en casa.</span></div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-h">LOS 3 EJES</div>
+      <div class="ref-card-t">Cómo se etiqueta cada track</div>
+      <div class="ref-card-d"><b>EJE 1 · CUADRO</b> — la lista física en Apple Music. 16 listas: 13 cuadros propios (A-M) + 3 warm ups (WC, WF, WO).</div>
+      <div class="ref-card-d"><b>EJE 2 · TEMPERATURA</b> — color del track. Cálido (humano) / Frío (mecánico, te ignora) / Oscuro (sombra, te presiona). Relativo a cada cuadro.</div>
+      <div class="ref-card-d"><b>EJE 3 · ENERGÍA</b> — momento del set. Principal (sostén base, 1 hora) / Pico (clímax). Para warm ups: solo Apertura.</div>
+      <div class="ref-card-d"><b>Ejemplo:</b> Mulero loop frío rotundo a 132 BPM → <b>Tresor Berlin (I) + Frío + Pico</b>. Maceo Plex Conjure Bots a 124 BPM → <b>Central Club Porto (E) + Frío + Principal</b>.</div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-h">MECANISMOS DEL CUERPO</div>
+      <div class="ref-card-t">Cómo te posiciona la música</div>
+      <div class="ref-card-d">Información anexa para distinguir cuadros que comparten BPM o sonido. NO es eje del sistema.</div>
+      <div class="mech"><div class="mech-h arriba">↑ ARRIBA</div><div class="mech-d"><b>El cuerpo se eleva.</b> Cabeza alta, ojos abiertos, copa en mano. La música acompaña sin pesar. <b>Cuadros:</b> A (estático), F (ligero), B (ligero social), M (contemplativo).</div></div>
+      <div class="mech"><div class="mech-h horiz">→ HORIZONTAL</div><div class="mech-d"><b>El cuerpo en pista.</b> Cuerpo activo bailando, sigues siendo tú. <b>Cuadros:</b> C (consciente), D (intenso), E (consciente), G (oscuro), H (hipnótico), L (borderline).</div></div>
+      <div class="mech"><div class="mech-h abajo">↓ ABAJO</div><div class="mech-d"><b>El cuerpo se rinde.</b> Cabeza baja, te disuelves. <b>Cuadros:</b> J (rendido al sitio), K (masivo a la masa), I (disuelto al loop).</div></div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-h">MATRIZ TEMPERATURA × ENERGÍA</div>
+      <div class="ref-card-t">Qué celdas existen</div>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>ID</th><th>Nombre</th><th>🟠</th><th>⚪</th><th>⚫</th><th>Princ</th><th>Pico</th></tr></thead>
+          <tbody>
+            ${Object.entries(CUADROS).map(([id,C])=>{
+              const cal=C.temps.calido.rare?'<td class="rare">raro</td>':'<td class="has">sí</td>';
+              const fri=C.temps.frio.rare?'<td class="rare">raro</td>':'<td class="has">sí</td>';
+              const osc=C.temps.oscuro.rare?'<td class="rare">raro</td>':'<td class="has">sí</td>';
+              const princ=C.energias.includes("principal")||C.energias.includes("apertura")?'<td class="has">sí</td>':'<td>—</td>';
+              const pico=C.energias.includes("pico")?'<td class="has">sí</td>':'<td class="min">no existe</td>';
+              return `<tr><td class="id">${id}</td><td class="name">${C.n}</td>${cal}${fri}${osc}${princ}${pico}</tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="ref-card-d" style="margin-top:10px"><b>Lectura:</b> "raro" = poco habitual pero posible para matices. "no existe" = el cuadro no tiene esa energía.</div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-h">DISTINCIONES CRÍTICAS</div>
+      <div class="ref-card-t">Confusiones históricas resueltas</div>
+      <div class="dist-c">
+        <div class="dist-c-h">Carola vs Maceo Plex</div>
+        <div class="dist-c-row"><b>D Cálido (Carola DC10)</b> <span class="dist-c-vs">vs</span> <b>E Frío (Maceo Plex Conjure)</b></div>
+        <div class="dist-c-row">Percusión sensual vs Synth retro chulo. Postureo caliente vs Ego retro frío.</div>
+      </div>
+      <div class="dist-c">
+        <div class="dist-c-h">Mulero vs Ben Klock vs Jeweil</div>
+        <div class="dist-c-row"><b>I Frío (Mulero)</b> <span class="dist-c-vs">vs</span> <b>J Oscuro (Ben Klock)</b> <span class="dist-c-vs">vs</span> <b>K Frío (Jeweil)</b></div>
+        <div class="dist-c-row">ANULA con loops quirúrgicos vs APLASTA con atmósfera vs APLASTA con escala.</div>
+      </div>
+      <div class="dist-c">
+        <div class="dist-c-h">Indepth vs Jeweil (mismo cuadro K)</div>
+        <div class="dist-c-row"><b>K Cálido (Indepth)</b> <span class="dist-c-vs">vs</span> <b>K Frío (Jeweil)</b></div>
+        <div class="dist-c-row">Mismo cuadro K, distinta temperatura. Indepth con corazón épico vs Jeweil mecánico sin emoción.</div>
+      </div>
+      <div class="dist-c">
+        <div class="dist-c-h">Pool vs Lilás</div>
+        <div class="dist-c-row"><b>B Cálido (Folamour pool)</b> <span class="dist-c-vs">vs</span> <b>C Cálido (Kerri Chandler en monte)</b></div>
+        <div class="dist-c-row">Hits reconocibles que no se juzgan vs Versiones extendidas que la gente paga por la selección.</div>
+      </div>
+      <div class="dist-c">
+        <div class="dist-c-h">Voices From The Lake vs Mulero</div>
+        <div class="dist-c-row"><b>L Cálido (Voices)</b> <span class="dist-c-vs">vs</span> <b>I Frío (Mulero)</b></div>
+        <div class="dist-c-row">Bosque mental misterioso emotivo vs Loop quirúrgico mecánico sin emoción.</div>
+      </div>
+      <div class="dist-c">
+        <div class="dist-c-h">Garnier transversal — track a track</div>
+        <div class="dist-c-row"><b>Distintos cuadros según track:</b> "Acid Eiffel" → C/H · "A Bout De Souffle" → M · "Crispy Bacon" → K</div>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <div class="ref-card-h">REGLAS OPERATIVAS</div>
+      <div class="ref-card-t">Cómo se opera en Apple Music</div>
+      <div class="principle-row"><span class="principle-num">1.</span><span><b>Cada track lleva 3 etiquetas:</b> cuadro + temperatura + energía. Ej: I + Frío + Pico.</span></div>
+      <div class="principle-row"><span class="principle-num">2.</span><span><b>Duplicación permitida</b> (máx 2 cuadros) cuando el track sirve a ambos.</span></div>
+      <div class="principle-row"><span class="principle-num">3.</span><span><b>DJ ≠ cuadro.</b> Cada track se clasifica individualmente. Garnier va a varios cuadros según track. Jeweil viejo (E) ≠ Jeweil actual (K).</span></div>
+      <div class="principle-row"><span class="principle-num">4.</span><span><b>Las 3 temperaturas siempre disponibles</b> en cada cuadro. Algunas marcadas RARO PERO POSIBLE — válidas para matices, no excluidas.</span></div>
+      <div class="principle-row"><span class="principle-num">5.</span><span><b>Warm ups son laxos transversales.</b> WC abre B, C, D, H. WF abre E, F, G, I. WO abre I, J, K.</span></div>
+      <div class="principle-row"><span class="principle-num">6.</span><span><b>Portadas por temperatura dominante</b> de cada cuadro. Las temperaturas individuales se etiquetan en comentarios del track.</span></div>
+      <div class="principle-row"><span class="principle-num">7.</span><span><b>Energía interna, no lista separada.</b> No se hacen listas "F-Principal" y "F-Pico" — se etiquetan dentro de F.</span></div>
+      <div class="principle-row"><span class="principle-num">8.</span><span><b>Tests de validación:</b> cada cuadro tiene 3 tests. Si fallan, revisar la clasificación.</span></div>
+    </div>
+  `;
+  window.scrollTo({top:0});
+}
+
+// Init
 render();
 </script>
 </body>
